@@ -11,10 +11,7 @@ export const UploadActivity = (props) => {
   return (
     <div>
       <h3>Welcome, to the activity page {email}</h3>
-      <form action="/action_page.php">
-      <input type="file" name="pic" accept="image/*">
-      <input type="submit">
-    </form>
+      
     </div>
   )
 }
