@@ -5,30 +5,19 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    res.json(await Activity.findAll({include: [User]}));
-    // await res.json(Activity.findAll(
-    //   {
-    //     include:
-    //     [{
-    //       model: User,
-    //       //attributes: ['id', 'email', 'firstName', 'lastName', 'admin']
-    //     }]
-    //   }
-    // ));
+    res.json(await Activity.findAll({ include: [User] }));
   }
   catch (err) { next(err) }
 });
 
 router.get('/:id', async (req, res, next) => {
   try {
-    await res.json(Activity.findOne(
+    console.log('ID: ', req.params.id);
+    res.json(await Activity.findOne(
       {
         where: { id: req.params.id },
         include:
-        [{
-          model: User,
-         // attributes: ['id', 'email', 'firstName', 'lastName', 'admin']
-        }]
+        [User]
       }
     ));
   }
@@ -47,7 +36,7 @@ router.post('/', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   const id = req.params.id;
 
-  try { await Activity.destroy({ where: { id }}); }
+  try { await Activity.destroy({ where: { id } }); }
   catch (err) { next(err); }
 
   res.sendStatus(204);
