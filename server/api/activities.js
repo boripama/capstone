@@ -26,7 +26,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    let activity = await Activity.create(req.body.review);
+    let activity = await Activity.create(req.body.activity);
     activity.setUser(req.body.userId);
     res.json(activity);
   }
