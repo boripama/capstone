@@ -1,18 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import { withRouter, Link } from 'react-router-dom';
 
 /**
  * COMPONENT
  */
-export const UserHome = (props) => {
+export const UploadActivity = (props) => {
   const {email} = props
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
-      <Link to="/uploadActivity">Upload Activity</Link>
+      <h3>Welcome, to the activity page {email}</h3>
+      
     </div>
   )
 }
@@ -26,11 +25,11 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(UserHome)
+export default connect(mapState)(UploadActivity)
 
 /**
  * PROP TYPES
  */
-UserHome.propTypes = {
+UploadActivity.propTypes = {
   email: PropTypes.string
 }

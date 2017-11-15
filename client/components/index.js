@@ -5,4 +5,6 @@
  */
 export {default as Main} from './main'
 export {default as UserHome} from './user-home'
+export {default as UploadActivity} from './upload-activity'
 export {Login, Signup} from './auth-form'
+

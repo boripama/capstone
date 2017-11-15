@@ -11,6 +11,7 @@
  */
 const db = require('../server/db')
 const {User} = require('../server/db/models')
+const {Activity} = require('../server/db/models')
 
 async function seed () {
   await db.sync({force: true})
@@ -25,6 +26,29 @@ async function seed () {
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`)
+
+
+  const activities = await Promise.all([
+    Activity.create(
+      {
+        title: 'CRAAAZY run',
+        length: 423.123,
+        route: '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
+      }
+    ),
+    Activity.create(
+      {
+        title: 'sort of crazy run',
+        length: 222.222,
+        route: '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
+      }
+    ),
+  ])
+  // Wowzers! We can even `await` on the right-hand side of the assignment operator
+  // and store the result that the promise resolves to in a variable! This is nice!
+  console.log(`seeded ${activities.length} activities`)
+
+
   console.log(`seeded successfully`)
 }
 
