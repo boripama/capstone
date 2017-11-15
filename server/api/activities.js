@@ -1,14 +1,12 @@
 const router = require('express').Router()
-const {Activity} = require('../db/models')
+const { Activity } = require('../db/models')
 module.exports = router
 
-router.get('/', (req, res, next) => {
-  User.findAll({
-    // explicitly select only the id and email fields - even though
-    // users' passwords are encrypted, it won't help if we just
-    // send everything to anyone who asks!
-    attributes: ['id', 'email']
-  })
-    .then(users => res.json(users))
+router.get('/', async (req, res, next) => {
+  try {
+    await res.json(Activity.findAll());
+  }
+  catch (err) => { }
+    .then(activities => res.json(activities))
     .catch(next)
 })
