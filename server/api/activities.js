@@ -6,7 +6,16 @@ router.get('/', async (req, res, next) => {
   try {
     await res.json(Activity.findAll());
   }
-  catch (err) => { }
-    .then(activities => res.json(activities))
-    .catch(next)
-})
+  catch (err) { next(err) }
+});
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    await res.json(Activity.findOne(
+      {
+        where: { id: req.params.id }
+      }
+    ));
+  }
+  catch (err) { next(err) }
+});
