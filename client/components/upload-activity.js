@@ -8,10 +8,18 @@ import {connect} from 'react-redux'
 export const UploadActivity = (props) => {
   const {email} = props
 
+    handleFileUpload({ file }) {
+    const file = files[0];
+    this.props.actions.uploadRequest({
+      file,
+      name: 'Awesome Cat Pic'
+    })
+  }
+  
   return (
     <div>
       <h3>Welcome, to the activity page {email}</h3>
-      
+      <input type="file" onChange={this.handleFileUpload} />
     </div>
   )
 }
@@ -21,7 +29,7 @@ export const UploadActivity = (props) => {
  */
 const mapState = (state) => {
   return {
-    email: state.user.email
+    state: state.activity
   }
 }
 
@@ -31,5 +39,11 @@ export default connect(mapState)(UploadActivity)
  * PROP TYPES
  */
 UploadActivity.propTypes = {
-  email: PropTypes.string
+  state: state.activity
 }
+
+
+// Component method
+
+  
+// Component render
