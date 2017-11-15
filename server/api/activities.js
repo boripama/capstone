@@ -5,15 +5,16 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    await res.json(Activity.findAll(
-      {
-        include:
-        [{
-          model: User,
-          attributes: ['id', 'email', 'firstName', 'lastName', 'admin']
-        }]
-      }
-    ));
+    res.json(await Activity.findAll({include: [User]}));
+    // await res.json(Activity.findAll(
+    //   {
+    //     include:
+    //     [{
+    //       model: User,
+    //       //attributes: ['id', 'email', 'firstName', 'lastName', 'admin']
+    //     }]
+    //   }
+    // ));
   }
   catch (err) { next(err) }
 });
@@ -26,7 +27,7 @@ router.get('/:id', async (req, res, next) => {
         include:
         [{
           model: User,
-          attributes: ['id', 'email', 'firstName', 'lastName', 'admin']
+         // attributes: ['id', 'email', 'firstName', 'lastName', 'admin']
         }]
       }
     ));
