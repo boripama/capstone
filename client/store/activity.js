@@ -23,7 +23,7 @@ const removeActivity = () => ({ type: REMOVE_ACTIVITY })
 /**
  * THUNK CREATORS
  */
-export const fetchActivity = (id) => async dispatch => {
+export const fetchActivity = id => async dispatch => {
   try {
     const res = axios.get(`/api/activites/${id}`)
     dispatch(getActivity(res.data || defaultActivity));
@@ -37,6 +37,14 @@ export const createActivity = () => async dispatch => {
   }
   catch (err) { console.error('Creating review unsuccessful', err); }
 };
+
+export const deleteActivity = id => async dispatch => {
+  try {
+    dispatch(removeActivity(id));
+    await axios.delete(`/api/activities/${id}`);
+  }
+  catch (err) { console.error('Deleting activity unsuccessful', err); }
+}
 
 
 

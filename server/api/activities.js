@@ -37,6 +37,16 @@ router.post('/', async (req, res, next) => {
   try {
     let activity = await Review.create(req.body.review);
     activity.setUser(req.body.userId);
-    res.json(activity); }
+    res.json(activity);
+  }
   catch (err) { next(err); }
+});
+
+router.delete('/:id', async (req, res, next) => {
+  const id = req.params.id;
+
+  try { await Activity.destroy({ where: { id }}); }
+  catch (err) { next(err); }
+
+  res.sendStatus(204);
 });
