@@ -5,7 +5,6 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_ACTIVITIES = 'GET_ACTIVITIES'
-const REMOVE_ACTIVITIES = 'REMOVE_ACTIVITIES'
 
 /**
  * INITIAL STATE
