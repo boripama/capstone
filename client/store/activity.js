@@ -31,6 +31,15 @@ export const fetchActivity = (id) => async dispatch => {
   catch (err) { console.log('Fetching activity unsuccessful', err); }
 }
 
+export const createActivity = () => async dispatch => {
+  try {
+    dispatch(newActivity((await axios.post('/api/activities', activity)).data));
+  }
+  catch (err) { console.error('Creating review unsuccessful', err); }
+};
+
+
+
 /**
  * REDUCER
  */
