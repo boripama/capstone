@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { removeActivity } from '../store'
 
 const SingleActivity = (props) => {
 
@@ -20,6 +21,14 @@ const mapState = (state) => {
   }
 }
 
+const mapDispatch = (dispatch) => {
+  return {
+    removeActivity: (activityId) => {
+      dispatch(removeActivity(activityId));
+    },
+  };
+};
 
-export default connect(mapState)(SingleActivity)
+
+export default connect(mapState, mapDispatch)(SingleActivity)
 
