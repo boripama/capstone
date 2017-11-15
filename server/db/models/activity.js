@@ -2,20 +2,24 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Activity = db.define('activity', {
-  name: { type: Sequelize.STRING },
-  polyline: { type: Sequelize.TEXT },
-})
+  title: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false
+  },
+  length: {
+    type: Sequelize.FLOAT
+  },
+  route: {
+    type: Sequelize.TEXT
+  },
+  start: {
+    type: Sequelize.DATE
+  },
+  end: {
+    type: Sequelize.DATE
+  }
+});
 
-module.exports = Activity
+module.exports = Activity;
 
-/**
- * instanceMethods
- */
-
-/**
- * classMethods
- */
-
-/**
- * hooks
- */
