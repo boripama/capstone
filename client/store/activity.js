@@ -25,7 +25,7 @@ const removeActivity = () => ({ type: REMOVE_ACTIVITY })
  */
 export const fetchActivity = id => async dispatch => {
   try {
-    const res = axios.get(`/api/activites/${id}`)
+    const res = await axios.get(`/api/activites/${id}`)
     dispatch(getActivity(res.data || defaultActivity));
   }
   catch (err) { console.log('Fetching activity unsuccessful', err); }
@@ -45,8 +45,6 @@ export const deleteActivity = id => async dispatch => {
   }
   catch (err) { console.error('Deleting activity unsuccessful', err); }
 }
-
-
 
 /**
  * REDUCER
