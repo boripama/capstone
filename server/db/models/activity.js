@@ -11,7 +11,7 @@ const Activity = db.define('activity', {
     type: Sequelize.FLOAT
   },
   route: {
-    type: Sequelize.STRING
+    type: Sequelize.TEXT
   },
   start: {
     type: Sequelize.DATE
@@ -19,7 +19,7 @@ const Activity = db.define('activity', {
   end: {
     type: Sequelize.DATE
   }
-})
+});
 
-module.exports = Activity
+module.exports = Activity;
 
