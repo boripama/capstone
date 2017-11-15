@@ -1,5 +1,5 @@
-const User = require('./user')
-const Activity = require('./activity')
+const User = require('./user');
+const Activity = require('./activity');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -9,7 +9,7 @@ const Activity = require('./activity')
  */
 
 Activity.belongsTo(User);
-Activity.hasOne(User);
+// Activity.hasOne(User);
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -20,4 +20,4 @@ Activity.hasOne(User);
 module.exports = {
   User,
   Activity,
-}
+};
