@@ -1,6 +1,11 @@
-const router = require('express').Router()
-const {User} = require('../db/models')
-module.exports = router
+const router = require('express').Router();
+const { User, Activity } = require('../db/models');
+const {
+  convertGpxToArray,
+  convertPointsToPolyline,
+  convertPolylineToPoints,
+} = require('../utils/gpxConvert');
+module.exports = router;
 
 router.get('/', (req, res, next) => {
   User.findAll({
@@ -10,5 +15,16 @@ router.get('/', (req, res, next) => {
     attributes: ['id', 'email']
   })
     .then(users => res.json(users))
-    .catch(next)
-})
+    .catch(next);
+});
+
+router.post('/:id/activities', async (req, res, next) => {
+  const userId = req.params.id;
+  const file = req.file; //file from multer request
+
+  const pointsArray = await convertGpxToArray(file);
+  const newPolyline = await convertPointsToPolyline(pointsArray);
+
+  const newActivity = await Activity.create({ polyline: newPolyline });
+  Activity.setUser(userId);
+});
