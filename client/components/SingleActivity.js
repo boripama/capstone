@@ -1,15 +1,35 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { removeActivity } from '../store'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchActivity, removeActivity } from '../store';
 
-const SingleActivity = (props) => {
+class SingleActivity extends Component {
+  constructor() {
+    super();
+    this.state = {
 
-  return (
-    <div>
-      <h1>Single Activity Basic View</h1>
-      <p>Single Activity ID: {props.activity.id}</p>
-    </div>
-  )
+    };
+  }
+
+  componentDidMount() {
+    this.props.fetchActivityData(this.props.match.params.id);
+  }
+
+  render() {
+    if (this.props.activity.id) {
+      return (
+        <div>
+          <h1>Single Activity Basic View</h1>
+          <p>Single Activity ID: {this.props.activity.id}</p>
+          <p>Title: {this.props.activity.title}</p>
+          <p>Length: {this.props.activity.length}</p>
+          <p>Route: {this.props.activity.route}</p>
+          <p>Start Time: {this.props.activity.start}</p>
+          <p>End Time: {this.props.activity.end}</p>
+        </div>
+      );
+    }
+    else { return null; }
+  }
 }
 
 /**
@@ -18,11 +38,14 @@ const SingleActivity = (props) => {
 const mapState = (state) => {
   return {
     activity: state.activity
-  }
-}
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
+    fetchActivityData: (activityId) => {
+      dispatch(fetchActivity(activityId));
+    },
     removeActivity: (activityId) => {
       dispatch(removeActivity(activityId));
     },
@@ -30,5 +53,5 @@ const mapDispatch = (dispatch) => {
 };
 
 
-export default connect(mapState, mapDispatch)(SingleActivity)
+export default connect(mapState, mapDispatch)(SingleActivity);
 
