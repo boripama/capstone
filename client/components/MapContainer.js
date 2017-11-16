@@ -12,10 +12,11 @@ export class MapContainer extends Component {
   }
   componentDidMount() {
     console.log('ROUUUTE: ', this.props.polyline);
-    axios.post('/api/polydecoder', {polyline: this.props.polyline})
-      .then(data => {
-        this.setState({ routeCoords: data });
-      });
+    // axios.post('/api/polydecoder', {polyline: this.props.polyline})
+    //   .then(data => {
+    //     this.setState({ routeCoords: data });
+    //   });
+    // not working yet but close
   }
   render() {
 
