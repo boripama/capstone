@@ -47,10 +47,11 @@ export const deleteActivity = id => async dispatch => {
   catch (err) { console.error('Deleting activity unsuccessful', err); }
 };
 
-export const uploadFileRequest = ({ file, userId }) => {
+export const uploadFileRequest = (file, userId) => {
   let data = new FormData();
-  data.append('file', file);
-  data.append('name', name);
+  data.append('gpx', file);
+
+  console.log('thunk data', data);
 
   return async dispatch => {
     try {
@@ -72,6 +73,8 @@ export default function (state = defaultActivity, action) {
       return action.activity;
     case REMOVE_ACTIVITY:
       return defaultActivity;
+    case UPLOAD_FILE:
+      return action.activity;
     default:
       return state;
   }

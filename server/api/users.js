@@ -22,18 +22,21 @@ router.get('/', (req, res, next) => {
   .catch(next);
 });
 
-// configure multer to download to temp director and only accept gpx files
-const upload = multer({ dest: '../temp/', fileFilter: gpxFilter });
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
-router.post('/:id/activities', upload.any(), async (req, res, next) => {
+router.post('/:id/activities', upload.single('gpx'), async (req, res, next) => {
   const userId = req.params.id;
-  const file = req.file; //file from multer request, may need to be modified
+  const file = req.file.buffer;
 
   const pointsArray = await convertGpxToArray(file);
-  const newPolyline = await convertPointsToPolyline(pointsArray);
+  const newPolyline = convertPointsToPolyline(pointsArray);
 
   const newActivity = await Activity.create({ polyline: newPolyline });
-  await Activity.setUser(userId);
+
+  newActivity.setUser(userId);
 
   res.status(202).json(newActivity);
+
+  //delete temp file
 });

@@ -4,10 +4,10 @@ const polyline = require('@mapbox/polyline');
 const fs = require('fs');
 
 const convertGpxToArray = gpxFile => {
-  const data = fs.readFileSync(gpxFile);
+  // const data = fs.readFileSync(gpxFile);
 
   return new Promise((res, rej) => {
-    gpxParse(data, (err, result) => {
+    gpxParse(gpxFile, (err, result) => {
       if (err) rej(err);
       res(result.map(point => [point.lat, point.lng]));
     });
