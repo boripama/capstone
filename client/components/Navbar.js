@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 /**
  * COMPONENT
@@ -10,16 +10,14 @@ import { withRouter, NavLink, Link } from 'react-router-dom';
 const Navbar = (props) => {
 
   return (
-    <div>
-      <nav>
-        <NavLink to="/home">Home</NavLink>
-        <NavLink to="/activity/1">Activity 1</NavLink>
-        <NavLink to="/uploadActivity">Upload Activity</NavLink>
-        <NavLink to="/activities">Activity</NavLink>
-        <NavLink to="/login">Login</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
-      </nav>
-    </div>
+    <nav>
+      <NavLink to="/home">Home</NavLink>
+      <NavLink to="/activity/1">Activity 1</NavLink>
+      <NavLink to="/uploadActivity">Upload Activity</NavLink>
+      <NavLink to="/activities">Activities</NavLink>
+      <NavLink to="/login">Login</NavLink>
+      <NavLink to="/signup">Sign Up</NavLink>
+    </nav>
   );
 };
 
