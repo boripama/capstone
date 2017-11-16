@@ -1,10 +1,14 @@
 const router = require('express').Router();
+const multer = require('multer');
 const { User, Activity } = require('../db/models');
 const {
   convertGpxToArray,
   convertPointsToPolyline,
   convertPolylineToPoints,
-} = require('../utils/gpxConvert');
+  gpxFilter,
+} = require('../utils');
+
+
 module.exports = router;
 
 router.get('/', (req, res, next) => {
@@ -14,17 +18,22 @@ router.get('/', (req, res, next) => {
     // send everything to anyone who asks!
     attributes: ['id', 'email']
   })
-    .then(users => res.json(users))
-    .catch(next);
+  .then(users => res.json(users))
+  .catch(next);
 });
 
-router.post('/:id/activities', async (req, res, next) => {
+// configure multer to download to temp director and only accept gpx files
+const upload = multer({ dest: '../temp/', fileFilter: gpxFilter });
+
+router.post('/:id/activities', upload.any(), async (req, res, next) => {
   const userId = req.params.id;
-  const file = req.file; //file from multer request
+  const file = req.file; //file from multer request, may need to be modified
 
   const pointsArray = await convertGpxToArray(file);
   const newPolyline = await convertPointsToPolyline(pointsArray);
 
   const newActivity = await Activity.create({ polyline: newPolyline });
-  Activity.setUser(userId);
+  await Activity.setUser(userId);
+
+  res.status(202).json(newActivity);
 });
