@@ -51,8 +51,6 @@ export const uploadFileRequest = (file, userId) => {
   let data = new FormData();
   data.append('gpx', file);
 
-  console.log('thunk data', data);
-
   return async dispatch => {
     try {
       const res = await axios.post(`/api/users/${userId}/activities`, data);

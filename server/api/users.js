@@ -29,6 +29,7 @@ router.post('/:id/activities', upload.single('gpx'), async (req, res, next) => {
   const userId = req.params.id;
   const file = req.file.buffer;
 
+  console.log(req.file);
   const pointsArray = await convertGpxToArray(file);
   const newPolyline = convertPointsToPolyline(pointsArray);
 
@@ -37,6 +38,4 @@ router.post('/:id/activities', upload.single('gpx'), async (req, res, next) => {
   newActivity.setUser(userId);
 
   res.status(202).json(newActivity);
-
-  //delete temp file
 });
