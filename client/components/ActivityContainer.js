@@ -5,7 +5,7 @@ import {
   Grid,
   Header,
 } from 'semantic-ui-react';
-import { Comments, Map } from './index';
+import { Comments, MapContainer } from './index';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 // <Image src="square-image.png" size="medium" rounded />
@@ -18,7 +18,7 @@ const ActivityContainer = (props) => {
       </Header>
       <Grid columns={2}>
         <Grid.Column>
-          <Map polyline={props.activity.route} />
+          <MapContainer polyline={props.activity.route} />
         </Grid.Column>
         <Grid.Column>
           <div>
