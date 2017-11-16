@@ -4,13 +4,13 @@ const db = require('../db');
 const Activity = db.define('activity', {
   title: {
     type: Sequelize.STRING,
-    unique: true,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 'New Activity',
   },
   length: {
     type: Sequelize.FLOAT
   },
-  route: {
+  polyline: {
     type: Sequelize.TEXT
   },
   start: {
