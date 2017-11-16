@@ -33,14 +33,14 @@ async function seed () {
       {
         title: 'CRAAAZY run',
         length: 423.123,
-        route: '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
+        polyline: '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
       }
     ),
     Activity.create(
       {
         title: 'sort of crazy run',
         length: 222.222,
-        route: '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
+        polyline: '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
       }
     ),
   ])
