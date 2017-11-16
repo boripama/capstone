@@ -5,7 +5,7 @@
  */
 export {default as Main} from './main';
 export {default as UserHome} from './user-home';
-export {default as UploadActivity} from './upload-activity';
+export {default as UploadActivity} from './UploadActivity';
 export {default as SingleActivity} from './SingleActivity';
 export {default as AllActivities} from './AllActivities';
 export {Login, Signup} from './auth-form';
