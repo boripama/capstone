@@ -15,6 +15,7 @@ class SingleActivity extends Component {
   }
 
   render() {
+    console.log('ACTIVITY: ', this.props.activity);
     if (this.props.activity.id) {
       return (
         <div>
@@ -25,6 +26,8 @@ class SingleActivity extends Component {
           <p>Route: {this.props.activity.route}</p>
           <p>Start Time: {this.props.activity.start}</p>
           <p>End Time: {this.props.activity.end}</p>
+          <p>Duration: {this.props.activity.duration}</p>
+          <p>Pace: {this.props.activity.pace}</p>
         </div>
       );
     }

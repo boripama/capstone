@@ -36,9 +36,13 @@ class AllActivities extends Component {
               <Grid.Row>
                 <br />
                 <Container width={11}>
-                  <ActivityContainer />
-                  <ActivityContainer />
-                  <ActivityContainer />
+                  {
+                    this.props.activities.map(activity => {
+                      return (
+                        <ActivityContainer key={activity.id} activity={activity}>{activity.title}</ActivityContainer>
+                      );
+                    })
+                  }
                 </Container>
               </Grid.Row>
             </Grid.Column>
