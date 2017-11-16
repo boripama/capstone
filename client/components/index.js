@@ -8,6 +8,7 @@ export {default as UserHome} from './UserHome';
 export {default as UploadActivity} from './UploadActivity';
 export {default as SingleActivity} from './SingleActivity';
 export {default as AllActivities} from './AllActivities';
+export {default as Navbar} from './Navbar';
 export {default as ProfileCard} from './ProfileCard';
 export {default as FriendGroup} from './FriendGroup';
 export {default as ActivityContainer} from './ActivityContainer';
