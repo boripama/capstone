@@ -21,30 +21,32 @@ class AllActivities extends Component {
   }
 
   render() {
-    console.log('ACTIVITIES: ', this.props.activities);
-    return (
-      <div>
-        <Grid centered columns={2}>
-          <Grid.Column width={3}>
-
-            <ProfileCard />
-          </Grid.Column>
-          <Grid.Column width={11}>
-            <Grid.Row>
-              <FriendGroup />
-            </Grid.Row>
-            <Grid.Row>
-              <br />
-              <Container width={11}>
-                <ActivityContainer />
-                <ActivityContainer />
-                <ActivityContainer />
-              </Container>
-            </Grid.Row>
-          </Grid.Column>
-        </Grid>
-      </div>
-    );
+    if (this.props.activities[0]) {
+      console.log('ACTIVITIES: ', this.props.activities);
+      return (
+        <div>
+          <Grid centered columns={2}>
+            <Grid.Column width={3}>
+              <ProfileCard />
+            </Grid.Column>
+            <Grid.Column width={11}>
+              <Grid.Row>
+                <FriendGroup />
+              </Grid.Row>
+              <Grid.Row>
+                <br />
+                <Container width={11}>
+                  <ActivityContainer />
+                  <ActivityContainer />
+                  <ActivityContainer />
+                </Container>
+              </Grid.Row>
+            </Grid.Column>
+          </Grid>
+        </div>
+      );
+    }
+    else { return null; }
   }
 }
 /**

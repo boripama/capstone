@@ -20,7 +20,7 @@ const getActivities = activities => ({ type: GET_ACTIVITIES, activities });
  */
 export const fetchActivities = () => async dispatch => {
   try {
-    const res = await axios.get(`/api/activites/`);
+    const res = await axios.get(`/api/activities/`);
     dispatch(getActivities(res.data || defaultActivities));
   }
   catch (err) { console.log('Fetching activities unsuccessful', err); }
