@@ -21,7 +21,7 @@ class SingleActivity extends Component {
           <h1>{this.props.activity.title}</h1>
           <p>Single Activity ID: {this.props.activity.id}</p>
           <p>Length: {this.props.activity.length}</p>
-          <p>Route: {this.props.activity.route}</p>
+          <p>Route: {this.props.activity.polyline}</p>
           <p>Start Time: {this.props.activity.start}</p>
           <p>End Time: {this.props.activity.end}</p>
           <p>Duration: {this.props.activity.duration}</p>

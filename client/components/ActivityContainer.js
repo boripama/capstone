@@ -18,7 +18,7 @@ const ActivityContainer = (props) => {
       </Header>
       <Grid columns={2}>
         <Grid.Column>
-          <MapContainer polyline={props.activity.route} />
+          <MapContainer polyline={props.activity.polyline} />
         </Grid.Column>
         <Grid.Column>
           <div>
