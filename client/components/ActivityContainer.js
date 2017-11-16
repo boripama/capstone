@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Image,
+  //Image,
   Segment,
   Grid,
   Header,
@@ -8,6 +8,7 @@ import {
 import { Comments, MapContainer } from './index';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 // <Image src="square-image.png" size="medium" rounded />
 
 const ActivityContainer = (props) => {
