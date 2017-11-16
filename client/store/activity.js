@@ -1,26 +1,24 @@
-import axios from 'axios'
-import history from '../history'
+import axios from 'axios';
 
 /**
  * ACTION TYPES
  */
-const NEW_ACTIVITY = 'NEW_ACTIVITY'
-const GET_ACTIVITY = 'GET_ACTIVITY'
-const REMOVE_ACTIVITY = 'REMOVE_ACTIVITY'
+const NEW_ACTIVITY = 'NEW_ACTIVITY';
+const GET_ACTIVITY = 'GET_ACTIVITY';
+const REMOVE_ACTIVITY = 'REMOVE_ACTIVITY';
 const UPLOAD_FILE = 'UPLOAD_FILE';
-const UPLOAD_FILE_FAIL = 'UPLOAD_FILE_FAIL';
 
 /**
  * INITIAL STATE
  */
-const defaultActivity = {}
+const defaultActivity = {};
 
 /**
  * ACTION CREATORS
  */
-const newActivity = activity => ({ type: NEW_ACTIVITY, activity })
-const getActivity = activity => ({ type: GET_ACTIVITY, activity })
-const removeActivity = () => ({ type: REMOVE_ACTIVITY })
+const newActivity = activity => ({ type: NEW_ACTIVITY, activity });
+const getActivity = activity => ({ type: GET_ACTIVITY, activity });
+const removeActivity = () => ({ type: REMOVE_ACTIVITY });
 const uploadActivity = activity => ({ type: UPLOAD_FILE, activity });
 
 /**
@@ -28,11 +26,11 @@ const uploadActivity = activity => ({ type: UPLOAD_FILE, activity });
  */
 export const fetchActivity = id => async dispatch => {
   try {
-    const res = await axios.get(`/api/activites/${id}`)
+    const res = await axios.get(`/api/activities/${id}`);
     dispatch(getActivity(res.data || defaultActivity));
   }
   catch (err) { console.log('Fetching activity unsuccessful', err); }
-}
+};
 
 export const createActivity = (activity, userId) => async dispatch => {
   try {
@@ -47,7 +45,7 @@ export const deleteActivity = id => async dispatch => {
     await axios.delete(`/api/activities/${id}`);
   }
   catch (err) { console.error('Deleting activity unsuccessful', err); }
-}
+};
 
 export const uploadFileRequest = ({ file, userId }) => {
   let data = new FormData();
@@ -69,12 +67,12 @@ export const uploadFileRequest = ({ file, userId }) => {
 export default function (state = defaultActivity, action) {
   switch (action.type) {
     case NEW_ACTIVITY:
-      return action.activity
+      return action.activity;
     case GET_ACTIVITY:
-      return action.activity
+      return action.activity;
     case REMOVE_ACTIVITY:
-      return defaultActivity
+      return defaultActivity;
     default:
-      return state
+      return state;
   }
 }
