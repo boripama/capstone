@@ -1,5 +1,11 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {
+  Segment,
+  Menu,
+  Container,
+  Divider,
+} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 /**
  * COMPONENT
@@ -7,17 +13,27 @@ import { NavLink } from 'react-router-dom';
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-const Navbar = (props) => {
+const Navbar = () => {
 
   return (
-    <nav>
-      <NavLink to="/home">Home</NavLink>
-      <NavLink to="/activity/1">Activity 1</NavLink>
-      <NavLink to="/uploadActivity">Upload Activity</NavLink>
-      <NavLink to="/activities">Activities</NavLink>
-      <NavLink to="/login">Login</NavLink>
-      <NavLink to="/signup">Sign Up</NavLink>
-    </nav>
+    <Segment
+      inverted
+      textAlign="center"
+      style={{ padding: '0em 0em' }}
+      vertical
+    >
+      <Container>
+        <Menu inverted pointing secondary size="large">
+          <Menu.Item as={Link} to="/home">Home</Menu.Item>
+          <Menu.Item as={Link} to="/activity/1">Activity 1</Menu.Item>
+          <Menu.Item as={Link} to="/uploadActivity">Upload Activity</Menu.Item>
+          <Menu.Item as={Link} to="/activities">Activities</Menu.Item>
+          <Menu.Item as={Link} to="/login">Login</Menu.Item>
+          <Menu.Item as={Link} to="/signup">Sign Up</Menu.Item>
+        </Menu>
+      </Container>
+      <Divider inverted />
+    </Segment>
   );
 };
 
