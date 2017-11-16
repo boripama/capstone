@@ -15,13 +15,11 @@ class SingleActivity extends Component {
   }
 
   render() {
-    console.log('ACTIVITY: ', this.props.activity);
     if (this.props.activity.id) {
       return (
         <div>
-          <h1>Single Activity Basic View</h1>
+          <h1>{this.props.activity.title}</h1>
           <p>Single Activity ID: {this.props.activity.id}</p>
-          <p>Title: {this.props.activity.title}</p>
           <p>Length: {this.props.activity.length}</p>
           <p>Route: {this.props.activity.route}</p>
           <p>Start Time: {this.props.activity.start}</p>

@@ -5,16 +5,20 @@ import {
   Grid,
   Header,
 } from 'semantic-ui-react';
-import {Comments} from './index';
+import { Comments, Map } from './index';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+// <Image src="square-image.png" size="medium" rounded />
 
 const ActivityContainer = (props) => {
   return (
     <Segment>
-      <Header size="large">{props.activity.title}</Header>
+      <Header size="large">
+        {<Link to={`/activity/${props.activity.id}`}>{props.activity.title}</Link>}
+      </Header>
       <Grid columns={2}>
         <Grid.Column>
-          <Image src="square-image.png" size="medium" rounded />
+          <Map polyline={props.activity.route} />
         </Grid.Column>
         <Grid.Column>
           <div>
