@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter, Link} from 'react-router-dom';
+import { withRouter, NavLink, Link } from 'react-router-dom';
 
 /**
  * COMPONENT
@@ -11,7 +11,14 @@ const Navbar = (props) => {
 
   return (
     <div>
-      <nav></nav>
+      <nav>
+        <NavLink to="/home">Home</NavLink>
+        <NavLink to="/activity/1">Activity 1</NavLink>
+        <NavLink to="/uploadActivity">Upload Activity</NavLink>
+        <NavLink to="/activities">Activity</NavLink>
+        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/signup">Sign Up</NavLink>
+      </nav>
     </div>
   );
 };

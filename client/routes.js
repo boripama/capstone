@@ -24,7 +24,6 @@ class Routes extends Component {
       <Router history={history}>
         <Main>
           <Switch>
-            <Navbar />
             {/* Routes placed here are available to all visitors */}
             <Route path="/activity/:id" component={SingleActivity} />
             <Route path="/login" component={Login} />
