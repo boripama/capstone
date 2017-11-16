@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter, Link} from 'react-router-dom';
 import {logout} from '../store';
+import Navbar from './Navbar';
 
 /**
  * COMPONENT
@@ -15,6 +16,7 @@ const Main = (props) => {
 
   return (
     <div>
+<<<<<<< HEAD:client/components/main.js
       <h1>ANANDA</h1>
       <nav>
         {
@@ -31,6 +33,9 @@ const Main = (props) => {
             </div>
         }
       </nav>
+=======
+      <Navbar />
+>>>>>>> master:client/components/Main.js
       <hr />
       {children}
     </div>
