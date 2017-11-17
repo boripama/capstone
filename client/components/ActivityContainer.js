@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 // <Image src="square-image.png" size="medium" rounded />
 
 const ActivityContainer = (props) => {
+  console.log('PROPS: ', props);
   return (
     <Segment>
       <Header size="large">
@@ -31,7 +32,7 @@ const ActivityContainer = (props) => {
           </div>
           <br /><br /><br /><br />
           <div>
-            <Header size="small">Miles: </Header> {props.activity.length} miles
+            <Header size="small">Miles: </Header> {props.activity.totalDistance} miles
           </div>
         </Grid.Column>
       </Grid>

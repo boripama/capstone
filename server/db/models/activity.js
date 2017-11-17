@@ -18,18 +18,15 @@ const Activity = db.define('activity', {
   },
   endTime: {
     type: Sequelize.DATE
-  },
-  duration: {
-    type: Sequelize.DATE
   }
 },
 {
   getterMethods: {
     duration() {
-      return this.end - this.start;
+      return this.endTime - this.startTime;
     },
     pace() {
-      return this.duration / this.length;
+      return this.duration / this.totalDistance;
     }
   }
 });

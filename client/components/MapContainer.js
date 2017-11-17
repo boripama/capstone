@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GoogleMap, Map, Marker, Polygon, GoogleApiWrapper } from 'google-maps-react';
+import { Map, Marker, Polygon, GoogleApiWrapper } from 'google-maps-react';
 import Polyline from './Polyline';
 
 
@@ -28,13 +28,9 @@ export class MapContainer extends Component {
       console.log('I AM A ROUTE COORD: ', this.state.tempCoords);
       return (
         <div>
-          {/* <GoogleMap */}
-          {/* onGoogleApiLoaded={({ map, maps }) => { this.setState({ map: map, maps: maps, mapLoaded: true }); }} /> */}
-
 
           <Map
             google={this.props.google}
-            onGoogleApiLoaded={({ map, maps }) => { this.setState({ map: map, maps: maps, mapLoaded: true }); }}
             initialCenter={{
               lat: 41.888446,
               lng: -87.635384 //fullstack
@@ -45,19 +41,6 @@ export class MapContainer extends Component {
             <Marker
               onClick={this.onMarkerClick}
               name={'Current location'} />
-
-            <Polyline path={this.state.tempCoords} />
-            {/* <Polygon
-              paths={[
-                { lat: 41.888446, lng: -87.635384 },
-                { lat: 41.888446, lng: -87.736384 },
-                { lat: 41.888446, lng: -87.837384 }
-              ]}
-              strokeColor="#0000FF"
-              strokeOpacity={1}
-              strokeWeight={2}
-              fillColor="#0000FF"
-              fillOpacity={1} /> */}
 
           </Map>
         </div>
@@ -73,3 +56,5 @@ export class MapContainer extends Component {
 export default GoogleApiWrapper({
   apiKey: ('YAIzaSyCcF35bbRWUQbTvP4t7XkY62MS5JDJ_oZk')
 })(MapContainer);
+/*<Polyline path={this.state.tempCoords} />*/
+/* onGoogleApiLoaded={({ map, maps }) => { this.setState({ map: map, maps: maps, mapLoaded: true }); }} */
