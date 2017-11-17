@@ -12,30 +12,44 @@ export class MapContainer extends Component {
   }
   componentDidMount() {
     console.log('ROUUUTE: ', this.props.polyline);
-    // axios.post('/api/polydecoder', {polyline: this.props.polyline})
-    //   .then(data => {
-    //     this.setState({ routeCoords: data });
-    //   });
-    // not working yet but close
+    const routeReturn = window.google.maps.geometry.encoding.decodePath(this.props.polyline);
+    console.log('route coordinates: ', routeReturn);
+    this.setState({ routeCoords: routeReturn });
+
   }
   render() {
 
-    // if (this.state.routeCoords.length) {
-    console.log('I AM A ROUTE COORD: ', this.state);
-    return (
+    if (this.state.routeCoords.length) {
+      console.log('I AM A ROUTE COORD: ', this.state.routeCoords);
+      return (
 
-      <Map google={this.props.google} zoom={14}>
+        <Map
+          google={this.props.google}
+          initialCenter={{
+            lat: 41.888446,
+            lng: -87.635384 //fullstack
+          }}
+          zoom={14}
+        >
 
-        <Marker
-          onClick={this.onMarkerClick}
-          name={'Current location'} />
+          <Marker
+            onClick={this.onMarkerClick}
+            name={'Current location'} />
 
-      </Map>
-    );
-    // }
-    // else {
-    //   return null;
-    // }
+          <Polygon
+            paths={this.state.routeCoords}
+            strokeColor="#0000FF"
+            strokeOpacity={0.8}
+            strokeWeight={2}
+            fillColor="#0000FF"
+            fillOpacity={0.35} />
+
+        </Map>
+      );
+    }
+    else {
+      return null;
+    }
 
   }
 }
@@ -43,20 +57,3 @@ export class MapContainer extends Component {
 export default GoogleApiWrapper({
   apiKey: ('YAIzaSyCcF35bbRWUQbTvP4t7XkY62MS5JDJ_oZk')
 })(MapContainer);
-
-// <Map google={this.props.google} zoom={14}>
-//   style={{ width: '100%', height: '100%', position: 'relative' }}
-//   className={'map'}
-//   zoom={14}>
-//   {/* <Polygon
-//     paths={this.state.routeCoords}
-//     strokeColor="#0000FF"
-//     strokeOpacity={0.8}
-//     strokeWeight={2}
-//     fillColor="#0000FF"
-//     fillOpacity={0.35} />
-//   <Marker
-//     onClick={this.onMarkerClick}
-//     name={'Current location'} /> */}
-
-// </Map>
