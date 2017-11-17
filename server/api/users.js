@@ -1,12 +1,7 @@
 const router = require('express').Router();
 const multer = require('multer');
 const { User, Activity } = require('../db/models');
-const { convertGpxToArray,
-  convertPointsToPolyline,
-  convertPolylineToPoints,
-  mapGpxArrayToPointsArray,
-  formatGpxForDatabase,
-  gpxFilter } = require('../utils');
+const { formatGpxForDatabase, gpxFilter } = require('../utils');
 
 
 module.exports = router;
@@ -31,6 +26,7 @@ router.get('/:id/activities', async (req, res, next) => {
   res.status(200).json(activities);
 });
 
+// multer config for POST route below
 const storage = multer.memoryStorage();
 const upload = multer({ storage, fileFilter: gpxFilter });
 
