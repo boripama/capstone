@@ -1,5 +1,5 @@
-const User = require('./user')
-const Activity = require('./activity')
+const User = require('./user');
+const Activity = require('./activity');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -19,4 +19,4 @@ Activity.belongsTo(User);
 module.exports = {
   User,
   Activity
-}
+};

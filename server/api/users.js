@@ -1,12 +1,9 @@
 const router = require('express').Router();
 const multer = require('multer');
 const { User, Activity } = require('../db/models');
-const {
-  convertGpxToArray,
-  convertPointsToPolyline,
-  convertPolylineToPoints,
-  gpxFilter,
-} = require('../utils');
+const { isUser, isAdmin } = require('../middleware/auth')
+const { formatGpxForDatabase, gpxFilter } = require('../utils');
+
 
 
 module.exports = router;
@@ -22,8 +19,6 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
 
 router.get('/:id/activities', async (req, res, next) => {
   const userId = +req.params.id;
@@ -33,15 +28,19 @@ router.get('/:id/activities', async (req, res, next) => {
   res.status(200).json(activities);
 });
 
+// multer config for POST route below
+const storage = multer.memoryStorage();
+const upload = multer({ storage, fileFilter: gpxFilter });
+
 router.post('/:id/activities', upload.single('gpx'), async (req, res, next) => {
+  if (req.fileValidationError) { res.end(req.fileValidationError); }
+
   const userId = req.params.id;
   const file = req.file.buffer;
 
-  console.log(req.file);
-  const pointsArray = await convertGpxToArray(file);
-  const newPolyline = convertPointsToPolyline(pointsArray);
+  const activityInfo = await formatGpxForDatabase(file);
 
-  const newActivity = await Activity.create({ polyline: newPolyline });
+  const newActivity = await Activity.create(activityInfo);
 
   newActivity.setUser(userId);
 
