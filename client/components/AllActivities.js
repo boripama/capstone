@@ -22,7 +22,6 @@ class AllActivities extends Component {
 
   render() {
     if (this.props.activities[0]) {
-      console.log('ACTIVITIES: ', this.props.activities);
       return (
         <div>
           <Grid centered columns={2}>

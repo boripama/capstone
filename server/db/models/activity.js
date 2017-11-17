@@ -30,11 +30,20 @@ const Activity = db.define('activity', {
   },
   durationTimestamp: {
     type: Sequelize.VIRTUAL,
-    get () {
+    get() {
       return msToTimestamp(this.getDataValue('durationMs'));
     }
   }
-});
+},
+{
+  getterMethods:
+    {
+      pace() {
+        // return this.durationMs / this.totalDistance;
+      }
+    }
+}
+);
 
 Activity.beforeSave((activity, options) => {
   const start = activity.startTime;
