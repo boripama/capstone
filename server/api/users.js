@@ -18,8 +18,8 @@ router.get('/', (req, res, next) => {
     // send everything to anyone who asks!
     attributes: ['id', 'email']
   })
-  .then(users => res.json(users))
-  .catch(next);
+    .then(users => res.json(users))
+    .catch(next);
 });
 
 const storage = multer.memoryStorage();
@@ -28,7 +28,7 @@ const upload = multer({ storage });
 router.get('/:id/activities', async (req, res, next) => {
   const userId = +req.params.id;
   console.log('userId', userId, typeof userId);
-  const activities = await Activity.findAll({where: {userId: userId}});
+  const activities = await Activity.findAll({ where: { userId: userId } });
   console.log('act', activities);
   res.status(200).json(activities);
 });

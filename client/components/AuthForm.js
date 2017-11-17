@@ -7,7 +7,7 @@ import {auth} from '../store';
  * COMPONENT
  */
 const AuthForm = (props) => {
-  const {name, displayName, handleSubmit, error} = props
+  const {name, displayName, handleSubmit, error} = props;
 
   return (
     <div>
@@ -27,8 +27,8 @@ const AuthForm = (props) => {
       </form>
       <a href="/auth/google">{displayName} with Google</a>
     </div>
-  )
-}
+  );
+};
 
 /**
  * CONTAINER
@@ -76,4 +76,4 @@ AuthForm.propTypes = {
   displayName: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.object
-}
+};

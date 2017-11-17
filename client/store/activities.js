@@ -1,27 +1,26 @@
-import axios from 'axios'
-import history from '../history'
+import axios from 'axios';
 
 /**
  * ACTION TYPES
  */
-const GET_ACTIVITIES = 'GET_ACTIVITIES'
+const GET_ACTIVITIES = 'GET_ACTIVITIES';
 
 /**
  * INITIAL STATE
  */
-const defaultActivities = {}
+const defaultActivities = {};
 
 /**
  * ACTION CREATORS
  */
-const getActivities = activities => ({ type: GET_ACTIVITIES, activities })
+const getActivities = activities => ({ type: GET_ACTIVITIES, activities });
 
 /**
  * THUNK CREATORS
  */
 export const fetchActivities = () => async dispatch => {
   try {
-    const res = axios.get(`/api/activites/`);
+    const res = await axios.get(`/api/activities/`);
     dispatch(getActivities(res.data || defaultActivities));
   }
   catch (err) { console.log('Fetching activities unsuccessful', err); }
@@ -30,7 +29,6 @@ export const fetchActivities = () => async dispatch => {
 export const fetchUserActivities = id => async dispatch => {
   try {
     const res = await axios.get(`/api/users/${id}/activities/`);
-    console.log('resdata', res.data);
     dispatch(getActivities(res.data || defaultActivities));
   }
   catch (err) {console.log('Fetching activites unccessful', err); }
@@ -42,8 +40,8 @@ export const fetchUserActivities = id => async dispatch => {
 export default function (state = defaultActivities, action) {
   switch (action.type) {
     case GET_ACTIVITIES:
-      return action.activities
+      return action.activities;
     default:
-      return state
+      return state;
   }
 }
