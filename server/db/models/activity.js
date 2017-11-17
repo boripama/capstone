@@ -7,29 +7,32 @@ const Activity = db.define('activity', {
     allowNull: false,
     defaultValue: 'New Activity',
   },
-  length: {
+  totalDistance: {
     type: Sequelize.FLOAT
   },
   polyline: {
     type: Sequelize.TEXT
   },
-  start: {
+  startTime: {
     type: Sequelize.DATE
   },
-  end: {
+  endTime: {
+    type: Sequelize.DATE
+  },
+  duration: {
     type: Sequelize.DATE
   }
 },
-  {
-    getterMethods: {
-      duration() {
-        return this.end - this.start;
-      },
-      pace() {
-        return this.duration / this.length;
-      }
+{
+  getterMethods: {
+    duration() {
+      return this.end - this.start;
+    },
+    pace() {
+      return this.duration / this.length;
     }
-  });
+  }
+});
 
 module.exports = Activity;
 
