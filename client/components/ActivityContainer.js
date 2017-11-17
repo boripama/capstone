@@ -27,7 +27,7 @@ const ActivityContainer = (props) => {
           </div>
           <br /><br /><br /><br />
           <div>
-            <Header size="small">Pace: </Header> {props.activity.pace} min/mile
+            {/* <Header size="small">Pace: </Header> {props.activity.pace} min/mile */}
           </div>
           <br /><br /><br /><br />
           <div>
