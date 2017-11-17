@@ -13,6 +13,8 @@ export {default as ProfileCard} from './ProfileCard';
 export {default as FriendGroup} from './FriendGroup';
 export {default as ActivityContainer} from './ActivityContainer';
 export {default as Comments} from './Comments';
+export {default as UserProfile} from './UserProfile';
 export { Login } from './Login' 
 export { Signup } from './Signup';
+
 
