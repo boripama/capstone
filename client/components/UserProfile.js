@@ -12,19 +12,20 @@ import {
 import { connect } from 'react-redux';
 import { fetchUserActivities } from '../store';
 
+// NOTES: The user data is being calculated in the render function of the React component.
+// this may need to be refactored if performance becomes an issue.
+
 class UserProfile extends React.Component {
   constructor(props) {
     super(props);
-
   }
   componentDidMount() {
-    this.props.load();
+    this.props.load(+this.props.match.params.id);
   }
 
 
   render() {
-    const {activities} = this.props;
-    console.log('act', activities);
+    const { activities } = this.props;
     return (
       <Container>
         {activities.length ?
@@ -83,9 +84,8 @@ class UserProfile extends React.Component {
 
 const mapState = ({activities}) => ({activities});
 const mapDispatch = dispatch => ({
-  load: () => {
-    console.log('fetch');
-    dispatch(fetchUserActivities(1));
+  load: (id) => {
+    dispatch(fetchUserActivities(id));
   },
 });
 
