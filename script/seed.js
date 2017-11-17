@@ -32,19 +32,19 @@ async function seed() {
     Activity.create(
       {
         title: 'CRAAAZY run',
-        length: 423.123,
+        totalDistance: 423.123,
         polyline: '_p~iF~ps|U_ulLnnqC_mqNvxq`@',
-        start: Date.now(),
-        end: Date.now() + 1000
+        startTime: Date.now(),
+        endTime: Date.now() + 1000
       }
     ),
     Activity.create(
       {
         title: 'sort of crazy run',
-        length: 222.222,
+        totalDistance: 222.222,
         polyline: '_p~iF~ps|U_ulLnnqC_mqNvxq`@',
-        start: Date.now(),
-        end: Date.now() + 1000
+        startTime: Date.now(),
+        endTime: Date.now() + 1000
       }
     ),
   ]);
