@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 // <Image src="square-image.png" size="medium" rounded />
 
 const ActivityContainer = (props) => {
-  console.log('PROPS: ', props);
   return (
     <Segment>
       <Header size="large">

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Map, Marker, Polygon, GoogleApiWrapper } from 'google-maps-react';
-import Polyline from './Polyline';
+import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { Polyline } from './index';
 
 
 export class MapContainer extends Component {
@@ -16,7 +16,6 @@ export class MapContainer extends Component {
     };
   }
   componentDidMount() {
-    console.log('ROUUUTE: ', this.props.polyline);
     const routeReturn = window.google.maps.geometry.encoding.decodePath(this.props.polyline);
     console.log('route coordinates: ', routeReturn);
     this.setState({ routeCoords: routeReturn });
@@ -25,7 +24,7 @@ export class MapContainer extends Component {
   render() {
 
     if (this.state.routeCoords.length) {
-      console.log('I AM A ROUTE COORD: ', this.state.tempCoords);
+      console.log('I AM THE ROUTE TO BE RENDERED: ', this.state.tempCoords);
       return (
         <div>
 
@@ -37,6 +36,7 @@ export class MapContainer extends Component {
             }}
             zoom={14}
           >
+            {/* <Polyline path={this.state.tempCoords} /> */}
 
             <Marker
               onClick={this.onMarkerClick}
@@ -56,5 +56,5 @@ export class MapContainer extends Component {
 export default GoogleApiWrapper({
   apiKey: ('YAIzaSyCcF35bbRWUQbTvP4t7XkY62MS5JDJ_oZk')
 })(MapContainer);
-/*<Polyline path={this.state.tempCoords} />*/
+
 /* onGoogleApiLoaded={({ map, maps }) => { this.setState({ map: map, maps: maps, mapLoaded: true }); }} */

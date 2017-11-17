@@ -14,7 +14,8 @@ export { default as FriendGroup } from './FriendGroup';
 export { default as ActivityContainer } from './ActivityContainer';
 export { default as Comments } from './Comments';
 export { default as MapContainer } from './MapContainer';
-export {default as UserProfile} from './UserProfile';
+export { default as UserProfile } from './UserProfile';
+export { default as Polyline } from './Polyline';
 export { Login } from './Login';
 export { Signup } from './Signup';
 

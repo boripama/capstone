@@ -21,7 +21,6 @@ class SingleActivity extends Component {
 
   render() {
     if (this.props.activity.id) {
-      console.log('ACTIVITIES: ', this.props.activity);
       return (
         <div>
           <Grid centered columns={2}>
