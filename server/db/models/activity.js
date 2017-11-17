@@ -1,5 +1,11 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const {
+  getStartTime,
+  getEndTime,
+  getDuration,
+  msToTimestamp
+} = require('../../utils');
 
 const Activity = db.define('activity', {
   title: {
@@ -19,19 +25,21 @@ const Activity = db.define('activity', {
   endTime: {
     type: Sequelize.DATE
   },
-  duration: {
-    type: Sequelize.DATE
-  }
-},
-{
-  getterMethods: {
-    duration() {
-      return this.end - this.start;
-    },
-    pace() {
-      return this.duration / this.length;
+  durationMs: {
+    type: Sequelize.INTEGER,
+  },
+  durationTimestamp: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      return msToTimestamp(this.getDataValue('durationMs'));
     }
   }
+});
+
+Activity.beforeSave((activity, options) => {
+  const start = activity.startTime;
+  const end = activity.endTime;
+  activity.durationMs = getDuration(end, start);
 });
 
 module.exports = Activity;
