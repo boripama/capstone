@@ -32,7 +32,7 @@ class UserProfile extends React.Component {
         {activities.length ?
           <Grid colums={3}>
             <Grid.Column width={4}>
-              <Image src="matthew.png" size="medium" circular />
+              <Image src="../matthew.png" size="medium" circular />
               <Segment>
                 <Header> Matthew</Header>
                 <Button> Change Profile Picture</Button>
