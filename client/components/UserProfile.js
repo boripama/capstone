@@ -10,6 +10,7 @@ import {
   Input,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { NewActivity } from './index';
 import { fetchUserActivities } from '../store';
 
 // NOTES: The user data is being calculated in the render function of the React component.
@@ -25,7 +26,7 @@ class UserProfile extends React.Component {
 
 
   render() {
-    const { activities } = this.props;
+    const { activities, user } = this.props;
     return (
       <Container>
         {activities.length ?
@@ -66,7 +67,7 @@ class UserProfile extends React.Component {
             </Grid.Column>
             <Grid.Column  style={{ margin: '2em' }} width={4}>
               <Grid.Row style={{ padding: '2em 0em' }} >
-                <Button> Upload .gpx Files</Button>
+                <NewActivity props={user} />
               </Grid.Row>
               <Grid.Row style={{ padding: '2em 0em' }} >
                 <Button> Change My Password </Button>
@@ -82,7 +83,7 @@ class UserProfile extends React.Component {
 }
 
 
-const mapState = ({activities}) => ({activities});
+const mapState = ({activities, user}) => ({activities, user});
 const mapDispatch = dispatch => ({
   load: (id) => {
     dispatch(fetchUserActivities(id));
