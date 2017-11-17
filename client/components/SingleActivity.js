@@ -38,7 +38,7 @@ class SingleActivity extends Component {
                   <p>Route: {this.props.activity.polyline}</p>
                   <p>Start Time: {this.props.activity.startTime}</p>
                   <p>End Time: {this.props.activity.endTime}</p>
-                  <p>Duration: {this.props.activity.duration}</p>
+                  <p>Duration: {this.props.activity.durationMs}</p>
                   <p>Pace: {this.props.activity.pace}</p>
                   <ActivityContainer key={this.props.activity.id} activity={this.props.activity}>{this.props.activity.title}</ActivityContainer>
 

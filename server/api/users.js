@@ -22,9 +22,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id/activities', async (req, res, next) => {
   const userId = +req.params.id;
-  console.log('userId', userId, typeof userId);
   const activities = await Activity.findAll({ where: { userId: userId } });
-  console.log('act', activities);
   res.status(200).json(activities);
 });
 

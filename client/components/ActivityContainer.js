@@ -23,7 +23,7 @@ const ActivityContainer = (props) => {
         </Grid.Column>
         <Grid.Column>
           <div>
-            <Header size="small">Duration: </Header> {props.activity.duration} min
+            <Header size="small">Duration: </Header> {props.activity.durationMs} min
           </div>
           <br /><br /><br /><br />
           <div>
