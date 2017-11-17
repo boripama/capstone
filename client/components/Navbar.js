@@ -30,6 +30,7 @@ const Navbar = () => {
           <Menu.Item as={Link} to="/activities">Activities</Menu.Item>
           <Menu.Item as={Link} to="/login">Login</Menu.Item>
           <Menu.Item as={Link} to="/signup">Sign Up</Menu.Item>
+          <Menu.Item as={Link} to="/user">Account</Menu.Item>
         </Menu>
       </Container>
       <Divider inverted />
