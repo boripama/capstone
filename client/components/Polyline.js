@@ -21,25 +21,16 @@ export default class Polyline extends PureComponent {
 
   render() {
     // const Polyline = this.props.maps.Polyline;
-
+    console.log('path: ', this.props.path);
     const renderedPolyline = this.renderPolyline();
     // const paths = { path: this.getPaths() };
 
-    this.line = new Polyline(Object.assign({}, renderedPolyline, this.props.path));
+    this.line = new window.google.maps.Polyline(Object.assign({}, renderedPolyline, this.props.path));
 
     this.line.setMap(this.props.map);
 
     return null;
   }
-
-  renderPolyline() {
-    throw new Error('Implement renderPolyline method');
-  }
-
-}
-
-
-class Normal extends Polyline {
 
   renderPolyline() {
     return {
@@ -50,3 +41,4 @@ class Normal extends Polyline {
     };
   }
 }
+

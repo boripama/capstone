@@ -36,7 +36,7 @@ export class MapContainer extends Component {
             }}
             zoom={14}
           >
-            {/* <Polyline path={this.state.tempCoords} /> */}
+            <Polyline path={this.state.tempCoords} />
 
             <Marker
               onClick={this.onMarkerClick}
