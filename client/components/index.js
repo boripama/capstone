@@ -15,6 +15,7 @@ export { default as ActivityContainer } from './ActivityContainer';
 export { default as Comments } from './Comments';
 export { default as MapContainer } from './MapContainer';
 export {default as UserProfile} from './UserProfile';
-export { Login, Signup } from './AuthForm';
+export { Login } from './Login' 
+export { Signup } from './Signup';
 
 
