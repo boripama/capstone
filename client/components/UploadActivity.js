@@ -1,35 +1,49 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { uploadFileRequest } from '../store';
 
 /**
  * COMPONENT
  */
-export const UploadActivity = (props) => {
-  const {email} = props
+const UploadActivity = props => {
+  const { handleFileUpload, user } = props;
+  const handleUpload = event => {
+    handleFileUpload(event, user.id);
+  };
 
   return (
     <div>
-      <h3>Welcome, to the activity page {email}</h3>
-      
+      <h3>Please choose a GPX file to upload</h3>
+      <input type="file" onChange={handleUpload} />
     </div>
-  )
-}
+  );
+};
 
 /**
  * CONTAINER
  */
-const mapState = (state) => {
+const mapState = state => {
   return {
-    email: state.user.email
-  }
-}
+    activity: state.activity,
+    user: state.user,
+  };
+};
 
-export default connect(mapState)(UploadActivity)
+const mapDispatch = dispatch => {
+  return {
+    handleFileUpload: (event, userId) => {
+      const file = event.target.files[0];
+      dispatch(uploadFileRequest(file, userId));
+    }
+  };
+};
+
+export default connect(mapState, mapDispatch)(UploadActivity);
 
 /**
  * PROP TYPES
  */
-UploadActivity.propTypes = {
-  email: PropTypes.string
-}
+// UploadActivity.propTypes = {
+//   state: state.activity
+// };

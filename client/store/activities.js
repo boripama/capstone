@@ -21,11 +21,20 @@ const getActivities = activities => ({ type: GET_ACTIVITIES, activities })
  */
 export const fetchActivities = () => async dispatch => {
   try {
-    const res = axios.get(`/api/activites/`)
+    const res = axios.get(`/api/activites/`);
     dispatch(getActivities(res.data || defaultActivities));
   }
   catch (err) { console.log('Fetching activities unsuccessful', err); }
-}
+};
+
+export const fetchUserActivities = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/users/${id}/activities/`);
+    console.log('resdata', res.data);
+    dispatch(getActivities(res.data || defaultActivities));
+  }
+  catch (err) {console.log('Fetching activites unccessful', err); }
+};
 
 /**
  * REDUCER
