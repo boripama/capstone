@@ -35,12 +35,12 @@ const Navbar = (props) => {
           <Menu.Item as={Link} to="/activity/1">Activity 1</Menu.Item>
           {
             isLoggedIn ?
-            <a href="#" onClick={handleClick}>Logout</a>
+            <Menu.Item as={Link} onClick={handleClick}to="/login">Logout</Menu.Item>
             :          
-            <div>
+            <Container>
             <Menu.Item as={Link} to="/login">Login</Menu.Item>
             <Menu.Item as={Link} to="/signup">Sign Up</Menu.Item>
-            </div>
+            </Container>
           }
           <Menu.Item as={Link} to="/uploadActivity">Upload Activity</Menu.Item>
           <Menu.Item as={Link} to="/activities">Activities</Menu.Item>
