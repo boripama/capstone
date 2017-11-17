@@ -29,7 +29,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/activities" component={AllActivities} />
-            <Route path ="/user" component={UserProfile} />
+            <Route path ="/users/:id" component={UserProfile} />
             {
               isLoggedIn &&
               <Switch>
