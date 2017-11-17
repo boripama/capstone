@@ -18,13 +18,14 @@ class SingleActivity extends Component {
     if (this.props.activity.id) {
       return (
         <div>
-          <h1>Single Activity Basic View</h1>
+          <h1>{this.props.activity.title}</h1>
           <p>Single Activity ID: {this.props.activity.id}</p>
-          <p>Title: {this.props.activity.title}</p>
           <p>Length: {this.props.activity.length}</p>
-          <p>Route: {this.props.activity.route}</p>
+          <p>Route: {this.props.activity.polyline}</p>
           <p>Start Time: {this.props.activity.start}</p>
           <p>End Time: {this.props.activity.end}</p>
+          <p>Duration: {this.props.activity.duration}</p>
+          <p>Pace: {this.props.activity.pace}</p>
         </div>
       );
     }
