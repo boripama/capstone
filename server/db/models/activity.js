@@ -35,14 +35,14 @@ const Activity = db.define('activity', {
     }
   }
 },
-// {
-//   getterMethods:
-//     {
-//       pace() {
-//         // return this.durationMs / this.totalDistance;
-//       }
-//     }
-// }
+{
+  getterMethods:
+    {
+      pace() {
+        // return this.durationMs / this.totalDistance;
+      }
+    }
+}
 );
 
 Activity.beforeSave((activity, options) => {
