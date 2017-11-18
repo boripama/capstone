@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Activity } = require('../db/models');
 const { User } = require('../db/models');
-const { isUser, isAdmin } = require('../middleware/auth')
+const { isUser, isAdmin } = require('../middleware/auth');
 module.exports = router;
 
 router.get('/', async (req, res, next) => {

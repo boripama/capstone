@@ -1,15 +1,13 @@
 import React from 'react';
 import {
-  //Image,
   Segment,
   Grid,
   Header,
 } from 'semantic-ui-react';
-import { Comments, MapContainer } from './index';
+import { Comments, MapContainer} from './index';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-// <Image src="square-image.png" size="medium" rounded />
 
 const ActivityContainer = (props) => {
   return (
@@ -19,11 +17,11 @@ const ActivityContainer = (props) => {
       </Header>
       <Grid columns={2}>
         <Grid.Column>
-          <MapContainer polyline={props.activity.polyline} />
+          <MapContainer poly={props.activity.polyline} />
         </Grid.Column>
         <Grid.Column>
           <div>
-            <Header size="small">Duration: </Header> {props.activity.duration} min
+            <Header size="small">Duration: </Header> {props.activity.durationTimestamp} min
           </div>
           <br /><br /><br /><br />
           <div>

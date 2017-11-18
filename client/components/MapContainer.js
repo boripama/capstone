@@ -1,60 +1,41 @@
-import React, { Component } from 'react';
-import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
-import { Polyline } from './index';
+import React from 'react';
+import polyline from '@mapbox/polyline';
+import {connect} from 'react-redux';
+import ReactMapboxGl, { Layer, Source } from 'react-mapbox-gl';
 
+const Map = ReactMapboxGl({
+  accessToken: 'pk.eyJ1IjoicGF0cmlja2d1bmQiLCJhIjoiY2o4YnF3em5hMDB3azMzc2Z0c2s4aXA0diJ9.lC8yZP6sxPbTeu9iW_UTkA'
+});
 
-export class MapContainer extends Component {
-  constructor() {
-    super();
-    this.state = {
-      routeCoords: [],
-      tempCoords: [
-        { lat: 41.888446, lng: -87.635384 },
-        { lat: 41.888446, lng: -87.736384 },
-        { lat: 41.888446, lng: -87.837384 }
-      ]
-    };
-  }
-  componentDidMount() {
-    const routeReturn = window.google.maps.geometry.encoding.decodePath(this.props.polyline);
-    console.log('route coordinates: ', routeReturn);
-    this.setState({ routeCoords: routeReturn });
+const MapContainer = (props) => {
+  const SOURCE_OPTIONS = {
+    type: 'geojson',
+    data: {
+      type: 'Feature',
+      properties: {},
+      geometry: {
+        type: 'LineString',
+        coordinates: polyline.decode(props.poly)
+      }
+    }};
+  return (
+    <Map
+      style="mapbox://styles/mapbox/streets-v9"
+      center={[ -87.62071623466909, 41.880666855722666 ]}
+      containerStyle={{
+        height: '25vh',
+        width: '25vw'
+      }}>
+      <Source id="source_id" tileJsonSource={SOURCE_OPTIONS} />
+      <Layer
+        type="line" id="layer_id" sourceId="source_id" paint={{'line-color': '#888',
+          'line-width': 4}} />
+    </Map>
+  );
+};
 
-  }
-  render() {
+const MapState = null;
+const MapDispatch = null;
 
-    if (this.state.routeCoords.length) {
-      console.log('I AM THE ROUTE TO BE RENDERED: ', this.state.tempCoords);
-      return (
-        <div>
+export default connect(MapState, MapDispatch)(MapContainer);
 
-          <Map
-            google={this.props.google}
-            initialCenter={{
-              lat: 41.888446,
-              lng: -87.635384 //fullstack
-            }}
-            zoom={14}
-          >
-            <Polyline path={this.state.tempCoords} />
-
-            <Marker
-              onClick={this.onMarkerClick}
-              name={'Current location'} />
-
-          </Map>
-        </div>
-      );
-    }
-    else {
-      return null;
-    }
-
-  }
-}
-
-export default GoogleApiWrapper({
-  apiKey: ('YAIzaSyCcF35bbRWUQbTvP4t7XkY62MS5JDJ_oZk')
-})(MapContainer);
-
-/* onGoogleApiLoaded={({ map, maps }) => { this.setState({ map: map, maps: maps, mapLoaded: true }); }} */

@@ -6,6 +6,8 @@ import {
   Divider,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+
 
 /**
  * COMPONENT
@@ -13,8 +15,8 @@ import { Link } from 'react-router-dom';
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-const Navbar = () => {
-
+const Navbar = (props) => {
+  const { user } = props;
   return (
     <Segment
       inverted
@@ -30,7 +32,7 @@ const Navbar = () => {
           <Menu.Item as={Link} to="/activities">Activities</Menu.Item>
           <Menu.Item as={Link} to="/login">Login</Menu.Item>
           <Menu.Item as={Link} to="/signup">Sign Up</Menu.Item>
-          <Menu.Item as={Link} to="/user">Account</Menu.Item>
+          <Menu.Item as={Link} to={`/users/${user.id}`}>Account</Menu.Item>
         </Menu>
       </Container>
       <Divider inverted />
@@ -38,4 +40,6 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+const mapState = ({user}) => ({user});
+
+export default connect(mapState)(Navbar);

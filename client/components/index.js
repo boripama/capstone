@@ -15,7 +15,7 @@ export { default as ActivityContainer } from './ActivityContainer';
 export { default as Comments } from './Comments';
 export { default as MapContainer } from './MapContainer';
 export { default as UserProfile } from './UserProfile';
-export { default as Polyline } from './Polyline';
+export { default as NewActivity } from './NewActivity';
 export { Login } from './Login';
 export { Signup } from './Signup';
 
