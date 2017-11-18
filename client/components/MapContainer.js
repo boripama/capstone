@@ -21,7 +21,7 @@ const MapContainer = (props) => {
   return (
     <Map
       style="mapbox://styles/mapbox/streets-v9"
-      center={[ -87.62071623466909, 41.880666855722666 ]}
+      center={polyline.decode(props.poly)[0]}
       containerStyle={{
         height: '25vh',
         width: '25vw'
