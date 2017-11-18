@@ -28,7 +28,6 @@ const formatGpxForDatabase = async gpxFile => {
   const endTime = getEndTime(gpxArray);
 
   const pointsArray = await mapGpxArrayToPointsArray(gpxArray);
-  console.log(pointsArray);
   const newPolyline = convertPointsToPolyline(pointsArray);
 
   return { startTime, endTime, polyline: newPolyline };

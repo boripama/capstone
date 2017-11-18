@@ -4,7 +4,7 @@ import {
   Grid,
   Header,
 } from 'semantic-ui-react';
-import { Comments, MapContainer} from './index';
+import { Comments, MapContainer } from './index';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
