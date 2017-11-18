@@ -8,6 +8,7 @@ const Map = ReactMapboxGl({
 });
 
 const MapContainer = (props) => {
+  const coords = polyline.decode(props.poly);
   const SOURCE_OPTIONS = {
     type: 'geojson',
     data: {
@@ -15,13 +16,13 @@ const MapContainer = (props) => {
       properties: {},
       geometry: {
         type: 'LineString',
-        coordinates: polyline.decode(props.poly)
+        coordinates: coords
       }
     }};
   return (
     <Map
       style="mapbox://styles/mapbox/streets-v9"
-      center={polyline.decode(props.poly)[0]}
+      center={coords[0]}
       containerStyle={{
         height: '25vh',
         width: '25vw'
