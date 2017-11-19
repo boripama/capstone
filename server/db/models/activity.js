@@ -1,11 +1,15 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 const {
-  getStartTime,
-  getEndTime,
   getDuration,
-  msToTimestamp
+  msToTimestamp,
+  convertPolylineToPoints,
 } = require('../../utils');
+const User = require('./user');
+
+/**
+ * model definition
+ */
 
 const Activity = db.define('activity', {
   title: {
@@ -13,7 +17,7 @@ const Activity = db.define('activity', {
     allowNull: false,
     defaultValue: 'New Activity',
   },
-  totalDistance: {
+  distance: {
     type: Sequelize.FLOAT
   },
   polyline: {
@@ -28,7 +32,7 @@ const Activity = db.define('activity', {
   durationMs: {
     type: Sequelize.INTEGER,
   },
-  durationTimestamp: {
+  durationTimestamp: { // readable timestamp for display purposes
     type: Sequelize.VIRTUAL,
     get () {
       return msToTimestamp(this.getDataValue('durationMs'));
@@ -36,10 +40,29 @@ const Activity = db.define('activity', {
   }
 });
 
+/**
+ * instanceMethods
+ */
+Activity.prototype.decodePoly = function() {
+  return convertPolylineToPoints(this.polyline);
+};
+
+/**
+ * classMethods
+ */
+
+/**
+ * hooks
+ */
 Activity.beforeSave((activity, options) => {
   const start = activity.startTime;
   const end = activity.endTime;
   activity.durationMs = getDuration(end, start);
+});
+
+Activity.afterUpdate(async (activity, options) => {
+  const user = await User.findById(activity.userId);
+  user.updateTotals(activity);
 });
 
 module.exports = Activity;

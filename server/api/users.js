@@ -1,10 +1,8 @@
 const router = require('express').Router();
 const multer = require('multer');
 const { User, Activity } = require('../db/models');
-const { isUser, isAdmin } = require('../middleware/auth')
-const { formatGpxForDatabase, gpxFilter } = require('../utils');
-
-
+const { isUser, isAdmin } = require('../middleware/auth');
+const { gpxFilter } = require('../utils');
 
 module.exports = router;
 
