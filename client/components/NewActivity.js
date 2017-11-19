@@ -20,12 +20,10 @@ class NewActivity extends React.Component {
   handleClose = () => this.setState({ modalOpen: false });
 
  handleUpload = event => {
-   console.log(event.target.gpx.files[0]);
    this.props.handleFileUpload(event, this.props.props.id);
  };
 
  render() {
-   console.log(this.props);
    return (
      <Modal
        trigger={<Button onClick={this.handleOpen}>Upload .gpx Files</Button>}

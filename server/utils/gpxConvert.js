@@ -12,7 +12,7 @@ const convertGpxToArray = gpxFile => {
   });
 };
 
-const mapGpxArrayToPointsArray = gpxArray => gpxArray.map(p => [p.lat, p.lng]);
+const mapGpxArrayToPointsArray = gpxArray => gpxArray.map(p => [p.lng, p.lat]);
 
 const convertPointsToPolyline = pointsArray => {
   return polyline.encode(pointsArray);
