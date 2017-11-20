@@ -75,7 +75,50 @@ class UserProfile extends React.Component {
             </Grid.Column>
           </Grid>
           :
-          <div />}
+          <Grid colums={3}>
+            <Grid.Column width={4}>
+              <Image src="../matthew.png" size="medium" circular />
+              <Segment>
+                <Header> Matthew</Header>
+                <Button> Change Profile Picture</Button>
+              </Segment>
+              <Statistic.Group horizontal>
+                <Statistic>
+                  <Statistic.Value> No Activiy Data</Statistic.Value>
+                  <Statistic.Label>Total Miles</Statistic.Label>
+                </Statistic>
+                <Statistic>
+                  <Statistic.Value>No Activity Data</Statistic.Value>
+                  <Statistic.Label>Average Pace (miles/min)</Statistic.Label>
+                </Statistic>
+                <Statistic>
+                  <Statistic.Value>No Activity Data</Statistic.Value>
+                  <Statistic.Label>Total Runs</Statistic.Label>
+                </Statistic>
+              </Statistic.Group>
+            </Grid.Column>
+            <Grid.Column style={{ margin: '2em' }} width={4}>
+              <Grid.Row style={{ padding: '2em 0em' }} >
+                <Input
+                  action="Update"
+                  placeholder="Update Name..." />
+              </Grid.Row>
+              <Grid.Row style={{ padding: '2em 0em' }} >
+                <Input action="Update" placeholder="Update About Me..." />
+              </Grid.Row>
+              <Grid.Row style={{ padding: '2em 0em' }} >
+                <Input action="Update" placeholder="Update Email..." />
+              </Grid.Row>
+            </Grid.Column>
+            <Grid.Column  style={{ margin: '2em' }} width={4}>
+              <Grid.Row style={{ padding: '2em 0em' }} >
+                <NewActivity props={user} />
+              </Grid.Row>
+              <Grid.Row style={{ padding: '2em 0em' }} >
+                <Button> Change My Password </Button>
+              </Grid.Row>
+            </Grid.Column>
+          </Grid>}
       </Container>
     );
   }

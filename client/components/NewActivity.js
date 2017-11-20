@@ -21,6 +21,7 @@ class NewActivity extends React.Component {
 
  handleUpload = event => {
    this.props.handleFileUpload(event, this.props.props.id);
+   this.handleClose();
  };
 
  render() {
@@ -36,7 +37,7 @@ class NewActivity extends React.Component {
          <Modal.Description>
            <h3>New Activity Info:</h3>
            <Form onSubmit={this.handleUpload}>
-             <Input fluid name="Title" label="Title" placeholder="Activity Title" />
+             <Input fluid name="title" label="Title" placeholder="Activity Title" />
              <h3>Upload Your .gpx File:</h3>
              <Input fluid name="gpx"><input type="file" /></Input>
              <Button type="submit" size="large" positive>Submit Activity</Button>
@@ -58,7 +59,8 @@ const mapDispatch = dispatch => {
   return {
     handleFileUpload: (event, userId) => {
       const file = event.target.gpx.files[0];
-      dispatch(uploadFileRequest(file, userId));
+      const title = event.target.title.value;
+      dispatch(uploadFileRequest(file, userId, title));
     }
   };
 };
