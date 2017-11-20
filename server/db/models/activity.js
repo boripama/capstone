@@ -50,12 +50,12 @@ Activity.prototype.decodePoly = function() {
   return convertPolylineToPoints(this.polyline);
 };
 
-Activity.prototype.setCenter = function(pointsArray) {
-  const lng = pointsArray.reduce((total, point) => total + point[0], 0) / pointsArray.length;
-  const lat = pointsArray.reduce((total, point) => total + point[1], 0) / pointsArray.length;
+Activity.prototype.getCenter = function() {
+  const points = this.decodePoly(this.polyline);
+  const lng = points.reduce((tot, p) => tot + p[0], 0) / points.length;
+  const lat = points.reduce((tot, p) => tot + p[1], 0) / points.length;
 
-  this.centerLng = lng;
-  this.centerLat = lat;
+  return [lng, lat];
 };
 
 /**
@@ -72,10 +72,7 @@ Activity.beforeSave((activity, options) => {
   const end = activity.endTime;
   activity.durationMs = getDuration(end, start);
 
-  const points = activity.decodePoly(activity.polyline);
-  const lng = points.reduce((tot, p) => tot + p[0], 0) / points.length;
-  const lat = points.reduce((tot, p) => tot + p[1], 0) / points.length;
-  activity.center = [lng, lat];
+  activity.center = activity.getCenter();
 });
 
 // updates user totals after activity is updated
