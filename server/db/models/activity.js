@@ -59,10 +59,11 @@ Activity.prototype.decodePoly = function () {
 
 Activity.prototype.getCenter = function () {
   const points = this.decodePoly(this.polyline);
-  const lng = points.reduce((tot, p) => tot + p[0], 0) / points.length;
-  const lat = points.reduce((tot, p) => tot + p[1], 0) / points.length;
 
-  return [lng, lat];
+  const center = points.reduce((t, p) => [t[0] + p[0], t[1] + p[1]], [0, 0])
+    .map(e => e / points.length);
+
+  return center;
 };
 
 // units can be 'miles', 'kilometers', 'radians' or 'degrees'
