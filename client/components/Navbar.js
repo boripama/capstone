@@ -35,12 +35,12 @@ const Navbar = (props) => {
           <Menu.Item as={Link} to="/activity/1">Activity 1</Menu.Item>
           {
             isLoggedIn ?
-            <Menu.Item as={Link} onClick={handleClick}to="/login">Logout</Menu.Item>
-            :          
-            <Container>
-            <Menu.Item as={Link} to="/login">Login</Menu.Item>
-            <Menu.Item as={Link} to="/signup">Sign Up</Menu.Item>
-            </Container>
+              <Menu.Item as={Link} onClick={handleClick} to="/login">Logout</Menu.Item>
+              :
+              <Container>
+                <Menu.Item as={Link} to="/login">Login</Menu.Item>
+                <Menu.Item as={Link} to="/signup">Sign Up</Menu.Item>
+              </Container>
           }
           <Menu.Item as={Link} to="/uploadActivity">Upload Activity</Menu.Item>
           <Menu.Item as={Link} to="/activities">Activities</Menu.Item>
@@ -67,10 +67,10 @@ const mapDispatch = (dispatch, ownProps) => {
 }
 export default withRouter(connect(mapState, mapDispatch)(Navbar));
 
-  /**
-   * PROP TYPES
-   */
-  Navbar.propTypes = {
-    handleClick: PropTypes.func.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
-  };
+/**
+ * PROP TYPES
+ */
+Navbar.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+};
