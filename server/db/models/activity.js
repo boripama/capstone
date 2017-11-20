@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const turf = require('turf-line-distance');
 const db = require('../db');
 const {
   getDuration,
@@ -58,6 +59,23 @@ Activity.prototype.getCenter = function() {
   return [lng, lat];
 };
 
+// units can be 'miles', 'kilometers', 'radians' or 'degrees'
+Activity.prototype.getDistance = function(units) {
+  const points = this.decodePoly(this.polyline);
+
+  const line = {
+    type: 'Feature',
+    geometry: {
+      type: 'LineString',
+      coordinates: points
+    }
+  };
+
+  const length = turf(line, units);
+
+  return length;
+};
+
 /**
  * classMethods
  */
@@ -73,6 +91,7 @@ Activity.beforeSave((activity, options) => {
   activity.durationMs = getDuration(end, start);
 
   activity.center = activity.getCenter();
+  activity.distance = activity.getDistance('miles');
 });
 
 // updates user totals after activity is updated
