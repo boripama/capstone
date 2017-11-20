@@ -2,7 +2,7 @@ const router = require('express').Router();
 const multer = require('multer');
 const { User, Activity } = require('../db/models');
 const { isUser, isAdmin } = require('../middleware/auth');
-const { gpxFilter } = require('../utils');
+const { gpxFilter, formatGpxForDatabase } = require('../utils');
 
 module.exports = router;
 
