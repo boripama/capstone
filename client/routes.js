@@ -28,12 +28,13 @@ class Routes extends Component {
             <Route path="/activity/:id" component={SingleActivity} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/activities" component={AllActivities} />
-            <Route path ="/user" component={UserProfile} />
+            
+            <Route path ="/users/:id" component={UserProfile} />
             {
               isLoggedIn &&
               <Switch>
                 {/* Routes placed here are only available after logging in */}
+                <Route path="/activities" component={AllActivities} />
                 <Route path="/home" component={UserHome} />
                 <Route path="/uploadActivity" component={UploadActivity} />
               </Switch>

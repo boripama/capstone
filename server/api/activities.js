@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Activity } = require('../db/models');
 const { User } = require('../db/models');
-const { isUser, isAdmin } = require('../middleware/auth')
+const { isUser, isAdmin } = require('../middleware/auth');
 module.exports = router;
 
 router.get('/', async (req, res, next) => {
@@ -13,14 +13,8 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    console.log('ID: ', req.params.id);
-    res.json(await Activity.findOne(
-      {
-        where: { id: req.params.id },
-        include:
-        [User]
-      }
-    ));
+    const activity = await Activity.findById(req.params.id, { include: [User] });
+    res.json(activity);
   }
   catch (err) { next(err); }
 });

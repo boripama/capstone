@@ -9,9 +9,11 @@
  *
  * Now that you've got the main idea, check it out in practice below!
  */
+const fs = require('fs');
 const db = require('../server/db');
 const { User } = require('../server/db/models');
 const { Activity } = require('../server/db/models');
+const { formatGpxForDatabase } = require('../server/utils');
 
 async function seed() {
   await db.sync({ force: true });
@@ -26,31 +28,30 @@ async function seed() {
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`);
+  await users[0].setFollower([2]);
+  await users[1].setFollower([1]);
 
+  const gpx1 = fs.readFileSync('./server/temp/chicago1.gpx');
+  const act1 = await formatGpxForDatabase(gpx1);
+  act1.title = 'Chicago Run 1';
+
+  const gpx2 = fs.readFileSync('./server/temp/chicago2.gpx');
+  const act2 = await formatGpxForDatabase(gpx2);
+  act2.title = 'Chicago Run 2';
+
+  const gpx3 = fs.readFileSync('./server/temp/california.gpx');
+  const act3 = await formatGpxForDatabase(gpx3);
+  act3.title = 'California Run';
 
   const activities = await Promise.all([
-    Activity.create(
-      {
-        title: 'CRAAAZY run',
-        totalDistance: 423.123,
-        polyline: '_p~iF~ps|U_ulLnnqC_mqNvxq`@',
-        startTime: Date.now(),
-        endTime: Date.now() + 1000
-      }
-    ),
-    Activity.create(
-      {
-        title: 'sort of crazy run',
-        totalDistance: 222.222,
-        polyline: '_p~iF~ps|U_ulLnnqC_mqNvxq`@',
-        startTime: Date.now(),
-        endTime: Date.now() + 1000
-      }
-    ),
+    Activity.create(act1),
+    Activity.create(act2),
+    Activity.create(act3)
   ]);
 
   await activities[0].setUser(1);
   await activities[1].setUser(2);
+  await activities[2].setUser(1);
 
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!

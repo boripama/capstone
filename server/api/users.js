@@ -1,10 +1,8 @@
 const router = require('express').Router();
 const multer = require('multer');
 const { User, Activity } = require('../db/models');
-const { isUser, isAdmin } = require('../middleware/auth')
-const { formatGpxForDatabase, gpxFilter } = require('../utils');
-
-
+const { isUser, isAdmin } = require('../middleware/auth');
+const { gpxFilter, formatGpxForDatabase } = require('../utils');
 
 module.exports = router;
 
@@ -22,9 +20,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id/activities', async (req, res, next) => {
   const userId = +req.params.id;
-  console.log('userId', userId, typeof userId);
   const activities = await Activity.findAll({ where: { userId: userId } });
-  console.log('act', activities);
   res.status(200).json(activities);
 });
 

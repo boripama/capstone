@@ -1,13 +1,20 @@
-const { convertGpxToArray,
+const {
+  gpxFilter,
+  convertGpxToArray,
   convertPointsToPolyline,
   convertPolylineToPoints,
   mapGpxArrayToPointsArray,
   formatGpxForDatabase,
 } = require('./gpxConvert');
-const { getStartTime, getEndTime, getDuration } = require('./gpxMetadata');
-const gpxFilter = require('./gpxFilter');
+const {
+  getStartTime,
+  getEndTime,
+  getDuration,
+  msToTimestamp
+} = require('./gpxMetadata');
 
 module.exports = {
+  gpxFilter,
   convertGpxToArray,
   convertPointsToPolyline,
   convertPolylineToPoints,
@@ -16,5 +23,5 @@ module.exports = {
   getStartTime,
   getEndTime,
   getDuration,
-  gpxFilter,
+  msToTimestamp,
 };

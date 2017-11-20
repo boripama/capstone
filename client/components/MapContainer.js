@@ -1,62 +1,42 @@
-import React, { Component } from 'react';
-import { Map, Marker, Polygon, GoogleApiWrapper } from 'google-maps-react';
-import axios from 'axios';
+import React from 'react';
+import polyline from '@mapbox/polyline';
+import {connect} from 'react-redux';
+import ReactMapboxGl, { Layer, Source } from 'react-mapbox-gl';
 
+const Map = ReactMapboxGl({
+  accessToken: 'pk.eyJ1IjoicGF0cmlja2d1bmQiLCJhIjoiY2o4YnF3em5hMDB3azMzc2Z0c2s4aXA0diJ9.lC8yZP6sxPbTeu9iW_UTkA'
+});
 
-export class MapContainer extends Component {
-  constructor() {
-    super();
-    this.state = {
-      routeCoords: []
-    };
-  }
-  componentDidMount() {
-    console.log('ROUUUTE: ', this.props.polyline);
-    // axios.post('/api/polydecoder', {polyline: this.props.polyline})
-    //   .then(data => {
-    //     this.setState({ routeCoords: data });
-    //   });
-    // not working yet but close
-  }
-  render() {
+const MapContainer = (props) => {
+  const coords = polyline.decode(props.poly);
+  const SOURCE_OPTIONS = {
+    type: 'geojson',
+    data: {
+      type: 'Feature',
+      properties: {},
+      geometry: {
+        type: 'LineString',
+        coordinates: coords
+      }
+    }};
+  return (
+    <Map
+      style="mapbox://styles/mapbox/streets-v9"
+      center={coords[0]}
+      containerStyle={{
+        height: '25vh',
+        width: '25vw'
+      }}>
+      <Source id="source_id" tileJsonSource={SOURCE_OPTIONS} />
+      <Layer
+        type="line" id="layer_id" sourceId="source_id" paint={{'line-color': '#888',
+          'line-width': 4}} />
+    </Map>
+  );
+};
 
-    // if (this.state.routeCoords.length) {
-    console.log('I AM A ROUTE COORD: ', this.state);
-    return (
+const MapState = null;
+const MapDispatch = null;
 
-      <Map google={this.props.google} zoom={14}>
+export default connect(MapState, MapDispatch)(MapContainer);
 
-        <Marker
-          onClick={this.onMarkerClick}
-          name={'Current location'} />
-
-      </Map>
-    );
-    // }
-    // else {
-    //   return null;
-    // }
-
-  }
-}
-
-export default GoogleApiWrapper({
-  apiKey: ('YAIzaSyCcF35bbRWUQbTvP4t7XkY62MS5JDJ_oZk')
-})(MapContainer);
-
-// <Map google={this.props.google} zoom={14}>
-//   style={{ width: '100%', height: '100%', position: 'relative' }}
-//   className={'map'}
-//   zoom={14}>
-//   {/* <Polygon
-//     paths={this.state.routeCoords}
-//     strokeColor="#0000FF"
-//     strokeOpacity={0.8}
-//     strokeWeight={2}
-//     fillColor="#0000FF"
-//     fillOpacity={0.35} />
-//   <Marker
-//     onClick={this.onMarkerClick}
-//     name={'Current location'} /> */}
-
-// </Map>

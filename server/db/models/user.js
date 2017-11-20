@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const Sequelize = require('sequelize');
 const db = require('../db');
+const { msToTimestamp } = require('../../utils');
 
 const User = db.define('user', {
   email: {
@@ -20,6 +21,20 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
+  },
+  totalDistance: {
+    type: Sequelize.FLOAT,
+    defaultValue: 0
+  },
+  totalTime: { // stored as milliseconds
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
+  totalTimeTimestamp: { // readable timestamp for display purposes
+    type: Sequelize.VIRTUAL,
+    get () {
+      return msToTimestamp(this.getDataValue('totalTime'));
+    }
   }
 });
 
@@ -30,6 +45,12 @@ module.exports = User;
  */
 User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt) === this.password;
+};
+
+User.prototype.updateTotals = function(activity) {
+  this.setDataValue('totalDistance', this.totalDistance + activity.distance);
+  this.setDataValue('totalTime', this.totalTime + activity.durationMs);
+  return this.save();
 };
 
 /**
