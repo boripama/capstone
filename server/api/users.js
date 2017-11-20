@@ -28,7 +28,7 @@ router.get('/:id/activities', async (req, res, next) => {
 const storage = multer.memoryStorage();
 const upload = multer({ storage, fileFilter: gpxFilter });
 
-router.post('/:id/activities', upload.single('gpx'),  async (req, res, next) => {
+router.post('/:id/activities', upload.single('gpx'), async (req, res, next) => {
   if (req.fileValidationError) { res.end(req.fileValidationError); }
 
   const userId = req.params.id;
