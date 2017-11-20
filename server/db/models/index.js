@@ -24,6 +24,9 @@ const Followers = db.define('followers', {
 // set relationship for join table
 User.belongsToMany(User, { as: 'follower', through: 'followers' });
 
+Activity.belongsToMany(User, {as: 'like', through: 'likes'});
+
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
