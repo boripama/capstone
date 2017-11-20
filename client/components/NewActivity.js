@@ -20,7 +20,8 @@ class NewActivity extends React.Component {
   handleClose = () => this.setState({ modalOpen: false });
 
  handleUpload = event => {
-   this.props.handleFileUpload(event, this.props.props.id);
+   console.log('userid', this.props.user.id);
+   this.props.handleFileUpload(event, this.props.user.id);
    this.handleClose();
  };
 
@@ -53,7 +54,7 @@ class NewActivity extends React.Component {
    );
  }
 }
-const mapState = null;
+const mapState = ({ user }) => ({ user });
 
 const mapDispatch = dispatch => {
   return {
