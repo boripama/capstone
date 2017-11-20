@@ -8,10 +8,11 @@ import {
   Grid,
   Statistic,
   Input,
+  Form,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { NewActivity } from './index';
-import { fetchUserActivities } from '../store';
+import { fetchUserActivities, updateUser } from '../store';
 
 // NOTES: The user data is being calculated in the render function of the React component.
 // this may need to be refactored if performance becomes an issue.
@@ -22,6 +23,12 @@ class UserProfile extends React.Component {
   }
   componentDidMount() {
     this.props.load(+this.props.match.params.id);
+  }
+  handleSubmit = (evt) => {
+    const id = +this.props.match.params.id;
+    // if (evt.target.about) this.props.update(id, { about: evt.target.about.value });
+    if (evt.target.email) this.props.update(id, { email: evt.target.email.value });
+    // if (evt.target.name) this.props.update(id, { name: evt.target.name.value });
   }
 
 
@@ -39,7 +46,7 @@ class UserProfile extends React.Component {
               </Segment>
               <Statistic.Group horizontal>
                 <Statistic>
-                  <Statistic.Value>{(activities.map(act => act.length).reduce((acc, val) => (acc + val))).toFixed(2)}</Statistic.Value>
+                  <Statistic.Value>{(activities.map(act => act.distance).reduce((acc, val) => (acc + val))).toFixed(2)}</Statistic.Value>
                   <Statistic.Label>Total Miles</Statistic.Label>
                 </Statistic>
                 <Statistic>
@@ -54,15 +61,19 @@ class UserProfile extends React.Component {
             </Grid.Column>
             <Grid.Column style={{ margin: '2em' }} width={4}>
               <Grid.Row style={{ padding: '2em 0em' }} >
-                <Input
-                  action="Update"
-                  placeholder="Update Name..." />
+                <Form width={1} onSubmit ={this.handleSubmit}>
+                  <Input name="name" action={<Button type="submit" >Update</Button>} placeholder="Update Name..." />
+                </Form>
               </Grid.Row>
               <Grid.Row style={{ padding: '2em 0em' }} >
-                <Input action="Update" placeholder="Update About Me..." />
+                <Form onSubmit ={this.handleSubmit}>
+                  <Input name="about" action={<Button type="submit" >Update</Button>} placeholder="Update About Me..." />
+                </Form>
               </Grid.Row>
               <Grid.Row style={{ padding: '2em 0em' }} >
-                <Input action="Update" placeholder="Update Email..." />
+                <Form onSubmit ={this.handleSubmit}>
+                  <Input name="email" action={<Button type="submit" >Update</Button>} placeholder="Update Email..." />
+                </Form>
               </Grid.Row>
             </Grid.Column>
             <Grid.Column  style={{ margin: '2em' }} width={4}>
@@ -80,7 +91,7 @@ class UserProfile extends React.Component {
               <Image src="../matthew.png" size="medium" circular />
               <Segment>
                 <Header> Matthew</Header>
-                <Button> Change Profile Picture</Button>
+                <Button name="profile"> Change Profile Picture</Button>
               </Segment>
               <Statistic.Group horizontal>
                 <Statistic>
@@ -131,6 +142,9 @@ const mapDispatch = dispatch => ({
   load: (id) => {
     dispatch(fetchUserActivities(id));
   },
+  update: (id, changes) => {
+    dispatch(updateUser(id, changes))
+  }
 });
 
 export default connect(mapState, mapDispatch)(UserProfile);

@@ -43,3 +43,10 @@ router.post('/:id/activities', upload.single('gpx'),  async (req, res, next) => 
 
   res.status(202).json(newActivity);
 });
+
+router.put('/:id', async (req, res, next) => {
+  const id = +req.params.id;
+  const user = await User.findById(id);
+  const result = await user.update(req.body);
+  res.status(202).json(result);
+});

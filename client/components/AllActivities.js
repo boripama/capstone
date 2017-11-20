@@ -36,7 +36,7 @@ class AllActivities extends Component {
                 <br />
                 <Container width={11}>
                   {
-                    this.props.activities.map(activity => {
+                    this.props.activities.slice(-10).map(activity => {
                       return (
                         <ActivityContainer key={activity.id} activity={activity}>{activity.title}</ActivityContainer>
                       );
