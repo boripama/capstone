@@ -17,7 +17,7 @@ const ActivityContainer = (props) => {
       </Header>
       <Grid columns={2}>
         <Grid.Column>
-          <MapContainer poly={props.activity.polyline} />
+          <MapContainer activity={props.activity} />
         </Grid.Column>
         <Grid.Column>
           <div>

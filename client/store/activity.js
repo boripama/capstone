@@ -47,9 +47,10 @@ export const deleteActivity = id => async dispatch => {
   catch (err) { console.error('Deleting activity unsuccessful', err); }
 };
 
-export const uploadFileRequest = (file, userId) => {
+export const uploadFileRequest = (file, userId, title) => {
   let data = new FormData();
   data.append('gpx', file);
+  data.append('title', title);
 
   return async dispatch => {
     try {
