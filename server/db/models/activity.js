@@ -58,7 +58,7 @@ Activity.prototype.decodePoly = function () {
 };
 
 Activity.prototype.getCenter = function () {
-  const points = this.decodePoly(this.polyline);
+  const points = this.decodePoly();
 
   const center = points.reduce((t, p) => [t[0] + p[0], t[1] + p[1]], [0, 0])
     .map(e => e / points.length);
@@ -74,7 +74,7 @@ Activity.prototype.getDistance = function (units) {
 };
 
 Activity.prototype.getGeoJSON = function () {
-  const points = this.decodePoly(this.polyline);
+  const points = this.decodePoly();
 
   return {
     type: 'Feature',
