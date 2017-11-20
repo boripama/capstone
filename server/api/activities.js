@@ -22,7 +22,7 @@ router.get('/:id', async (req, res, next) => {
 router.get('/:id/likes', async (req, res, next) => {
   try {
     const activity = await Activity.findById(req.params.id, { include: [User] });
-    const likes = await activity.getLikes();
+    const likes = await activity.getLike();
     res.json(likes);
   }
   catch (err) { next(err); }

@@ -50,14 +50,14 @@ async function seed() {
   ]);
 
   await activities[0].setUser(1);
-  await activities[0].setLike(1);
-  await activities[0].setLike(2);
+  await activities[0].addLike([1]);
+  await activities[0].addLike([2]);
   await activities[1].setUser(2);
-  await activities[1].setLike(1);
-  await activities[1].setLike(2);  
+  await activities[1].addLike([1]);
+  await activities[1].addLike([2]);
   await activities[2].setUser(1);
-  await activities[2].setLike(1);
-  await activities[2].setLike(2);
+  await activities[2].addLike([1]);
+  await activities[2].addLike([2]);
 
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
