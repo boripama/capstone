@@ -1,4 +1,5 @@
 const {
+  gpxFilter,
   convertGpxToArray,
   convertPointsToPolyline,
   convertPolylineToPoints,
@@ -11,9 +12,9 @@ const {
   getDuration,
   msToTimestamp
 } = require('./gpxMetadata');
-const gpxFilter = require('./gpxFilter');
 
 module.exports = {
+  gpxFilter,
   convertGpxToArray,
   convertPointsToPolyline,
   convertPolylineToPoints,
@@ -23,5 +24,4 @@ module.exports = {
   getEndTime,
   getDuration,
   msToTimestamp,
-  gpxFilter,
 };
