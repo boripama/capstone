@@ -70,6 +70,8 @@ const AuthForm = props => {
           </Form>
         </Grid.Column>
       </Grid>
+
+      <div className="testClass"><p> this is a test</p></div>
     </div>
   );
 };
