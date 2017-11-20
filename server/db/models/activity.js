@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const turf = require('turf-line-distance');
+const turf = require('turf');
 const db = require('../db');
 const {
   getDuration,
@@ -38,8 +38,14 @@ const Activity = db.define('activity', {
   },
   durationTimestamp: { // readable timestamp for display purposes
     type: Sequelize.VIRTUAL,
-    get () {
+    get() {
       return msToTimestamp(this.getDataValue('durationMs'));
+    }
+  },
+  pace: { // needs to be formatted
+    type: Sequelize.VIRTUAL,
+    get() {
+      return this.getDataValue('durationMs') / this.getDataValue('distance');
     }
   }
 });
@@ -47,11 +53,11 @@ const Activity = db.define('activity', {
 /**
  * instanceMethods
  */
-Activity.prototype.decodePoly = function() {
+Activity.prototype.decodePoly = function () {
   return convertPolylineToPoints(this.polyline);
 };
 
-Activity.prototype.getCenter = function() {
+Activity.prototype.getCenter = function () {
   const points = this.decodePoly(this.polyline);
   const lng = points.reduce((tot, p) => tot + p[0], 0) / points.length;
   const lat = points.reduce((tot, p) => tot + p[1], 0) / points.length;
@@ -60,20 +66,22 @@ Activity.prototype.getCenter = function() {
 };
 
 // units can be 'miles', 'kilometers', 'radians' or 'degrees'
-Activity.prototype.getDistance = function(units) {
+Activity.prototype.getDistance = function (units) {
+  const length = turf.lineDistance(this.getGeoJSON(), units);
+
+  return length;
+};
+
+Activity.prototype.getGeoJSON = function () {
   const points = this.decodePoly(this.polyline);
 
-  const line = {
+  return {
     type: 'Feature',
     geometry: {
       type: 'LineString',
       coordinates: points
     }
   };
-
-  const length = turf(line, units);
-
-  return length;
 };
 
 /**
