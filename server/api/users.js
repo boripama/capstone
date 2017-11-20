@@ -24,6 +24,15 @@ router.get('/:id/activities', async (req, res, next) => {
   res.status(200).json(activities);
 });
 
+router.get('/:id/likes', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const likes = await user.getActivities();
+    res.json(likes);
+  }
+  catch (err) { next(err); }
+});
+
 // multer config for POST route below
 const storage = multer.memoryStorage();
 const upload = multer({ storage, fileFilter: gpxFilter });
