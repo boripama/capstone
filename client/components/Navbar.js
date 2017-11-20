@@ -5,10 +5,16 @@ import {
   Container,
   Divider,
 } from 'semantic-ui-react';
+<<<<<<< HEAD
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { logout } from '../store/index';
+=======
+import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+
+>>>>>>> master
 
 /**
  * COMPONENT
@@ -17,11 +23,15 @@ import { logout } from '../store/index';
  *  rendered out by the component's `children`.
  */
 const Navbar = (props) => {
+<<<<<<< HEAD
   const {
     isLoggedIn,
     handleClick
   } = props;
 
+=======
+  const { user } = props;
+>>>>>>> master
   return (
     <Segment
       inverted
