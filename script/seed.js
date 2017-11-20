@@ -28,6 +28,8 @@ async function seed() {
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`);
+  await users[0].setFollower([2]);
+  await users[1].setFollower([1]);
 
 
   const activities = await Promise.all([
