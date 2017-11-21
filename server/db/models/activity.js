@@ -47,6 +47,14 @@ const Activity = db.define('activity', {
     get() {
       return this.getDataValue('durationMs') / this.getDataValue('distance');
     }
+  },
+  paceTimestamp: {
+    type: Sequelize.VIRTUAL,
+    get() {
+      const duration = this.getDataValue('durationMs');
+      const distance = this.getDataValue('distance');
+      return msToTimestamp((duration / distance));
+    }
   }
 });
 
