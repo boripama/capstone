@@ -19,15 +19,6 @@ router.get('/:id', async (req, res, next) => {
   catch (err) { next(err); }
 });
 
-router.get('/:id/likes', async (req, res, next) => {
-  try {
-    const activity = await Activity.findById(req.params.id);
-    const likes = await activity.getLike();
-    res.json(likes);
-  }
-  catch (err) { next(err); }
-});
-
 router.post('/', async (req, res, next) => {
   try {
     let activity = await Activity.create(req.body.activity);
@@ -45,3 +36,14 @@ router.delete('/:id', async (req, res, next) => {
 
   res.sendStatus(204);
 });
+
+//likes
+router.get('/:id/likes', async (req, res, next) => {
+  try {
+    const activity = await Activity.findById(req.params.id);
+    const likes = await activity.getLikes();
+    res.json(likes);
+  }
+  catch (err) { next(err); }
+});
+

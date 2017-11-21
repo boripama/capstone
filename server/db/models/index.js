@@ -21,14 +21,14 @@ const Followers = db.define('followers', {
   },
 });
 
-const Likes = db.define('likes', {
+const Like = db.define('like', {
 });
 
 // set relationship for join table
 User.belongsToMany(User, { as: 'follower', through: 'followers' });
 
-Activity.belongsToMany(User, { as: 'like', through: 'likes' });
-
+Activity.belongsToMany(User, { as: 'likes', through: 'like' });
+User.belongsToMany(Activity, { as: 'likes', through: 'like' });
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -40,5 +40,5 @@ module.exports = {
   User,
   Activity,
   Followers,
-  Likes,
+  Like,
 };
