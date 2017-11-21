@@ -7,10 +7,10 @@ import {
   Form,
   Input,
 } from 'semantic-ui-react';
-import { uploadFileRequest } from '../store';
+import { updateUser } from '../store';
 import { connect } from 'react-redux';
 
-class NewActivity extends React.Component {
+class ChangeImage extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -19,27 +19,26 @@ class NewActivity extends React.Component {
 
   handleClose = () => this.setState({ modalOpen: false });
 
- handleUpload = event => {
-   this.props.handleFileUpload(event, this.props.user.id);
+ handleChange = evt => {
+   console.log(evt.target.picture.value);
+   this.props.update(this.props.user.id, { image: evt.target.picture.value });
    this.handleClose();
  };
 
  render() {
    return (
      <Modal
-       trigger={<Button onClick={this.handleOpen}>Upload .gpx Files</Button>}
+       trigger={<Button onClick={this.handleOpen}>Change Profile Picture</Button>}
        open={this.state.modalOpen}
        onClose={this.handleClose}
        size="small"
      >
-       <Header icon="browser" content="Add Activity Data" />
+       <Header icon="browser" content="Change Profile Picutre" />
        <Modal.Content>
          <Modal.Description>
-           <h3>New Activity Info:</h3>
-           <Form onSubmit={this.handleUpload}>
-             <Input fluid name="title" label="Title" placeholder="Activity Title" />
-             <h3>Upload Your .gpx File:</h3>
-             <Input fluid name="gpx"><input type="file" /></Input>
+           <h3>New Profile Picutre:</h3>
+           <Form onSubmit={this.handleChange}>
+             <Input fluid name="picture" label="Picture URL" placeholder="Picture URL" />
              <Button type="submit" size="large" positive>Submit Activity</Button>
            </Form>
          </Modal.Description>
@@ -57,11 +56,9 @@ const mapState = ({ user }) => ({ user });
 
 const mapDispatch = dispatch => {
   return {
-    handleFileUpload: (event, userId) => {
-      const file = event.target.gpx.files[0];
-      const title = event.target.title.value;
-      dispatch(uploadFileRequest(file, userId, title));
+    update: (id, changes) => {
+      dispatch(updateUser(id, changes));
     }
   };
 };
-export default connect(mapState, mapDispatch)(NewActivity);
+export default connect(mapState, mapDispatch)(ChangeImage);

@@ -8,7 +8,8 @@ const Map = ReactMapboxGl({
 });
 
 const MapContainer = (props) => {
-  const coords = polyline.decode(props.poly);
+  const coords = polyline.decode(props.activity.polyline);
+
   const SOURCE_OPTIONS = {
     type: 'geojson',
     data: {

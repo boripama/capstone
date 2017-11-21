@@ -18,7 +18,7 @@ const matchByIntersects = (act1, act2) => {
 
   const averageIntersecting =
     ((numIntersects / numPointsLine1)
-    + (numIntersects / numPointsLine2)) / 2;
+      + (numIntersects / numPointsLine2)) / 2;
 
   // console.log('intersects test', averageIntersecting);
 
@@ -26,19 +26,29 @@ const matchByIntersects = (act1, act2) => {
 };
 
 // FOR TESTING PURPOSES
-const { Activity } = require('../../db/models');
+const { Activity, User } = require('../../db/models');
 
 const testFunc = async () => {
-  const activity1 = await Activity.findById(1);
-  const activity2 = await Activity.findById(3);
+  try {
+    const activity1 = await Activity.findById(1);
+    const activity2 = await Activity.findById(3);
+    const user1 = await User.findById(1);
 
-  console.log('match by center test', matchByCenter(activity1.center, activity2.center));
+    console.log(user1.totalTimeTimestamp);
 
-  console.log('intersection test', matchByIntersects(activity1, activity2));
+    // const comments = await activity1.getComments({
+      // include: [{model: User, attributes: ['name', 'email']} ]});
 
-  // const overlaps = turf.lineOverlap(line1, line2);
-  // console.log('overlap test', overlaps);
+    // console.log(comments);
 
+    // console.log('match by center test', matchByCenter(activity1.center, activity2.center));
+
+    // console.log('intersection test', matchByIntersects(activity1, activity2));
+
+    // const overlaps = turf.lineOverlap(line1, line2);
+    // console.log('overlap test', overlaps);
+  }
+  catch (err) { console.error(err); }
 };
 
 testFunc();

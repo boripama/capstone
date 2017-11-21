@@ -5,7 +5,6 @@
  */
 export { default as Main } from './Main';
 export { default as UserHome } from './UserHome';
-export { default as UploadActivity } from './UploadActivity';
 export { default as SingleActivity } from './SingleActivity';
 export { default as AllActivities } from './AllActivities';
 export { default as Navbar } from './Navbar';
@@ -16,6 +15,8 @@ export { default as Comments } from './Comments';
 export { default as MapContainer } from './MapContainer';
 export { default as UserProfile } from './UserProfile';
 export { default as NewActivity } from './NewActivity';
+export { default as FriendCard } from './FriendCard';
+export { default as ChangeImage } from './ChangeImage';
 export { Login } from './Login';
 export { Signup } from './Signup';
 

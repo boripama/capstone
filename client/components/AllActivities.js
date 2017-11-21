@@ -5,23 +5,21 @@ import {
 } from 'semantic-ui-react';
 import { ProfileCard, FriendGroup, ActivityContainer } from './index';
 import { connect } from 'react-redux';
-import { fetchActivities } from '../store';
+import { fetchActivities, fetchSuggested } from '../store';
 
 
 class AllActivities extends Component {
   constructor() {
     super();
-    this.state = {
-
-    };
   }
 
   componentDidMount() {
-    this.props.fetchActivitiesData();
+    this.props.fetchData();
   }
 
   render() {
-    if (this.props.activities[0]) {
+    const {activities, suggested} = this.props;
+    if (activities[0]) {
       return (
         <div>
           <Grid centered columns={2}>
@@ -30,13 +28,13 @@ class AllActivities extends Component {
             </Grid.Column>
             <Grid.Column width={11}>
               <Grid.Row>
-                <FriendGroup />
+                <FriendGroup suggested={suggested} />
               </Grid.Row>
               <Grid.Row>
                 <br />
                 <Container width={11}>
                   {
-                    this.props.activities.map(activity => {
+                    activities.slice(-10).map(activity => {
                       return (
                         <ActivityContainer key={activity.id} activity={activity}>{activity.title}</ActivityContainer>
                       );
@@ -55,16 +53,13 @@ class AllActivities extends Component {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
-  return {
-    activities: state.activities
-  };
-};
+const mapState = ({activities, suggested}) => ({activities, suggested});
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchActivitiesData: () => {
+    fetchData: () => {
       dispatch(fetchActivities());
+      dispatch(fetchSuggested());
     }
   };
 };

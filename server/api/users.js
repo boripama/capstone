@@ -11,13 +11,20 @@ router.get('/', (req, res, next) => {
     // explicitly select only the id and email fields - even though
     // users' passwords are encrypted, it won't help if we just
     // send everything to anyone who asks!
-    attributes: ['id', 'email']
+    attributes: {exclude: ['password', 'salt', 'googleId']}
   })
     .then(users => res.json(users))
     .catch(next);
 });
 
+router.put('/:id', async (req, res, next) => {
+  const id = +req.params.id;
+  const user = await User.findById(id);
+  const result = await user.update(req.body);
+  res.status(202).json(result);
+});
 
+// ACTIVITIES ROUTES
 router.get('/:id/activities', async (req, res, next) => {
   const userId = +req.params.id;
   const activities = await Activity.findAll({ where: { userId: userId } });
@@ -46,10 +53,21 @@ router.post('/:id/activities', upload.single('gpx'), async (req, res, next) => {
   const file = req.file.buffer;
 
   const activityInfo = await formatGpxForDatabase(file);
+  activityInfo.title = req.body.title;
 
   const newActivity = await Activity.create(activityInfo);
 
   newActivity.setUser(userId);
 
-  res.status(202).json(newActivity);
+  res.status(201).json(newActivity);
+});
+
+// COMMENTS ROUTES
+router.get('/:id/comments', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const comments = await user.getComments({ include: Activity });
+    res.json(comments);
+  }
+  catch (err) { next(err); }
 });

@@ -30,9 +30,31 @@ const User = db.define('user', {
     type: Sequelize.INTEGER,
     defaultValue: 0
   },
+  zip: {
+    type: Sequelize.INTEGER,
+    validate: {
+      isZip(value) {
+        if ((value + '').length !== 5) {
+          throw new Error('Zip must be 5 digits')
+        }
+      }
+    }
+  },
+  name: {
+    type: Sequelize.STRING,
+    defaultValue: null
+  },
+  image: {
+    type: Sequelize.STRING,
+    defaultValue: 'http://localhost:8080/matthew.png',
+  },
+  aboutMe: {
+    type: Sequelize.TEXT,
+    defaultValue: null
+  },
   totalTimeTimestamp: { // readable timestamp for display purposes
     type: Sequelize.VIRTUAL,
-    get () {
+    get() {
       return msToTimestamp(this.getDataValue('totalTime'));
     }
   }
@@ -47,7 +69,7 @@ User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt) === this.password;
 };
 
-User.prototype.updateTotals = function(activity) {
+User.prototype.updateTotals = function (activity) {
   this.setDataValue('totalDistance', this.totalDistance + activity.distance);
   this.setDataValue('totalTime', this.totalTime + activity.durationMs);
   return this.save();
