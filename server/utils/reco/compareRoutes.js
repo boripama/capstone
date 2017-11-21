@@ -34,13 +34,6 @@ const testFunc = async () => {
     const activity2 = await Activity.findById(3);
     const user1 = await User.findById(1);
 
-    // const comments = await activity1.getComments();
-    // const followers = await user1.getFollowers();
-    // const userComments = await user1.getComments();
-    const activityComments = await activity1.getComments();
-    // console.log('user comments test', userComments);
-    console.log('activity comments test', activityComments);
-
     // console.log('match by center test', matchByCenter(activity1.center, activity2.center));
 
     // console.log('intersection test', matchByIntersects(activity1, activity2));
