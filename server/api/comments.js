@@ -22,9 +22,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    const comment = await Comment.findById(req.params.id, {
-      include: [{ model: User, attributes: ['id', 'name', 'email'] }]
-    });
+    const comment = await Comment.findById(req.params.id);
     const newComment = comment.update(req.body);
     res.status(202).json(newComment);
   }
