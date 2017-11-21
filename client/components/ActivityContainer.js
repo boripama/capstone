@@ -8,29 +8,33 @@ import {
 import { Comments, MapContainer } from './index';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchLikes } from '../store';
 
 
 class ActivityContainer extends Component {
   constructor() {
     super();
-    this.state = {
-      liked: false
-    };
   }
 
   componentDidMount() {
-    this.fetchLikesData(this.props.activity.id);
+    // this.props.activity.likes.forEach(like => {
+    //   console.log("state user: ", this.props.user);
+    //   if (like.id === this.props.user.id) {
+    //     this.setState({ liked: true });
+    //   }
+    // });
+
   }
 
   addLike() {
     this.setState({ liked: true });
-    axios.post('/api/activities/:id/likes', this.props.activity, this.state.user.id);
+    this.props.activity.likes.push(this.props.user);
+    axios.post('/api/activities/:id/likes', { activityId: this.props.activity.id, userId: this.props.user.id });
   }
 
   removeLike() {
     this.setState({ liked: false });
-    axios.delete('/api/activities/:id/likes', { activityId: this.props.activity.id, userId: this.state.user.id });
+    this.props.activity.likes.delete(this.props.user);
+    axios.delete('/api/activities/:id/likes', { activityId: this.props.activity.id, userId: this.props.user.id });
   }
 
   render() {
@@ -56,10 +60,20 @@ class ActivityContainer extends Component {
               <Header size="small">Miles: </Header> {this.props.activity.distance} miles
             </div>
             {
-              this.state.liked
+              this.props.liked
                 ? <button onClick={this.removeLike}>Unlike</button>
                 : <button onClick={this.addLike}>Like</button>
             }
+            <div>
+              <Header size="small">Likes: </Header>
+              {
+                this.props.activity.likes.map(like => {
+                  return (
+                    <small key={like.id} > {like.email} </small>
+                  );
+                })
+              }
+            </div>
           </Grid.Column>
         </Grid>
         <Comments />
@@ -69,20 +83,24 @@ class ActivityContainer extends Component {
 }
 
 
-const mapState = (state) => {
+const mapState = (state, ownProps) => {
   return {
     user: state.user,
-    likes: state.likes
+    liked: ownProps.activity.likes.some(like => {
+      return like.id === state.user.id;
+    })
   };
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    fetchLikesData: (activityId) => {
-      dispatch(fetchLikes(activityId));
-    }
-  };
-};
+// const mapDispatch = (dispatch) => {
+//   return {
+//     fetchLikesData: (activityId) => {
+//       dispatch(fetchLikes(activityId));
+//     }
+//   };
+// }; moving to eager loading on activity
+
+const mapDispatch = null;
 
 
 export default connect(mapState, mapDispatch)(ActivityContainer);

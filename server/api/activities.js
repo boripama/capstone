@@ -1,19 +1,30 @@
 const router = require('express').Router();
-const { Activity } = require('../db/models');
+const { Activity, Like } = require('../db/models');
 const { User } = require('../db/models');
 const { isUser, isAdmin } = require('../middleware/auth');
 module.exports = router;
 
 router.get('/', async (req, res, next) => {
   try {
-    res.json(await Activity.findAll({ include: [User] }));
+    const activities = await Activity.findAll({ include: [User, { model: User, as: 'likes' }] });
+    // activities.map(async activity => {
+    //   const likes = await activity.getLikes();
+    //   console.log('LIKES!!! ', likes);
+    //   activity.likes = likes;
+    // });
+    // activities.forEach( async activity => {
+    //   await activity.getLikes();
+    // });
+    res.json(activities);
   }
   catch (err) { next(err); }
 });
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const activity = await Activity.findById(req.params.id, { include: [User] });
+    const activity = await Activity.findById(req.params.id, { include: [User, { model: User, as: 'likes' }] });
+    // activity.dataValues.likes = await activity.getLikes();
+    // console.log('activity.likes ', activity);
     res.json(activity);
   }
   catch (err) { next(err); }
