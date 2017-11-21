@@ -11,8 +11,7 @@
  */
 const fs = require('fs');
 const db = require('../server/db');
-const { User } = require('../server/db/models');
-const { Activity } = require('../server/db/models');
+const { User, Activity, Comment, Follower } = require('../server/db/models');
 const { formatGpxForDatabase } = require('../server/utils');
 
 async function seed() {
@@ -23,13 +22,14 @@ async function seed() {
 
   const users = await Promise.all([
     User.create({ email: 'cody@email.com', password: '123' }),
+    User.create({ email: 'zeke@email.com', password: '123' }),
     User.create({ email: 'murphy@email.com', password: '123' })
   ]);
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`);
-  await users[0].setFollower([2]);
-  await users[1].setFollower([1]);
+  await users[0].addFollowers([2, 3]);
+  await users[1].addFollower(1);
 
   const gpx1 = fs.readFileSync('./server/temp/chicago1.gpx');
   const act1 = await formatGpxForDatabase(gpx1);
@@ -53,10 +53,16 @@ async function seed() {
   await activities[1].setUser(2);
   await activities[2].setUser(1);
 
-  // Wowzers! We can even `await` on the right-hand side of the assignment operator
-  // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${activities.length} activities`);
 
+  const comments = await Promise.all([
+    Comment.create({ activityId: 1, userId: 2, content: "Whoa that's fast!" }),
+    Comment.create({ activityId: 1, userId: 1, content: "Yeah it was a good workout" }),
+    Comment.create({ activityId: 2, userId: 3, content: "Speed up next time :)" }),
+    Comment.create({ activityId: 2, userId: 1, content: "Don't listen to User 3, you're fast!" }),
+  ]);
+
+  console.log(`seeded ${comments.length} comments`);
 
   console.log(`seeded successfully`);
 }
