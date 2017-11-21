@@ -11,10 +11,22 @@ const Activity = require('./activity');
  *    BlogPost.belongsTo(User)
  */
 
-Activity.belongsTo(User);
+
+const Comment = db.define('comment', {
+  content: Sequelize.TEXT,
+});
+
+Activity.hasMany(Comment);
+User.hasMany(Comment);
+
+Comment.belongsTo(User);
+Comment.belongsTo(Activity);
+
+// activity ownership
+Activity.belongsTo(User, { through: 'activity' });
 
 // define custom fields on join table
-const Followers = db.define('followers', {
+const Follower = db.define('follower', {
   status: {
     type: Sequelize.ENUM('allowed', 'ignored', 'blocked'),
     defaultValue: 'allowed',
@@ -22,7 +34,7 @@ const Followers = db.define('followers', {
 });
 
 // set relationship for join table
-User.belongsToMany(User, { as: 'follower', through: 'followers' });
+User.belongsToMany(User, { as: 'followers', through: 'follower' });
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -33,5 +45,6 @@ User.belongsToMany(User, { as: 'follower', through: 'followers' });
 module.exports = {
   User,
   Activity,
-  Followers,
+  Comment,
+  Follower,
 };
