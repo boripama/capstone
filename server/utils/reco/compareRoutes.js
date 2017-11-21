@@ -34,6 +34,13 @@ const testFunc = async () => {
     const activity2 = await Activity.findById(3);
     const user1 = await User.findById(1);
 
+    console.log(user1.totalTimeTimestamp);
+
+    // const comments = await activity1.getComments({
+      // include: [{model: User, attributes: ['name', 'email']} ]});
+
+    // console.log(comments);
+
     // console.log('match by center test', matchByCenter(activity1.center, activity2.center));
 
     // console.log('intersection test', matchByIntersects(activity1, activity2));
