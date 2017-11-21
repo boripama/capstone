@@ -1,11 +1,5 @@
 const router = require('express').Router();
-<<<<<<< HEAD
-const { Activity, Like } = require('../db/models');
-const { User } = require('../db/models');
-=======
-const { Activity, User, Comment } = require('../db/models');
->>>>>>> master
-const { isUser, isAdmin } = require('../middleware/auth');
+const { Activity, User, Like, Comment } = require('../db/models');
 module.exports = router;
 
 router.get('/', async (req, res, next) => {
@@ -51,7 +45,6 @@ router.delete('/:id', async (req, res, next) => {
   res.sendStatus(204);
 });
 
-<<<<<<< HEAD
 //likes
 router.get('/:id/likes', async (req, res, next) => {
   try {
@@ -65,22 +58,10 @@ router.get('/:id/likes', async (req, res, next) => {
 router.post('/:id/like', async (req, res, next) => {
   try {
     res.json(await Like.create({ activityId: req.params.id, userId: req.user.id }));
-=======
-// COMMENTS ROUTES
-
-router.get('/:id/comments', async (req, res, next) => {
-  try {
-    const activity = await Activity.findById(req.params.id, { include: [User] });
-    const comments = await activity.getComments({
-      include: [{ model: User, attributes: ['id', 'name', 'email'] }]
-    });
-    res.json(comments);
->>>>>>> master
   }
   catch (err) { next(err); }
 });
 
-<<<<<<< HEAD
 router.delete('/:id/like', async (req, res, next) => {
   try {
     await Like.destroy({ where: { activityId: req.params.id, userId: req.user.id } });
@@ -89,7 +70,20 @@ router.delete('/:id/like', async (req, res, next) => {
   catch (err) { next(err); }
 });
 
-=======
+// COMMENTS ROUTES
+
+
+router.get('/:id/comments', async (req, res, next) => {
+  try {
+    const activity = await Activity.findById(req.params.id, { include: [User] });
+    const comments = await activity.getComments({
+      include: [{ model: User, attributes: ['id', 'name', 'email'] }]
+    });
+    res.json(comments);
+  }
+  catch (err) { next(err); }
+});
+
 router.post('/:id/comments', async (req, res, next) => {
   try {
     req.body.activityId = req.params.id;
@@ -98,4 +92,3 @@ router.post('/:id/comments', async (req, res, next) => {
   }
   catch (err) { next(err); }
 });
->>>>>>> master
