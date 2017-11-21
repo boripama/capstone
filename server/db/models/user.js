@@ -40,6 +40,18 @@ const User = db.define('user', {
       }
     }
   },
+  name: {
+    type: Sequelize.STRING,
+    defaultValue: null
+  },
+  image: {
+    type: Sequelize.STRING,
+    defaultValue: 'http://localhost:8080/matthew.png',
+  },
+  aboutMe: {
+    type: Sequelize.TEXT,
+    defaultValue: null
+  },
   totalTimeTimestamp: { // readable timestamp for display purposes
     type: Sequelize.VIRTUAL,
     get() {

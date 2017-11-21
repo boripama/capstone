@@ -16,6 +16,7 @@ export { default as MapContainer } from './MapContainer';
 export { default as UserProfile } from './UserProfile';
 export { default as NewActivity } from './NewActivity';
 export { default as FriendCard } from './FriendCard';
+export { default as ChangeImage } from './ChangeImage';
 export { Login } from './Login';
 export { Signup } from './Signup';
 
