@@ -27,6 +27,7 @@ class ActivityContainer extends Component {
   }
 
   render() {
+    console.log('ACTIVITY: ', this.props.activity);
     return (
       <Segment>
         <Header size="large">
@@ -34,7 +35,7 @@ class ActivityContainer extends Component {
         </Header>
         <Grid columns={2}>
           <Grid.Column>
-            <MapContainer poly={this.props.activity.polyline} />
+            <MapContainer activity={this.props.activity} />
           </Grid.Column>
           <Grid.Column>
             <div>
