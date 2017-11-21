@@ -13,28 +13,17 @@ import { Link } from 'react-router-dom';
 class ActivityContainer extends Component {
   constructor() {
     super();
+    this.removeLike = this.removeLike.bind(this);
+    this.addLike = this.addLike.bind(this);
   }
 
-  componentDidMount() {
-    // this.props.activity.likes.forEach(like => {
-    //   console.log("state user: ", this.props.user);
-    //   if (like.id === this.props.user.id) {
-    //     this.setState({ liked: true });
-    //   }
-    // });
-
-  }
 
   addLike() {
-    this.setState({ liked: true });
-    this.props.activity.likes.push(this.props.user);
-    axios.post('/api/activities/:id/likes', { activityId: this.props.activity.id, userId: this.props.user.id });
+    axios.post(`/api/activities/${this.props.activity.id}/like`);
   }
 
   removeLike() {
-    this.setState({ liked: false });
-    this.props.activity.likes.delete(this.props.user);
-    axios.delete('/api/activities/:id/likes', { activityId: this.props.activity.id, userId: this.props.user.id });
+    axios.delete(`/api/activities/${this.props.activity.id}/like`);
   }
 
   render() {
@@ -88,7 +77,7 @@ const mapState = (state, ownProps) => {
     user: state.user,
     liked: ownProps.activity.likes.some(like => {
       return like.id === state.user.id;
-    })
+    }),
   };
 };
 

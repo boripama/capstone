@@ -58,3 +58,18 @@ router.get('/:id/likes', async (req, res, next) => {
   catch (err) { next(err); }
 });
 
+router.post('/:id/like', async (req, res, next) => {
+  try {
+    res.json(await Like.create({ activityId: req.params.id, userId: req.user.id }));
+  }
+  catch (err) { next(err); }
+});
+
+router.delete('/:id/like', async (req, res, next) => {
+  try {
+    await Like.destroy({ where: { activityId: req.params.id, userId: req.user.id } });
+    res.sendStatus(204);
+  }
+  catch (err) { next(err); }
+});
+
