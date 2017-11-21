@@ -20,7 +20,6 @@ class NewActivity extends React.Component {
   handleClose = () => this.setState({ modalOpen: false });
 
  handleUpload = event => {
-   console.log('userid', this.props.user.id);
    this.props.handleFileUpload(event, this.props.user.id);
    this.handleClose();
  };

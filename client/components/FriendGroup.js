@@ -5,57 +5,17 @@ import {
   Button,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { FriendCard } from './index';
 
-const FriendGroup = () => {
+const FriendGroup = (props) => {
+  const { suggested } = props;
+
   return (
-    <Card.Group>
-      <Card>
-        <Card.Content>
-          <Image floated="right" size="mini" src="matthew.png" />
-          <Card.Header>Steve Sanders</Card.Header>
-          <Card.Meta>Friends of Elliot</Card.Meta>
-          <Card.Description>
-                      Steve wants to add you to the group <strong>best friends</strong>
-          </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <div className="ui two buttons">
-            <Button basic color="green">Approve</Button>
-            <Button basic color="red">Decline</Button>
-          </div>
-        </Card.Content>
-      </Card>
-      <Card>
-        <Card.Content>
-          <Image floated="right" size="mini" src="matthew.png" />
-          <Card.Header>Molly Thomas</Card.Header>
-          <Card.Meta>New User</Card.Meta>
-          <Card.Description>
-                      Molly wants to add you to the group <strong>musicians</strong>
-          </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <div className="ui two buttons">
-            <Button basic color="green">Approve</Button>
-            <Button basic color="red">Decline</Button>
-          </div>
-        </Card.Content>
-      </Card>
-      <Card>
-        <Card.Content>
-          <Image floated="right" size="mini" src="matthew.png" />
-          <Card.Header>Jenny Lawrence</Card.Header>
-          <Card.Meta>New User</Card.Meta>
-          <Card.Description>Jenny requested permission to view your contact details</Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <div className="ui two buttons">
-            <Button basic color="green">Approve</Button>
-            <Button basic color="red">Decline</Button>
-          </div>
-        </Card.Content>
-      </Card>
-    </Card.Group>
+    suggested.length ?
+      (<Card.Group>
+        {suggested.slice(-3).map(sug => <FriendCard key ={sug.id} sug={sug} />)}
+      </Card.Group>
+      ) : <div />
   );
 
 };
@@ -65,3 +25,5 @@ const mapState = null;
 const mapDispatch = null;
 
 export default connect(mapState, mapDispatch)(FriendGroup);
+
+//* <FriendCard props={users[0]} /> //*}

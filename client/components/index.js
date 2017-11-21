@@ -15,6 +15,7 @@ export { default as Comments } from './Comments';
 export { default as MapContainer } from './MapContainer';
 export { default as UserProfile } from './UserProfile';
 export { default as NewActivity } from './NewActivity';
+export { default as FriendCard } from './FriendCard';
 export { Login } from './Login';
 export { Signup } from './Signup';
 
