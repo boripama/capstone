@@ -143,7 +143,7 @@ const mapDispatch = dispatch => ({
     dispatch(fetchUserActivities(id));
   },
   update: (id, changes) => {
-    dispatch(updateUser(id, changes))
+    dispatch(updateUser(id, changes));
   }
 });
 

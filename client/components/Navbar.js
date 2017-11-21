@@ -19,7 +19,8 @@ import { logout } from '../store/index';
 const Navbar = (props) => {
   const {
     isLoggedIn,
-    handleClick
+    handleClick,
+    user,
   } = props;
 
   return (
@@ -44,7 +45,7 @@ const Navbar = (props) => {
           }
           <Menu.Item as={Link} to="/uploadActivity">Upload Activity</Menu.Item>
           <Menu.Item as={Link} to="/activities">Activities</Menu.Item>
-          <Menu.Item as={Link} to="/user">Account</Menu.Item>
+          <Menu.Item as={Link} to={`/users/${user.id}`}>Account</Menu.Item>
         </Menu>
       </Container>
       <Divider inverted />
@@ -52,11 +53,7 @@ const Navbar = (props) => {
   );
 };
 
-const mapState = (state) => {
-  return {
-
-  }
-}
+const mapState = ({ user }) => ({ user });
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
