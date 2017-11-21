@@ -1,13 +1,15 @@
 const router = require('express').Router();
-const { Activity, User, Comment } = require('../db/models');
-const { isUser, isAdmin } = require('../middleware/auth');
+const { Activity, User, Like, Comment } = require('../db/models');
 module.exports = router;
 
 router.get('/', async (req, res, next) => {
   try {
     res.json(await Activity.findAll({
-      include: [{ model: User, attributes: ['id', 'name', 'email'] }]
-    }));
+      include: [
+        { model: User, attributes: ['id', 'name', 'email'] },
+        { model: User, as: 'likes' }]
+    })
+    );
   }
   catch (err) { next(err); }
 });
@@ -15,7 +17,10 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const activity = await Activity.findById(req.params.id, {
-      include: [{ model: User, attributes: ['id', 'name', 'email'] }]
+      include: [
+        { model: User, attributes: ['id', 'name', 'email'] },
+        { model: User, as: 'likes' }
+      ]
     });
     res.json(activity);
   }
@@ -40,7 +45,33 @@ router.delete('/:id', async (req, res, next) => {
   res.sendStatus(204);
 });
 
+//likes
+router.get('/:id/likes', async (req, res, next) => {
+  try {
+    const activity = await Activity.findById(req.params.id);
+    const likes = await activity.getLikes();
+    res.json(likes);
+  }
+  catch (err) { next(err); }
+});
+
+router.post('/:id/like', async (req, res, next) => {
+  try {
+    res.json(await Like.create({ activityId: req.params.id, userId: req.user.id }));
+  }
+  catch (err) { next(err); }
+});
+
+router.delete('/:id/like', async (req, res, next) => {
+  try {
+    await Like.destroy({ where: { activityId: req.params.id, userId: req.user.id } });
+    res.sendStatus(204);
+  }
+  catch (err) { next(err); }
+});
+
 // COMMENTS ROUTES
+
 
 router.get('/:id/comments', async (req, res, next) => {
   try {

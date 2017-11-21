@@ -50,8 +50,16 @@ async function seed() {
   ]);
 
   await activities[0].setUser(1);
+  await activities[0].addLike(1);
+  await activities[0].addLike(2);
+
   await activities[1].setUser(2);
+  await activities[1].addLike(1);
+  await activities[1].addLike(2);
+
   await activities[2].setUser(1);
+  await activities[2].addLike(1);
+  await activities[2].addLike(2);
 
   console.log(`seeded ${activities.length} activities`);
 

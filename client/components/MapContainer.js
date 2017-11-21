@@ -1,6 +1,6 @@
 import React from 'react';
 import polyline from '@mapbox/polyline';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import ReactMapboxGl, { Layer, Source } from 'react-mapbox-gl';
 
 const Map = ReactMapboxGl({
@@ -19,7 +19,8 @@ const MapContainer = (props) => {
         type: 'LineString',
         coordinates: coords
       }
-    }};
+    }
+  };
   return (
     <Map
       style="mapbox://styles/mapbox/streets-v9"
@@ -30,8 +31,10 @@ const MapContainer = (props) => {
       }}>
       <Source id="source_id" tileJsonSource={SOURCE_OPTIONS} />
       <Layer
-        type="line" id="layer_id" sourceId="source_id" paint={{'line-color': '#888',
-          'line-width': 4}} />
+        type="line" id="layer_id" sourceId="source_id" paint={{
+          'line-color': '#888',
+          'line-width': 4
+        }} />
     </Map>
   );
 };
