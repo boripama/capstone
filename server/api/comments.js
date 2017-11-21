@@ -5,7 +5,7 @@ module.exports = router;
 
 router.get('/', isAdmin, async (req, res, next) => {
   try {
-    res.json(await Activity.findAll({ include: [User] }));
+    res.json(await Comment.findAll({ include: [User] }));
   }
   catch (err) { next(err); }
 });
