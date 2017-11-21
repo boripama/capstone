@@ -11,7 +11,7 @@ const Comments = (props) =>  {
       { comments &&
       comments.map((comment) => (
         <Comment key={comment.id}>
-          <Comment.Avatar as="a" src="matthew.png" />
+          <Comment.Avatar as="a" src={comment.user.imageUrl} />
           <Comment.Content>
             { /* import and use Link from React-Router */ }
             <Comment.Author as="a">{comment.user.name}</Comment.Author>
@@ -37,7 +37,8 @@ const dummyComments = [
     content: 'Nice work! Great time, too',
     user: {
       id: 1,
-      name: 'Doug'
+      name: 'Doug',
+      imageUrl: 'matthew.png'
     }
   },
   {
@@ -45,7 +46,8 @@ const dummyComments = [
     content: "I've done this run before!",
     user: {
       id: 2,
-      name: 'Walter'
+      name: 'Walter',
+      imageUrl: 'matthew.png'
     }
   }
 ];
