@@ -11,23 +11,27 @@ import { Link } from 'react-router-dom';
 
 
 class ActivityContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state = {
+      liked: props.liked
+    };
     this.removeLike = this.removeLike.bind(this);
     this.addLike = this.addLike.bind(this);
   }
 
-
   addLike() {
+    this.setState({liked: true});
     axios.post(`/api/activities/${this.props.activity.id}/like`);
   }
 
   removeLike() {
+    this.setState({liked: false});
     axios.delete(`/api/activities/${this.props.activity.id}/like`);
   }
 
   render() {
-    console.log('ACTIVITY: ', this.props.activity);
+    console.log('STATE: ', this.state);
     return (
       <Segment>
         <Header size="large">
@@ -50,7 +54,7 @@ class ActivityContainer extends Component {
               <Header size="small">Miles: </Header> {this.props.activity.distance} miles
             </div>
             {
-              this.props.liked
+              this.state.liked
                 ? <button onClick={this.removeLike}>Unlike</button>
                 : <button onClick={this.addLike}>Like</button>
             }
@@ -81,14 +85,6 @@ const mapState = (state, ownProps) => {
     }),
   };
 };
-
-// const mapDispatch = (dispatch) => {
-//   return {
-//     fetchLikesData: (activityId) => {
-//       dispatch(fetchLikes(activityId));
-//     }
-//   };
-// }; moving to eager loading on activity
 
 const mapDispatch = null;
 
