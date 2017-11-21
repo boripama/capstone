@@ -18,9 +18,8 @@ import { logout } from '../store/index';
  */
 const Navbar = (props) => {
   const {
-    isLoggedIn,
-    handleClick,
     user,
+    handleClick,
   } = props;
 
   return (
@@ -30,24 +29,27 @@ const Navbar = (props) => {
       style={{ padding: '0em 0em' }}
       vertical
     >
-      <Container>
-        <Menu inverted pointing secondary size="large">
-          <Menu.Item as={Link} to="/home">Home</Menu.Item>
-          <Menu.Item as={Link} to="/activity/1">Activity 1</Menu.Item>
-          {
-            isLoggedIn ?
+
+      {
+        user.id ?
+          <Container>
+            <Menu inverted pointing secondary size="large">
+              <Menu.Item as={Link} to="/home">Home</Menu.Item>
+              <Menu.Item as={Link} to="/uploadActivity">Upload Activity</Menu.Item>
+              <Menu.Item as={Link} to="/activities">Activities</Menu.Item>
               <Menu.Item as={Link} onClick={handleClick} to="/login">Logout</Menu.Item>
-              :
-              <Container>
-                <Menu.Item as={Link} to="/login">Login</Menu.Item>
-                <Menu.Item as={Link} to="/signup">Sign Up</Menu.Item>
-              </Container>
-          }
-          <Menu.Item as={Link} to="/uploadActivity">Upload Activity</Menu.Item>
-          <Menu.Item as={Link} to="/activities">Activities</Menu.Item>
-          <Menu.Item as={Link} to={`/users/${user.id}`}>Account</Menu.Item>
-        </Menu>
-      </Container>
+              <Menu.Item as={Link} to={`/users/${user.id}`}>Account</Menu.Item>
+            </Menu>
+          </Container>
+          :
+          <Container>
+            <Menu inverted pointing secondary size="large">
+              <Menu.Item as={Link} to="/login">Login</Menu.Item>
+              <Menu.Item as={Link} to="/signup">Sign Up</Menu.Item>
+            </Menu>
+          </Container>
+      }
+
       <Divider inverted />
     </Segment>
   );
@@ -55,13 +57,13 @@ const Navbar = (props) => {
 
 const mapState = ({ user }) => ({ user });
 
-const mapDispatch = (dispatch, ownProps) => {
+const mapDispatch = (dispatch) => {
   return {
     handleClick() {
       dispatch(logout());
     }
-  }
-}
+  };
+};
 export default withRouter(connect(mapState, mapDispatch)(Navbar));
 
 /**
@@ -69,5 +71,4 @@ export default withRouter(connect(mapState, mapDispatch)(Navbar));
  */
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
 };
