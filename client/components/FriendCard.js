@@ -20,7 +20,7 @@ const FriendCard = (props) => {
   return (
     <Card>
       <Card.Content>
-        <Image floated="right" size="mini" src="matthew.png" />
+        <Image floated="right" size="mini" src={sug.image} />
         <Card.Header>{sug.email}</Card.Header>
         <Card.Meta>Friends of Elliot</Card.Meta>
         <Card.Description>

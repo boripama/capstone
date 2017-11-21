@@ -4,18 +4,28 @@ import {
   Card,
   Icon,
 } from 'semantic-ui-react';
+import moment from 'moment';
 import { connect } from 'react-redux';
 
-const ProfileCard = () => {
+const ProfileCard = (props) => {
+  const { user } = props;
   return (
     <Card>
-      <Image src="matthew.png" />
+      <Image src={user.image} />
       <Card.Content>
-        <Card.Header> Matthew</Card.Header>
+        <Card.Header>{user.name}</Card.Header>
         <Card.Meta>
-          <span className="date">Joined in 2015</span>
+          <span className="date">{`Member since ${moment(
+            user.createdAt
+              .split('T')
+              .join(' ')
+              .slice(0, 19),
+            'YYYY-MM-DD HH-mm-ss',
+          )
+            .subtract(6, 'hours')
+            .fromNow()}`}</span>
         </Card.Meta>
-        <Card.Description> Matthew is a musician living in Nashville.</Card.Description>
+        <Card.Description>{user.aboutMe}</Card.Description>
       </Card.Content>
       <Card.Content extra>
         <a><Icon name="user" />22 Friends</a>
@@ -26,7 +36,7 @@ const ProfileCard = () => {
 };
 
 
-const mapState = null;
+const mapState = ({ user }) => ({ user });
 const mapDispatch = null;
 
 export default connect(mapState, mapDispatch)(ProfileCard);
