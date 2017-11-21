@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const multer = require('multer');
-const { User, Activity } = require('../db/models');
+const { User, Activity, Likes } = require('../db/models');
 const { isUser, isAdmin } = require('../middleware/auth');
 const { gpxFilter, formatGpxForDatabase } = require('../utils');
 
@@ -26,9 +26,9 @@ router.get('/:id/activities', async (req, res, next) => {
 
 router.get('/:id/likes', async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id);
-    const likes = await user.getActivities();
-    res.json(likes);
+    const likes = await Likes.findAll({ where: { userId: req.params.id } });
+    const activities = await Promise.all(likes.map(like => Activity.findById(like.activityId)));
+    res.json(activities);
   }
   catch (err) { next(err); }
 });
