@@ -1,10 +1,23 @@
 import React from 'react';
 import {
-  Comment,
+  Comment, Form, Button
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
-const Comments = (props) =>  {
+class Comments extends React.Component  {
+
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    const { handleSubmit, albumId, userId } = this.props
+    handleSubmit(userId, albumId, this.state, this)
+    event.target.text.value = '';
+  }
+  render() {
   const { comments } = props;
   return (
     <Comment.Group>
@@ -24,12 +37,19 @@ const Comments = (props) =>  {
               <a>Reply</a>
             </Comment.Actions>
           </Comment.Content>
+          
         </Comment>
       ))
       }
+      <Form style={{ width: '60sw' }} onSubmit={this.onSubmit} reply>
+        <Form.TextArea style={{}}/>
+        <Button content='Add Reply' labelPosition='left' icon='edit' primary />
+      </Form>
     </Comment.Group>
   );
 }
+}
+
 
 const dummyComments = [
   {
