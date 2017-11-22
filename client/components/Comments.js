@@ -3,7 +3,7 @@ import {
   Comment, Form, Button
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import {getComments, deleteComment, fetchComment} from '../store';
+import { deleteComment, fetchComments, createComment } from '../store';
 
 class Comments extends Component {
 
@@ -16,13 +16,13 @@ class Comments extends Component {
 
 
   componentDidMount() {
-    this.props.fetchCommentsData(1);
+    this.props.fetchCommentsData(this.props.activityId);
   }
 
   onSubmit = (event) => {
     event.preventDefault();
-    const { handleSubmit, activityId, userId } = this.props
-    handleSubmit(userId, activityId, this.state, this)
+    const { activityId, userId } = this.props;
+    createComment(userId, activityId, this.state, this);
     event.target.text.value = '';
   }
 
@@ -36,7 +36,7 @@ class Comments extends Component {
               <Comment.Avatar as="a" src={comment.user.imageUrl} />
               <Comment.Content>
                 { /* import and use Link from React-Router */}
-                <Comment.Author as="a">{comment.user.name}</Comment.Author>
+                <Comment.Author as="a">{comment.user.name}</Comment.Author>ß
                 <Comment.Metadata>
                   { /* fill in with data from comments table */}
                   <span>2 days ago</span>
@@ -51,8 +51,8 @@ class Comments extends Component {
           ))
         }
         <Form style={{ width: '60sw' }} onSubmit={this.onSubmit} reply>
-          <Form.TextArea width={11} />
-          <Button content='Add Reply' labelPosition='left' icon='edit' primary />
+          <Form.TextArea width={11} height={1} />
+          <Button content="Add Reply" labelPosition="left" icon="edit" primary />
         </Form>
       </Comment.Group>
     );
@@ -89,11 +89,11 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchCommentsData: (activityId) => {
-      dispatch(fetchComment(activityId));
+    fetchCommentsData: (comment, userId, activityId) => {
+      dispatch(fetchComments(comment, userId, activityId));
     },
-    removeActivity: (activityId) => {
-      dispatch(deleteComment(activityId));
+    removeComment: (commentId) => {
+      dispatch(deleteComment(commentId));
     },
   };
 };
