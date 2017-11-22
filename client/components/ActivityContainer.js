@@ -32,7 +32,6 @@ class ActivityContainer extends Component {
   }
 
   render() {
-    console.log('STATE: ', this.state);
     return (
       <Segment>
         <Header size="large">
