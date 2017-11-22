@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const multer = require('multer');
-const { User, Activity } = require('../db/models');
+const { User, Activity, Like } = require('../db/models');
 const { isUser, isAdmin } = require('../middleware/auth');
 const { gpxFilter, formatGpxForDatabase } = require('../utils');
 
@@ -29,6 +29,17 @@ router.get('/:id/activities', async (req, res, next) => {
   const userId = +req.params.id;
   const activities = await Activity.findAll({ where: { userId: userId } });
   res.status(200).json(activities);
+});
+
+router.get('/:id/likes', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    // const likes = await Like.findAll({ where: { userId: req.params.id } });
+    // const activities = await Promise.all(likes.map(like => Activity.findById(like.activityId)));
+    const activities = await user.getLikes();
+    res.json(activities);
+  }
+  catch (err) { next(err); }
 });
 
 // multer config for POST route below
