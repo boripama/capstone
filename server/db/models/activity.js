@@ -33,6 +33,10 @@ const Activity = db.define('activity', {
   durationMs: {
     type: Sequelize.INTEGER,
   },
+  cached: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   center: {
     type: Sequelize.ARRAY(Sequelize.FLOAT)
   },
