@@ -46,6 +46,9 @@ const ActivityCache = db.define('activity-cache');
 Activity.belongsToMany(User, { through: 'activity-cache' });
 User.belongsToMany(Activity, { through: 'activity-cache' });
 
+const Rec = db.define('rec');
+User.belongsToMany(User, {as: 'recs', through: 'rec'});
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
@@ -59,4 +62,5 @@ module.exports = {
   Comment,
   Follower,
   ActivityCache,
+  Rec,
 };
