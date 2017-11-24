@@ -25,7 +25,7 @@ const seedGpxDir = (dirPath, userId) => {
         });
         console.log(`${dirPath} ${newActs.length} activities created`);
 
-        const assigned = await Promise.each(newActs, act => act.setUser(1));
+        const assigned = await Promise.each(newActs, act => act.setUser(userId));
         console.log(`${dirPath} ${assigned.length} activities assigned to user ${userId}`);
 
         res(`${dirPath} done`);
