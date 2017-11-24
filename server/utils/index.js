@@ -10,7 +10,7 @@ const {
   getStartTime,
   getEndTime,
   getDuration,
-  msToTimestamp
+  sToTimestamp
 } = require('./gpxMetadata');
 
 module.exports = {
@@ -23,5 +23,5 @@ module.exports = {
   getStartTime,
   getEndTime,
   getDuration,
-  msToTimestamp,
+  sToTimestamp,
 };

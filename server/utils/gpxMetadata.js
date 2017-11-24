@@ -3,14 +3,13 @@ const getStartTime = gpxArray => gpxArray[0].time;
 const getEndTime = gpxArray => gpxArray[gpxArray.length - 1].time;
 
 const getDuration = (end, start) => {
-  return end.getTime() - start.getTime();
+  return (end.getTime() - start.getTime()) / 1000;
 };
 
-function msToTimestamp(duration) {
-  const ms = parseInt((duration % 1000) / 100);
-  let s = parseInt((duration / 1000) % 60);
-  let m = parseInt((duration / (1000 * 60)) % 60);
-  let h = parseInt((duration / (1000 * 60 * 60)) % 24);
+function sToTimestamp(duration) {
+  let s = parseInt(duration % 60);
+  let m = parseInt((duration / 60) % 60);
+  let h = parseInt((duration / (60 * 60)) % 24);
 
   h = !h ? '' :
       (h < 10) ? '0' + h + ':' : h + ':';
@@ -20,4 +19,4 @@ function msToTimestamp(duration) {
   return h + m + ':' + s;
 }
 
-module.exports = { getStartTime, getEndTime, getDuration, msToTimestamp };
+module.exports = { getStartTime, getEndTime, getDuration, sToTimestamp };
