@@ -27,7 +27,7 @@ const User = db.define('user', {
     defaultValue: 0
   },
   totalTime: { // stored as seconds
-    type: Sequelize.BIGINT,
+    type: Sequelize.INTEGER,
     defaultValue: 0
   },
   zip: {

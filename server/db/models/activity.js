@@ -31,7 +31,7 @@ const Activity = db.define('activity', {
     type: Sequelize.DATE
   },
   duration: {
-    type: Sequelize.BIGINT,
+    type: Sequelize.INTEGER,
   },
   cached: {
     type: Sequelize.BOOLEAN,
