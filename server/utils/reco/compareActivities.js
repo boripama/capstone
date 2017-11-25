@@ -45,19 +45,22 @@ const matchByDistance = (distance1, distance2) => {
 
 const matchActivities = (act1, act2) => {
   // runs less intensive tests first, returns false on first false test
-  if (!matchByCenter(act1.center, act2.center)) return false;
+  let counter = 0;
+  if (matchByCenter(act1.center, act2.center)) counter++;
   console.log('matched center');
-  if (!matchByPace(act1.pace, act2.pace)) return false;
+  if (matchByPace(act1.pace, act2.pace)) counter++;
   console.log('matched pace');
-  if (!matchByDistance(act1.distance, act2.distance)) return false;
+  if (matchByDistance(act1.distance, act2.distance)) counter++;
   console.log('matched distance');
-  if (!matchByStartTime(act1.startTime, act2.startTime)) return false;
+  if (matchByStartTime(act1.startTime, act2.startTime)) counter++;
   console.log('matched start time');
-  if (!matchByIntersects(act1, act2)) return false;
-  console.log('matched intersects');
+  if (counter === 2){
+    if (matchByIntersects(act1, act2)) counter++;
+    console.log('matched intersects');
+  }
 
   // return true if all tests pass
-  return true;
+  return (counter >= 3);
 };
 
 module.exports = matchActivities;

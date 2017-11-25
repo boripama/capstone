@@ -1,46 +1,40 @@
-const turf = require('@turf/turf');
 const { ActivityCache, Activity, Rec } = require('../../db/models');
+const compareActivities = require('./compareActivities');
 
-//compareRun is a temporary test function to later be replaced with the real run comparison function.
-
-const compareRun = (run1, run2) => {
-  const word1 = run1.title.split(' ')[0];
-  const word2 = run2.title.split(' ')[0];
-  return word1 === word2;
-};
-
-//compareCache not functional yet
-
-const compareCache = (cache1, cache2) => {
+const compareCache = async (firstId, secondId) => {
+  const cache1 = await Activity.findAll({where: {userId: firstId, cached: true}});
+  const cache2 = await Activity.findAll({where: {userId: secondId, cached: true}});
   let counter = 0;
 
   for (let i = 0; i < cache1.length; i++) {
     for (let j = 0; j < cache2.length; j++) {
-      //assume compareRun returns a boolean
-      if (compareRun(cache1[i], cache2[j])) counter++;
+      if (compareActivities(cache1[i], cache2[j])) {
+        counter++;
+      }
     }
   }
   let shorter;
   (cache1.length < cache2.length) ? shorter = cache1 : shorter = cache2;
 
-  return ((counter / shorter.length) > 0.05);
+  return ((counter / shorter.length) > 1.5);
 };
 
-const addToSuggested = (cache1, cache2) => {
+const addToSuggested = (firstId, secondId) => {
   let createdSuggestion = false;
-  if (compareCache(cache1, cache2)) {
+  if (compareCache(firstId, secondId)) {
     createdSuggestion = true;
-    Rec.create({userId: cache1[0].userId, recId: cache2[0].userId});
-    Rec.create({userId: cache2[0].userId, recId: cache1[0].userId});
+    Rec.create({userId: firstId, recId: secondId});
+    Rec.create({userId: secondId, recId: firstId});
   }
   return createdSuggestion ? console.log('Follower pair found') : console.log('No Follower pair');
 };
 
 //properly working function to determine if a given activity matches any activities in a cache.
+
 const determineIfCached = (activity, cache) => {
   let addToCache = false;
   cache.some(run => {
-    if (compareRun(run, activity)) addToCache = true;
+    if (compareActivities(run, activity)) addToCache = true;
   });
   if (!addToCache) {
     activity.update({cached: true})
@@ -51,26 +45,49 @@ const determineIfCached = (activity, cache) => {
   else {console.log('not cached');}
 };
 
+const findCache = async (id) => {
+  let cache = await Activity.findAll({where: {userId: id, cached: true}});
+  const activities = await Activity.findAll({where: {userId: id, cached: false}});
+  let Idx = 0;
+  while (Idx < activities.length) {
+    determineIfCached(activities[Idx], cache);
+    cache = await Activity.findAll({where: {userId: id, cached: true}});
+    Idx++;
+  }
+  console.log('findCache complete');
+};
+
+module.exports = {
+  addToSuggested,
+  findCache,
+  determineIfCached
+};
+
 
 // FOR TESTING PURPOSES
 
-const testFunc = async () => {
+const testFunc = () => {
   try {
-    const activity1 = await Activity.findById(1);
-    const activity2 = await Activity.findById(2);
-    const activity3 = await Activity.findById(3);
-    const cache = await Activity.findAll({where: { cached: true }});
-    const cache1 = await Activity.findAll({where: {userId: 1, cached: true}});
-    const cache2 = await Activity.findAll({where: {userId: 2, cached: true}});
-    const runs = await Activity.findAll({where: {userId: cache[0].userId}});
-    // console.log('1', cache1);
-    // console.log('2', cache2);
 
-    // determineIfCached(activity1, cache);
+    // findCache(6);
+    addToSuggested(1, 2);
+    addToSuggested(1, 3);
+    addToSuggested(1, 4);
+    addToSuggested(1, 5);
+    addToSuggested(1, 6);
+    addToSuggested(2, 3);
+    addToSuggested(2, 4);
+    addToSuggested(2, 5);
+    addToSuggested(2, 6);
+    addToSuggested(3, 4);
+    addToSuggested(3, 5);
+    addToSuggested(3, 6);
+    addToSuggested(4, 5);
+    addToSuggested(4, 6);
+    addToSuggested(5, 6);
 
-    addToSuggested(cache1, cache2);
 
-
+    console.log('complete');
   }
   catch (err) { console.error(err); }
 };
