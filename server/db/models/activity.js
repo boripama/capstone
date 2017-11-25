@@ -3,7 +3,7 @@ const turf = require('turf');
 const db = require('../db');
 const {
   getDuration,
-  msToTimestamp,
+  sToTimestamp,
   convertPolylineToPoints,
 } = require('../../utils');
 const User = require('./user');
@@ -30,7 +30,7 @@ const Activity = db.define('activity', {
   endTime: {
     type: Sequelize.DATE
   },
-  durationMs: {
+  duration: {
     type: Sequelize.INTEGER,
   },
   cached: {
@@ -43,21 +43,21 @@ const Activity = db.define('activity', {
   durationTimestamp: { // readable timestamp for display purposes
     type: Sequelize.VIRTUAL,
     get() {
-      return msToTimestamp(this.getDataValue('durationMs'));
+      return sToTimestamp(this.getDataValue('duration'));
     }
   },
   pace: { // needs to be formatted
     type: Sequelize.VIRTUAL,
     get() {
-      return this.getDataValue('durationMs') / this.getDataValue('distance');
+      return this.getDataValue('duration') / this.getDataValue('distance');
     }
   },
   paceTimestamp: {
     type: Sequelize.VIRTUAL,
     get() {
-      const duration = this.getDataValue('durationMs');
+      const duration = this.getDataValue('duration');
       const distance = this.getDataValue('distance');
-      return msToTimestamp((duration / distance));
+      return sToTimestamp((duration / distance));
     }
   }
 });
@@ -73,7 +73,7 @@ Activity.prototype.getCenter = function () {
   const points = this.decodePoly();
 
   const center = points.reduce((t, p) => [t[0] + p[0], t[1] + p[1]], [0, 0])
-    .map(e => e / points.length);
+    .map(e => (e / points.length));
 
   return center;
 };
@@ -109,7 +109,7 @@ Activity.prototype.getGeoJSON = function () {
 Activity.beforeSave((activity, options) => {
   const start = activity.startTime;
   const end = activity.endTime;
-  activity.durationMs = getDuration(end, start);
+  activity.duration = getDuration(end, start);
 
   activity.center = activity.getCenter();
   activity.distance = activity.getDistance('miles');

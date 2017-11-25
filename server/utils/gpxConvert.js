@@ -30,15 +30,18 @@ const convertPolylineToPoints = poly => {
   return polyline.decode(poly);
 };
 
-const formatGpxForDatabase = async gpxFile => {
-  const gpxArray = await convertGpxToArray(gpxFile);
-  const startTime = getStartTime(gpxArray);
-  const endTime = getEndTime(gpxArray);
+const formatGpxForDatabase = async (gpxFile, title = 'New Activity') => {
+  try {
+    const gpxArray = await convertGpxToArray(gpxFile);
+    const startTime = getStartTime(gpxArray);
+    const endTime = getEndTime(gpxArray);
 
-  const pointsArray = await mapGpxArrayToPointsArray(gpxArray);
-  const newPolyline = convertPointsToPolyline(pointsArray);
+    const pointsArray = await mapGpxArrayToPointsArray(gpxArray);
+    const newPolyline = convertPointsToPolyline(pointsArray);
 
-  return { startTime, endTime, polyline: newPolyline };
+    return { title, startTime, endTime, polyline: newPolyline };
+  }
+  catch (err) { throw new Error(err); }
 };
 
 module.exports = {

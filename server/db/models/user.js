@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const Sequelize = require('sequelize');
 const db = require('../db');
-const { msToTimestamp } = require('../../utils');
+const { sToTimestamp } = require('../../utils');
 
 const User = db.define('user', {
   email: {
@@ -26,7 +26,7 @@ const User = db.define('user', {
     type: Sequelize.FLOAT,
     defaultValue: 0
   },
-  totalTime: { // stored as milliseconds
+  totalTime: { // stored as seconds
     type: Sequelize.INTEGER,
     defaultValue: 0
   },
@@ -35,7 +35,7 @@ const User = db.define('user', {
     validate: {
       isZip(value) {
         if ((value + '').length !== 5) {
-          throw new Error('Zip must be 5 digits')
+          throw new Error('Zip must be 5 digits');
         }
       }
     }
@@ -55,7 +55,7 @@ const User = db.define('user', {
   totalTimeTimestamp: { // readable timestamp for display purposes
     type: Sequelize.VIRTUAL,
     get() {
-      return msToTimestamp(this.getDataValue('totalTime'));
+      return sToTimestamp(this.getDataValue('totalTime'));
     }
   }
 });
@@ -71,7 +71,7 @@ User.prototype.correctPassword = function (candidatePwd) {
 
 User.prototype.updateTotals = function (activity) {
   this.setDataValue('totalDistance', this.totalDistance + activity.distance);
-  this.setDataValue('totalTime', this.totalTime + activity.durationMs);
+  this.setDataValue('totalTime', this.totalTime + activity.duration);
   return this.save();
 };
 
