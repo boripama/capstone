@@ -47,16 +47,16 @@ const matchActivities = (act1, act2) => {
   // runs less intensive tests first, returns false on first false test
   let counter = 0;
   if (matchByCenter(act1.center, act2.center)) counter++;
-  console.log('matched center');
+  // console.log('matched center');
   if (matchByPace(act1.pace, act2.pace)) counter++;
-  console.log('matched pace');
+  // console.log('matched pace');
   if (matchByDistance(act1.distance, act2.distance)) counter++;
-  console.log('matched distance');
+  // console.log('matched distance');
   if (matchByStartTime(act1.startTime, act2.startTime)) counter++;
-  console.log('matched start time');
+  // console.log('matched start time');
   if (counter === 2){
     if (matchByIntersects(act1, act2)) counter++;
-    console.log('matched intersects');
+    // console.log('matched intersects');
   }
 
   // return true if all tests pass
