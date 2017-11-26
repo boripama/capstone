@@ -55,10 +55,8 @@ const matchActivities = (act1, act2) => {
 
   if (matchByDistance(act1.distance, act2.distance)) counter++;
   if (matchByStartTime(act1.startTime, act2.startTime)) counter++;
-  // if (counter === 2){
-  //   if (matchByIntersects(act1, act2)) counter++;
-  // }
 
+  // && operator will not run right statement if left evaluates to false
   if (counter === 2 && matchByIntersects(act1, act2)) counter++;
 
   return counter >= 3;
