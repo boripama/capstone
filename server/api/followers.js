@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const id = +req.params.id
+    const id = +req.params.id;
     const followers = await Follower.findAll({ where: { userId: id } });
     res.json(followers);
   }
@@ -35,7 +35,7 @@ router.put('/:id', async (req, res, next) => {
     const follower = await Follower.find({
       where: { userId: req.params.id, followerId: req.body.followerId }
     });
-    const updated = follower.update(req.body);
+    const updated = await follower.update(req.body);
     res.status(201).json(updated);
   }
   catch (err) { next(err); }

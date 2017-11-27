@@ -28,6 +28,13 @@ export const fetchSuggested = id => async dispatch => {
   catch (err) { console.log('Fetching suggested unsuccessful', err); }
 };
 
+export const updateSuggested = (id, rec) => {
+  try {
+    axios.put(`/api/recs/${id}`, rec);
+  }
+  catch (err) { console.log('Updating suggested unsuccessful', err); }
+};
+
 /**
  * REDUCER
  */
