@@ -17,6 +17,12 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+router.get('/:id', (req, res, next) => {
+  User.findById(req.params.id, { attributes: { exclude: ['password', 'salt', 'googleId'] } })
+    .then(user => res.json(user))
+    .catch(next);
+});
+
 router.put('/:id', async (req, res, next) => {
   const id = +req.params.id;
   const user = await User.findById(id);

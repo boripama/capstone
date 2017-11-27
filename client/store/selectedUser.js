@@ -14,16 +14,16 @@ const defaultUser = {};
 /**
  * ACTION CREATORS
  */
-const getSelectedUser = user => ({type: GET_SELECTED_USER, user});
+const getSelectedUser = selectedUser => ({type: GET_SELECTED_USER, selectedUser});
 
 /**
  * THUNK CREATORS
  */
 export const fetchSelectedUser = (id) =>
-  dispatch =>
-    axios.get(`/users/${id}`)
+  dispatch => 
+    axios.get(`/api/users/${id}`)
       .then(res =>
-        dispatch(getUser(res.data || defaultUser)))
+        dispatch(getSelectedUser(res.data || defaultUser)))
       .catch(err => console.log(err));
 
 /**
