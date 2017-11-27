@@ -5,7 +5,7 @@ import {
 } from 'semantic-ui-react';
 import { NewActivity, ProfileCard, ProfileDescription, FollowerGroup, ActivityContainer } from './index';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { fetchUserActivities, fetchSelectedUser, fetchUserFollowers, fetchSuggested } from '../store';
 
 
@@ -16,6 +16,12 @@ class UserProfile extends Component {
 
   componentDidMount() {
     this.props.fetchData(this.props.match.params.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      this.props.fetchData(this.props.match.params.id);
+    }
   }
 
   render() {
@@ -118,5 +124,5 @@ const mapDispatch = (dispatch) => {
 };
 
 
-export default connect(mapState, mapDispatch)(UserProfile);
+export default withRouter(connect(mapState, mapDispatch)(UserProfile));
 
