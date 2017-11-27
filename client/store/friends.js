@@ -3,29 +3,29 @@ import axios from 'axios';
 /**
  * ACTION TYPES
  */
-const GET_FRIENDS = 'GET_FRIENDS';
-const REMOVE_FRIENDS = 'REMOVE_FRIENDS';
-const ADD_FRIEND = 'ADD_FRIEND';
+const GET_FOLLOWERS = 'GET_FOLLOWERS';
+const REMOVE_FOLLOWERS = 'REMOVE_FOLLOWERS';
+const ADD_FOLLOWER = 'ADD_FOLLOWER';
 
 /**
  * INITIAL STATE
  */
-const defaultFriends = {};
+const defaultFollowers = {};
 
 /**
  * ACTION CREATORS
  */
-const getFriends = friends => ({ type: GET_FRIENDS, friends });
-export const removeFriends = () => ({ type: REMOVE_FRIENDS });
-const addFriend = friend => ({ type: ADD_FRIEND, friend});
+const getFollowers = followers => ({ type: GET_FOLLOWERS, followers });
+export const removeFollowers = () => ({ type: REMOVE_FOLLOWERS });
+const createFollower = follower => ({ type: ADD_FOLLOWER, follower});
 
 /**
  * THUNK CREATORS
  */
-export const fetchFriends = () => async dispatch => {
+export const fetchFollowers = () => async dispatch => {
   try {
     const res = await axios.get('/api/users/');
-    dispatch(getFriends(res.data || defaultFriends));
+    dispatch(getFollowers(res.data || defaultFollowers));
   }
   catch (err) { console.log('Fetching followers unsuccessful', err); }
 };
@@ -33,7 +33,7 @@ export const fetchFriends = () => async dispatch => {
 export const addFollower = (follower) => async dispatch => {
   try {
     const res = await axios.post('/api/followers/', follower);
-    dispatch(addFriend(res.data || defaultFriends));
+    dispatch(createFollower(res.data || defaultFollowers));
   }
   catch (err) { console.log('Adding follower unccessful', err); }
 };
@@ -41,14 +41,14 @@ export const addFollower = (follower) => async dispatch => {
 /**
  * REDUCER
  */
-export default function (state = defaultFriends, action) {
+export default function (state = defaultFollowers, action) {
   switch (action.type) {
-    case GET_FRIENDS:
-      return action.friends;
-    case REMOVE_FRIENDS:
-      return defaultFriends;
-    case ADD_FRIEND:
-      return [...state, action.friend];
+    case GET_FOLLOWERS:
+      return action.followers;
+    case REMOVE_FOLLOWERS:
+      return defaultFollowers;
+    case ADD_FOLLOWER:
+      return [...state, action.follower];
     default:
       return state;
   }
