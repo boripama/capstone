@@ -96,7 +96,7 @@ class UserAccount extends React.Component {
                 </Form>
               </Grid.Row>
             </Grid.Column>
-            <Grid.Column  style={{ margin: '2em' }} width={4}>
+            <Grid.Column  style={{ textAlign: 'right', margin: '2em' }} width={4}>
               <Grid.Row style={{ padding: '2em 0em' }} >
                 <NewActivity props={user} />
               </Grid.Row>
@@ -146,7 +146,7 @@ class UserAccount extends React.Component {
                 </Form>
               </Grid.Row>
             </Grid.Column>
-            <Grid.Column  style={{ margin: '2em' }} width={4}>
+            <Grid.Column  style={{ textAlign: 'right', margin: '2em' }} width={4}>
               <Grid.Row style={{ padding: '2em 0em' }} >
                 <NewActivity props={user} />
               </Grid.Row>
