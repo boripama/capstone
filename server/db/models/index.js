@@ -62,5 +62,5 @@ module.exports = {
   Comment,
   Follower,
   ActivityCache,
-  Rec,
+  Rec
 };
