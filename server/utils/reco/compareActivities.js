@@ -87,5 +87,5 @@ const testFunc = async () => {
   catch (err) { console.error(err); }
 };
 
-testFunc();
+// testFunc();
 // END TESTING SECTION

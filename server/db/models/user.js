@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const Sequelize = require('sequelize');
 const db = require('../db');
 const { sToTimestamp } = require('../../utils');
+const { findAndUpdateCache } = require('../../utils/reco');
 
 const User = db.define('user', {
   email: {
@@ -69,7 +70,8 @@ User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt) === this.password;
 };
 
-User.prototype.updateTotals = function (activity) {
+User.prototype.updateTotals = async function (activity) {
+  const cache = await findAndUpdateCache(this.id);
   this.setDataValue('totalDistance', this.totalDistance + activity.distance);
   this.setDataValue('totalTime', this.totalTime + activity.duration);
   return this.save();
