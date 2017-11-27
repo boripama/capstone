@@ -47,11 +47,11 @@ class ActivityContainer extends Component {
             </div>
             <br /><br /><br /><br />
             <div>
-              <Header size="small">Pace: </Header> {this.props.activity.pace} min/mile
+              <Header size="small">Pace: </Header> {this.props.activity.paceTimestamp} min/mile
             </div>
             <br /><br /><br /><br />
             <div>
-              <Header size="small">Miles: </Header> {this.props.activity.distance} miles
+              <Header size="small">Miles: </Header> {this.props.activity.distance.toFixed(2)} miles
             </div>
             <br /><br /><br /><br />
             {
