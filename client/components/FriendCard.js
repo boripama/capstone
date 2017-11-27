@@ -5,17 +5,19 @@ import {
   Button,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { addFollower, removeSuggested } from '../store';
+import { addFollower, removeSuggested, updateSuggested } from '../store';
 
 const FriendCard = (props) => {
   const { sug, user, add } = props;
   const handleApprove = () => {
     const follower = { status: 'allowed', userId: user.id, followerId: sug.id};
-    add(follower, sug.id);
+    const rec = { status: 'accepted', recId: sug.id };
+    add(follower, rec, sug.id, user.id);
   };
   const handleDecline = () => {
     const follower = { status: 'ignored', userId: user.id, followerId: sug.id};
-    add(follower, sug.id);
+    const rec = { status: 'declined', recId: sug.id};
+    add(follower, rec, sug.id, user.id);
   };
   return (
     <Card>
@@ -42,9 +44,10 @@ const FriendCard = (props) => {
 const mapState = ({ user }) => ({ user });
 const mapDispatch = (dispatch) => {
   return {
-    add: (follower, id) => {
+    add: (follower, rec, id, userId) => {
       dispatch(addFollower(follower));
       dispatch(removeSuggested(id));
+      updateSuggested(userId, rec);
     }
   };
 };
