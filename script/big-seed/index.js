@@ -11,6 +11,9 @@ const seedGpxDir = (dirPath, userId) => {
       fs.readdir(dirPath, async (err, files) => {
         if (err) console.error(err);
 
+        // filter out non-gpx files
+        files = files.filter(file => path.extname(file) === '.gpx');
+
         const titles = files.map(file => file.slice(0, files[0].length - 4));
         const filesMap = await Promise.map(files, f => readFile(path.join(dirPath, f)));
         console.log(`${dirPath} ${filesMap.length} files read successfully`);
