@@ -45,15 +45,15 @@ class ActivityContainer extends Component {
             <div>
               <Header size="small">Duration: </Header> {this.props.activity.durationTimestamp} min
             </div>
-            <br /><br /><br /><br />
+            <br /><br />
             <div>
               <Header size="small">Pace: </Header> {this.props.activity.pace} min/mile
             </div>
-            <br /><br /><br /><br />
+            <br /><br />
             <div>
               <Header size="small">Miles: </Header> {this.props.activity.distance} miles
             </div>
-            <br /><br /><br /><br />
+            <br /><br />
             {
               this.state.liked
                 ? <button onClick={this.removeLike}>Unlike</button>

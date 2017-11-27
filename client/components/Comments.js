@@ -10,7 +10,6 @@ class Comments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
     };
   }
 
@@ -27,8 +26,11 @@ class Comments extends Component {
   }
 
   render() {
-    console.log('Comment State', this.props);
+   // console.log('Comment State', this.props);
+    console.log('this props', this.props)
+   //console.log(this.props, 'props');
     const { comments } = this.state;
+    if(comments) {
     return (
       <Comment.Group>
         {comments &&
@@ -56,7 +58,11 @@ class Comments extends Component {
           <Button content="Add Reply" labelPosition="left" icon="edit" primary />
         </Form>
       </Comment.Group>
-    );
+      );
+    }
+    else {
+      return null;
+    }
   }
 }
 
@@ -82,16 +88,18 @@ const dummyComments = [
   }
 ];
 
-const mapState = (state) => {
-  return {
-    comment: state.comment
-  };
-};
+// const mapState = (state) => {
+//   return {
+//     comments: state.comments
+//   };
+// };
+
+const mapState = ({comments}) => ({comments});
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchCommentsData: (comment, userId, activityId) => {
-      dispatch(fetchComments(comment, userId, activityId));
+    fetchCommentsData: (activityId) => {
+      dispatch(fetchComments(activityId));
     },
     removeComment: (commentId) => {
       dispatch(deleteComment(commentId));
