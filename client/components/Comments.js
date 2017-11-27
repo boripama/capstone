@@ -27,6 +27,7 @@ class Comments extends Component {
   }
 
   render() {
+    console.log('Comment State', this.props);
     const { comments } = this.state;
     return (
       <Comment.Group>

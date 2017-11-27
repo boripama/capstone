@@ -48,7 +48,7 @@ export default function (state = defaultComment, action) {
     case NEW_COMMENT:
       return action.comment;
     case GET_COMMENTS:
-      return action.comment;
+      return action.comments;
     case REMOVE_COMMENT:
       return defaultComment;
     default:
