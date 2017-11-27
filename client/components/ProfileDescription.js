@@ -1,0 +1,38 @@
+import React from 'react';
+import {
+  Image,
+  Card,
+  Icon,
+} from 'semantic-ui-react';
+import moment from 'moment';
+import { connect } from 'react-redux';
+
+const ProfileDescription = (props) => {
+  const { user } = props;
+  return (
+    <Card>
+      <Image src={user.image} />
+      <Card.Content>
+        <Card.Header>{user.name}</Card.Header>
+        <Card.Meta>
+          <span className="date">{`Member since ${moment(
+            user.createdAt
+              .split('T')
+              .join(' ')
+              .slice(0, 19),
+            'YYYY-MM-DD HH-mm-ss',
+          )
+            .subtract(6, 'hours')
+            .fromNow()}`}</span>
+        </Card.Meta>
+        <Card.Description>{user.aboutMe}</Card.Description>
+      </Card.Content>
+      <Card.Content extra>
+        <a><Icon name="user" />22 Followers</a>
+      </Card.Content>
+    </Card>
+  );
+
+};
+
+export default ProfileDescription;

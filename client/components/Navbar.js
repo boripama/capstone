@@ -44,6 +44,7 @@ const Navbar = (props) => {
               <Menu.Item as={Link} to="/home">Home</Menu.Item>
               <Menu.Item as={Link} to="/uploadActivity">Upload Activity</Menu.Item>
               <Menu.Item as={Link} to="/activities">Activities</Menu.Item>
+              <Menu.Item as={Link} to={`/profile/${user.id}`}>My Profile</Menu.Item>
               <Menu.Item as={Link} onClick={handleClick} to="/login">Logout</Menu.Item>
               <Menu.Item as={Link} to={`/users/${user.id}`}>Account</Menu.Item>
             </Menu>
