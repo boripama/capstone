@@ -33,7 +33,14 @@ const Navbar = (props) => {
       {
         user.id ?
           <Container>
-            <Menu inverted pointing secondary size="large">
+            <Menu
+              style={{ justifyContent: 'center', display: 'flex', alignItems: 'center' }}
+              inverted
+              pointing
+              secondary
+              size="large"
+            >
+              <Menu.Item className="nav-logo" as={Link} to="/">Ananda</Menu.Item>
               <Menu.Item as={Link} to="/home">Home</Menu.Item>
               <Menu.Item as={Link} to="/uploadActivity">Upload Activity</Menu.Item>
               <Menu.Item as={Link} to="/activities">Activities</Menu.Item>
@@ -43,7 +50,14 @@ const Navbar = (props) => {
           </Container>
           :
           <Container>
-            <Menu inverted pointing secondary size="large">
+            <Menu
+              style={{ justifyContent: 'center', display: 'flex', alignItems: 'center' }}
+              inverted
+              pointing
+              secondary
+              size="large"
+            >
+              <Menu.Item className="nav-logo" as={Link} to="/">Ananda</Menu.Item>
               <Menu.Item as={Link} to="/login">Login</Menu.Item>
               <Menu.Item as={Link} to="/signup">Sign Up</Menu.Item>
             </Menu>
