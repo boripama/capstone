@@ -1,30 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
-  Image,
-  Segment,
   Container,
-  Header,
-  Button,
   Grid,
-  Statistic,
-  Input,
-  Form,
 } from 'semantic-ui-react';
+import { ProfileCard, ProfileDescription, FollowerGroup, ActivityContainer } from './index';
 import { connect } from 'react-redux';
-import { NewActivity, ChangeImage } from './index';
-import { fetchUserActivities, updateUser } from '../store';
+import { fetchUserActivities, fetchSelectedUser, fetchSuggested } from '../store';
 
-// NOTES: The user data is being calculated in the render function of the React component.
-// this may need to be refactored if performance becomes an issue.
 
-class UserProfile extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  componentDidMount() {
-    this.props.load(+this.props.match.params.id);
+class UserProfile extends Component {
+  constructor() {
+    super();
   }
 
+<<<<<<< HEAD
   handleSubmit = evt => {
     const id = +this.props.match.params.id;
     if (evt.target.about) {
@@ -43,10 +32,14 @@ class UserProfile extends React.Component {
       this.props.update(id, { zip: evt.target.zip.value });
       evt.target.zip.value = '';
     }
+=======
+  componentDidMount() {
+    this.props.fetchData(this.props.match.params.id);
+>>>>>>> d1e34277e365d34dbcee1b8674496b4ed57d1413
   }
 
-
   render() {
+<<<<<<< HEAD
     const { activities, user } = this.props;
     return (
       <Container>
@@ -95,81 +88,78 @@ class UserProfile extends React.Component {
                   <Input name="zip" action={<Button type="submit" >Update</Button>} placeholder="Update Zip..." />
                 </Form>
               </Grid.Row>
+=======
+    const { activities, suggested, selectedUser } = this.props;
+    if (activities[0] && selectedUser.id) {
+      return (
+        <div>
+          <Grid centered columns={2}>
+            <Grid.Column width={3}>
+              <ProfileDescription user={selectedUser} />
+>>>>>>> d1e34277e365d34dbcee1b8674496b4ed57d1413
             </Grid.Column>
-            <Grid.Column  style={{ margin: '2em' }} width={4}>
-              <Grid.Row style={{ padding: '2em 0em' }} >
-                <NewActivity props={user} />
+            <Grid.Column width={11}>
+              <Grid.Row>
+                <FollowerGroup suggested={suggested} />
               </Grid.Row>
-              <Grid.Row style={{ padding: '2em 0em' }} >
-                <Button> Change My Password </Button>
+              <Grid.Row>
+                <br />
+                <Container width={11}>
+                  {
+                    activities.slice(-10).map(activity => {
+                      return (
+                        <ActivityContainer key={activity.id} activity={activity}>{activity.title}</ActivityContainer>
+                      );
+                    })
+                  }
+                </Container>
               </Grid.Row>
             </Grid.Column>
           </Grid>
-          :
-          <Grid colums={3}>
-            <Grid.Column width={4}>
-              <Image src={user.image} size="medium" circular />
-              <Segment>
-                <Header>Profile Name: {user.name ? user.name : user.email }</Header>
-                <h3>About me: {user.aboutMe ? user.aboutMe : ''} </h3>
-                <ChangeImage />
-              </Segment>
-              <Statistic.Group horizontal>
-                <Statistic>
-                  <Statistic.Value>No Activity Data</Statistic.Value>
-                  <Statistic.Label>Total Miles</Statistic.Label>
-                </Statistic>
-                <Statistic>
-                  <Statistic.Value>No Activity Data</Statistic.Value>
-                  <Statistic.Label>Average Pace (miles/min)</Statistic.Label>
-                </Statistic>
-                <Statistic>
-                  <Statistic.Value>No Activity Data</Statistic.Value>
-                  <Statistic.Label>Total Runs</Statistic.Label>
-                </Statistic>
-              </Statistic.Group>
+        </div>
+      );
+    }
+    else if (selectedUser.id) {
+      return (
+        <div>
+          <Grid centered columns={2}>
+            <Grid.Column width={3}>
+              <ProfileDescription user={selectedUser} />
             </Grid.Column>
-            <Grid.Column style={{ margin: '2em' }} width={4}>
-              <Grid.Row style={{ padding: '2em 0em' }} >
-                <Form width={1} onSubmit ={this.handleSubmit}>
-                  <Input name="name" action={<Button type="submit" >Update</Button>} placeholder="Update Name..." />
-                </Form>
+            <Grid.Column width={11}>
+              <Grid.Row>
+                <FollowerGroup suggested={suggested} />
               </Grid.Row>
-              <Grid.Row style={{ padding: '2em 0em' }} >
-                <Form onSubmit ={this.handleSubmit}>
-                  <Input name="about" action={<Button type="submit" >Update</Button>} placeholder="Update About Me..." />
-                </Form>
-              </Grid.Row>
-              <Grid.Row style={{ padding: '2em 0em' }} >
-                <Form onSubmit ={this.handleSubmit}>
-                  <Input name="email" action={<Button type="submit" >Update</Button>} placeholder="Update Email..." />
-                </Form>
+              <Grid.Row>
+                <br />
+                <Container width={11}>
+                  You have no activities~!
+                </Container>
               </Grid.Row>
             </Grid.Column>
-            <Grid.Column  style={{ margin: '2em' }} width={4}>
-              <Grid.Row style={{ padding: '2em 0em' }} >
-                <NewActivity props={user} />
-              </Grid.Row>
-              <Grid.Row style={{ padding: '2em 0em' }} >
-                <Button> Change My Password </Button>
-              </Grid.Row>
-            </Grid.Column>
-          </Grid>}
-      </Container>
-    );
-  }
 
+          </Grid>
+        </div>
+      );
+    }
+    else { return null; }
+  }
 }
+/**
+ * CONTAINER
+ */
+const mapState = ({ activities, selectedUser, suggested }) => ({ activities, selectedUser, suggested });
 
+const mapDispatch = (dispatch) => {
+  return {
+    fetchData: (userId) => {
+      dispatch(fetchUserActivities(userId));
+      dispatch(fetchSelectedUser(userId));
+      dispatch(fetchSuggested());
+    }
+  };
+};
 
-const mapState = ({activities, user}) => ({activities, user});
-const mapDispatch = dispatch => ({
-  load: (id) => {
-    dispatch(fetchUserActivities(id));
-  },
-  update: (id, changes) => {
-    dispatch(updateUser(id, changes));
-  }
-});
 
 export default connect(mapState, mapDispatch)(UserProfile);
+

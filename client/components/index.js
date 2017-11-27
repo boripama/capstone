@@ -14,6 +14,8 @@ export { default as ActivityContainer } from './ActivityContainer';
 export { default as Comments } from './Comments';
 export { default as MapContainer } from './MapContainer';
 export { default as UserProfile } from './UserProfile';
+export { default as UserAccount } from './UserAccount';
+export { default as ProfileDescription } from './ProfileDescription';
 export { default as NewActivity } from './NewActivity';
 export { default as FollowerCard } from './FollowerCard';
 export { default as ChangeImage } from './ChangeImage';
