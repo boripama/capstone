@@ -19,7 +19,6 @@ class Comments extends Component {
   }
 
   onSubmit = (event) => {
-    event.preventDefault();
     // userId is the id of the user whose activity is being
     // commented on! You should probably map the current user from
     // state instead of just passing it down from the parent
@@ -27,7 +26,8 @@ class Comments extends Component {
     // from the session within the route itself – that way you don't
     // need to explicitly define the userId in the post body, and
     // remove the chances for a mixup like.
-    const { activityId, userId } = this.props;
+    const { activityId } = this.props;
+    const userId = this.props.user.id;
     const comment = {
       content: event.target.content.value,
       activityId,
@@ -102,7 +102,9 @@ const dummyComments = [
 //   };
 // };
 
-const mapState = () => ({});
+const mapState = ({user}) => ({
+  user
+});
 
 const mapDispatch = (dispatch) => {
   return {
