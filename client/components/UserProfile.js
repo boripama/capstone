@@ -5,7 +5,7 @@ import {
 } from 'semantic-ui-react';
 import { ProfileCard, FollowerGroup, ActivityContainer } from './index';
 import { connect } from 'react-redux';
-import { fetchUserActivities, fetchSuggested } from '../store';
+import { fetchUserActivities, fetchSelectedUser, fetchSuggested } from '../store';
 
 
 class UserProfile extends Component {
@@ -18,13 +18,13 @@ class UserProfile extends Component {
   }
 
   render() {
-    const {activities, suggested} = this.props;
+    const { activities, suggested, selectedUser } = this.props;
     if (activities[0]) {
       return (
         <div>
           <Grid centered columns={2}>
             <Grid.Column width={3}>
-              <ProfileCard />
+              <ProfileCard user={selectedUser}/>
             </Grid.Column>
             <Grid.Column width={11}>
               <Grid.Row>
@@ -47,18 +47,40 @@ class UserProfile extends Component {
         </div>
       );
     }
-    else { return null; }
+    else {
+      return (
+        <div>
+          <Grid centered columns={2}>
+            <Grid.Column width={3}>
+              <ProfileCard />
+            </Grid.Column>
+            <Grid.Column width={11}>
+              <Grid.Row>
+                <FollowerGroup suggested={suggested} />
+              </Grid.Row>
+              <Grid.Row>
+                <br />
+                <Container width={11}>
+                  You have no activities~!
+                </Container>
+              </Grid.Row>
+            </Grid.Column>
+          </Grid>
+        </div>
+      );
+    }
   }
 }
 /**
  * CONTAINER
  */
-const mapState = ({activities, suggested}) => ({activities, suggested});
+const mapState = ({ activities, suggested }) => ({ activities, suggested });
 
 const mapDispatch = (dispatch) => {
   return {
     fetchData: (userId) => {
       dispatch(fetchUserActivities(userId));
+      dispatch(fetchSelectedUser(userId));
       dispatch(fetchSuggested());
     }
   };

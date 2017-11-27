@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
     // explicitly select only the id and email fields - even though
     // users' passwords are encrypted, it won't help if we just
     // send everything to anyone who asks!
-    attributes: {exclude: ['password', 'salt', 'googleId']}
+    attributes: { exclude: ['password', 'salt', 'googleId'] }
   })
     .then(users => res.json(users))
     .catch(next);
@@ -27,7 +27,12 @@ router.put('/:id', async (req, res, next) => {
 // ACTIVITIES ROUTES
 router.get('/:id/activities', async (req, res, next) => {
   const userId = +req.params.id;
-  const activities = await Activity.findAll({ where: { userId: userId } });
+  const activities = await Activity.findAll({
+    where: { userId: userId }, include: [
+      { model: User, attributes: ['id', 'name', 'email'] },
+      { model: User, as: 'likes' }
+    ]
+  });
   res.status(200).json(activities);
 });
 
