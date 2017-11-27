@@ -31,17 +31,7 @@ class SingleActivity extends Component {
               <Grid.Row>
                 <br />
                 <Container width={11}>
-
-                  <h1>{this.props.activity.title}</h1>
-                  <p>Single Activity ID: {this.props.activity.id}</p>
-                  <p>Length: {this.props.activity.distance}</p>
-                  <p>Route: {this.props.activity.polyline}</p>
-                  <p>Start Time: {this.props.activity.startTime}</p>
-                  <p>End Time: {this.props.activity.endTime}</p>
-                  <p>Duration: {this.props.activity.duration}</p>
-                  <p>Pace: {this.props.activity.pace}</p>
                   <ActivityContainer key={this.props.activity.id} activity={this.props.activity}>{this.props.activity.title}</ActivityContainer>
-
                 </Container>
               </Grid.Row>
             </Grid.Column>
