@@ -7,7 +7,7 @@ import {
 import moment from 'moment';
 import { connect } from 'react-redux';
 
-const ProfileCard = (props) => {
+const ProfileDescription = (props) => {
   const { user } = props;
   return (
     <Card>
@@ -35,8 +35,4 @@ const ProfileCard = (props) => {
 
 };
 
-
-const mapState = ({ user }) => ({ user });
-const mapDispatch = null;
-
-export default connect(mapState, mapDispatch)(ProfileCard);
+export default ProfileDescription;

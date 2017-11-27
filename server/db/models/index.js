@@ -46,7 +46,12 @@ const ActivityCache = db.define('activity-cache');
 Activity.belongsToMany(User, { through: 'activity-cache' });
 User.belongsToMany(Activity, { through: 'activity-cache' });
 
-const Rec = db.define('rec');
+const Rec = db.define('rec', {
+  status: {
+    type: Sequelize.ENUM('pending', 'accepted', 'declined'),
+    defaultValue: 'pending'
+  },
+});
 User.belongsToMany(User, {as: 'recs', through: 'rec'});
 
 /**
@@ -62,5 +67,5 @@ module.exports = {
   Comment,
   Follower,
   ActivityCache,
-  Rec,
+  Rec
 };

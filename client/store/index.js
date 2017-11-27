@@ -5,11 +5,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import user from './user';
 import activity from './activity';
 import activities from './activities';
-import friends from './friends';
+import followers from './followers';
 import suggested from './suggested';
 import comments from './comments';
 
 const reducer = combineReducers({user, activity, activities, friends, suggested, comments});
+import selectedUser from './selectedUser';
+
+const reducer = combineReducers({user, activity, activities, followers, suggested, selectedUser});
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -20,6 +23,7 @@ export default store;
 export * from './user';
 export * from './activity';
 export * from './activities';
-export * from './friends';
+export * from './followers';
 export * from './suggested';
 export * from './comments';
+export * from './selectedUser';
