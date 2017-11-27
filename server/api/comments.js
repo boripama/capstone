@@ -3,6 +3,41 @@ const { Activity, User, Comment } = require('../db/models');
 const { isUser, isAdmin } = require('../middleware/auth');
 module.exports = router;
 
+
+router.param('id', (req, res, next, commentId) => {
+  Comment.findById(commentId)
+  .then(comment => {
+    req.entity = comment;
+    return Activity.findById(comment.activityId)
+  })
+  .then(activity => {
+    req.activity = activity;
+  })
+  .catch(next)
+})
+
+const canEditComment = (req, res, next) => {
+  // User owns comment
+  if (req.user && +req.comment.userId === +req.user.id) {
+    return next()
+  }
+
+  // User owns activity
+  if (req.user && +req.activity.userId == +req.user.id) {
+    return next()
+  }
+
+  if (req.user.isAdmin) {
+    return next()
+  }
+
+  let err = new Error("nope")
+  err.status = 401
+  return next(err)
+}
+
+
+
 /** 🐍🐍
  * On the get route below we have an isAdmin function so only an admin can hit
  * that route. Some of the routes, like a put or delete for a specific comment
@@ -27,7 +62,7 @@ router.get('/:id', async (req, res, next) => {
   catch (err) { next(err); }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdmin, async (req, res, next) => {
   try {
     const comment = await Comment.findById(req.params.id);
     const newComment = comment.update(req.body);
@@ -35,6 +70,8 @@ router.put('/:id', async (req, res, next) => {
   }
   catch (err) { next(err); }
 });
+
+router.put('/users/:userId/comments/:commentId')
 
 router.delete('/:id', async (req, res, next) => {
   try {
