@@ -7,7 +7,7 @@ import {
 import { connect } from 'react-redux';
 import { addFollower, removeSuggested } from '../store';
 
-const FriendCard = (props) => {
+const FollowerCard = (props) => {
   const { sug, user, add } = props;
   const handleApprove = () => {
     const follower = { status: 'allowed', userId: user.id, followerId: sug.id};
@@ -22,9 +22,9 @@ const FriendCard = (props) => {
       <Card.Content>
         <Image floated="right" size="mini" src={sug.image} />
         <Card.Header>{sug.name ? sug.name : sug.email}</Card.Header>
-        <Card.Meta>Friends of Elliot</Card.Meta>
+        <Card.Meta>Followers of Elliot</Card.Meta>
         <Card.Description>
-          {sug.name ? sug.name : sug.email} wants to be Friends with you.
+          {sug.name ? sug.name : sug.email} wants to follow you.
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
@@ -49,4 +49,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(FriendCard);
+export default connect(mapState, mapDispatch)(FollowerCard);
