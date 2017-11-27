@@ -5,15 +5,15 @@ import {
   Button,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { FriendCard } from './index';
+import { FollowerCard } from './index';
 
-const FriendGroup = (props) => {
+const FollowerGroup = (props) => {
   const { suggested } = props;
 
   return (
     suggested.length ?
       (<Card.Group>
-        {suggested.slice(-3).map(sug => <FriendCard key ={sug.id} sug={sug} />)}
+        {suggested.slice(-3).map(sug => <FollowerCard key ={sug.id} sug={sug} />)}
       </Card.Group>
       ) : <div />
   );
@@ -24,6 +24,6 @@ const FriendGroup = (props) => {
 const mapState = null;
 const mapDispatch = null;
 
-export default connect(mapState, mapDispatch)(FriendGroup);
+export default connect(mapState, mapDispatch)(FollowerGroup);
 
-//* <FriendCard props={users[0]} /> //*}
+//* <FollowerCard props={users[0]} /> //*}

@@ -28,7 +28,7 @@ const ProfileCard = (props) => {
         <Card.Description>{user.aboutMe}</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <a><Icon name="user" />22 Friends</a>
+        <a><Icon name="user" />22 Followers</a>
       </Card.Content>
     </Card>
   );
