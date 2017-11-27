@@ -36,7 +36,7 @@ class Comments extends Component {
         {comments &&
           comments.map((comment) => (
             <Comment key={comment.id}>
-              <Comment.Avatar as="a" src={comment.user.imageUrl} />
+              <Comment.Avatar as="a" src={comment.user.image} />
               <Comment.Content>
                 { /* import and use Link from React-Router */}
                 <Comment.Author as="a">{comment.user.name}</Comment.Author>ß
@@ -74,7 +74,7 @@ const dummyComments = [
     user: {
       id: 1,
       name: 'Doug',
-      imageUrl: 'matthew.png'
+      image: 'http://www.placecage.com/500/500'
     }
   },
   {
@@ -83,7 +83,7 @@ const dummyComments = [
     user: {
       id: 2,
       name: 'Walter',
-      imageUrl: 'matthew.png'
+      image: 'http://www.placecage.com/500/500'
     }
   }
 ];

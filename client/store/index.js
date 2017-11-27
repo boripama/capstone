@@ -8,11 +8,10 @@ import activities from './activities';
 import followers from './followers';
 import suggested from './suggested';
 import comments from './comments';
-
-const reducer = combineReducers({user, activity, activities, friends, suggested, comments});
 import selectedUser from './selectedUser';
 
-const reducer = combineReducers({user, activity, activities, followers, suggested, selectedUser});
+
+const reducer = combineReducers({user, activity, activities, followers, suggested, selectedUser, comments});
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
