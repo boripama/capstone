@@ -20,12 +20,19 @@ export const removeSuggested = id => ({ type: REMOVE_SUGGESTED, id });
 /**
  * THUNK CREATORS
  */
-export const fetchSuggested = () => async dispatch => {
+export const fetchSuggested = id => async dispatch => {
   try {
-    const res = await axios.get('/api/users/');
+    const res = await axios.get(`/api/recs/${id}`);
     dispatch(getSuggested(res.data || defaultSuggested));
   }
-  catch (err) { console.log('Fetching followers unsuccessful', err); }
+  catch (err) { console.log('Fetching suggested unsuccessful', err); }
+};
+
+export const updateSuggested = (id, rec) => {
+  try {
+    axios.put(`/api/recs/${id}`, rec);
+  }
+  catch (err) { console.log('Updating suggested unsuccessful', err); }
 };
 
 /**

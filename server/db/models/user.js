@@ -46,7 +46,7 @@ const User = db.define('user', {
   },
   image: {
     type: Sequelize.STRING,
-    defaultValue: 'http://localhost:8080/matthew.png',
+    defaultValue: 'http://www.placecage.com/500/500',
   },
   aboutMe: {
     type: Sequelize.TEXT,

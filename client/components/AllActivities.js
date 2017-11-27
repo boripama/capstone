@@ -14,7 +14,7 @@ class AllActivities extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchData();
+    this.props.fetchData(this.props.user.id);
   }
 
   render() {
@@ -53,13 +53,13 @@ class AllActivities extends Component {
 /**
  * CONTAINER
  */
-const mapState = ({activities, suggested}) => ({activities, suggested});
+const mapState = ({activities, suggested, user}) => ({activities, suggested, user});
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchData: () => {
+    fetchData: (id) => {
       dispatch(fetchActivities());
-      dispatch(fetchSuggested());
+      dispatch(fetchSuggested(id));
     }
   };
 };
