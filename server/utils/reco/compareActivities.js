@@ -89,3 +89,11 @@ const testFunc = async () => {
 
 testFunc();
 // END TESTING SECTION
+
+
+/** 🐍🐍
+ * QUESTION: Does this format make sense for running our compare function? We are caching matches on activities
+ * for a user vs themselves, then comparing those against other users to limit the total number of
+ * functions that have to run.
+ *
+ */
