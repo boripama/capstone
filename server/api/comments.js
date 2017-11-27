@@ -3,6 +3,13 @@ const { Activity, User, Comment } = require('../db/models');
 const { isUser, isAdmin } = require('../middleware/auth');
 module.exports = router;
 
+/** 🐍🐍
+ * On the get route below we have an isAdmin function so only an admin can hit
+ * that route. Some of the routes, like a put or delete for a specific comment
+ * should allow three people access: an admin, the comment owner or the activity
+ * owner. What would be the best way to go about doing that?
+ */
+
 router.get('/', isAdmin, async (req, res, next) => {
   try {
     res.json(await Comment.findAll({ include: [User] }));

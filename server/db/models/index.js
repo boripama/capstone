@@ -41,6 +41,22 @@ const Like = db.define('like', {});
 Activity.belongsToMany(User, { as: 'likes', through: 'like' });
 User.belongsToMany(Activity, { as: 'likes', through: 'like' });
 
+/** 🐍🐍
+ * I'd like to use the cache that's set up below (which isn't being used currently)
+ * in a different way: to cache every comparison we've made between two activities
+ * i.e. the table would look like "act1 | act2 | match (t/f)"
+ *
+ * What I'd like to know are a couple things:
+ * 1. How to best set up this relationship with Sequelize/Postgres
+ * 2. How to best query for matches when we're doing comparisons. This seems
+ *    straightforward enough, but I want to avoid a situation where we have rows
+ *    of both "34 | 56 | true" and "56 | 34 | true" if that makes sense.
+ *
+ * It seems reasonable (to me) that we should be storing the results of those comparisons,
+ * as a database lookup would definitely be quicker than the comparison function
+ * when it runs every test.
+ */
+
 const ActivityCache = db.define('activity-cache');
 
 Activity.belongsToMany(User, { through: 'activity-cache' });
