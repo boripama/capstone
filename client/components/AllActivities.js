@@ -3,7 +3,7 @@ import {
   Container,
   Grid,
 } from 'semantic-ui-react';
-import { ProfileCard, FriendGroup, ActivityContainer } from './index';
+import { ProfileCard, FollowerGroup, ActivityContainer } from './index';
 import { connect } from 'react-redux';
 import { fetchActivities, fetchSuggested } from '../store';
 
@@ -28,7 +28,7 @@ class AllActivities extends Component {
             </Grid.Column>
             <Grid.Column width={11}>
               <Grid.Row>
-                <FriendGroup suggested={suggested} />
+                <FollowerGroup suggested={suggested} />
               </Grid.Row>
               <Grid.Row>
                 <br />
