@@ -21,8 +21,10 @@ class Comments extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     const { activityId, userId } = this.props;
-    createComment(userId, activityId, this.state, this);
-    event.target.text.value = '';
+    const text = event.target.text.value;
+    console.log('activityId', activityId, 'userId', userId, 'eventTargetValue', event.target.text.value)
+    createComment(text, userId, activityId);
+    event.target.value = '';
   }
 
   render() {
@@ -42,19 +44,15 @@ class Comments extends Component {
                 <Comment.Author as="a">{comment.user.name}</Comment.Author>ß
                 <Comment.Metadata>
                   { /* fill in with data from comments table */}
-                  <span>2 days ago</span>
+                  <span>{comment.createdAt}</span>
                 </Comment.Metadata>
                 <Comment.Text>{comment.content}</Comment.Text>
-                <Comment.Actions>
-                  <a>Reply</a>
-                </Comment.Actions>
               </Comment.Content>
-
             </Comment>
           ))
         }
         <Form style={{ width: '60sw' }} onSubmit={this.onSubmit} reply>
-          <Form.TextArea width={11} height={1} />
+          <Form.TextArea width={11} height={1} name="text" />
           <Button content="Add Reply" labelPosition="left" icon="edit" primary />
         </Form>
       </Comment.Group>
@@ -104,6 +102,9 @@ const mapDispatch = (dispatch) => {
     removeComment: (commentId) => {
       dispatch(deleteComment(commentId));
     },
+    createCommentsData: (comment, userId, activityId) => {
+      dispatch(createComment(comment, userId, activityId));
+    }
   };
 };
 
