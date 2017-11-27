@@ -67,7 +67,7 @@ class ActivityContainer extends Component {
             </div>
           </Grid.Column>
         </Grid>
-        <Comments activityId={this.props.activity.id} userId = {this.props.activity.user.id} />
+        <Comments activityId={this.props.activity.id} comments={this.props.activity.comments} />
       </Segment>
     );
   }

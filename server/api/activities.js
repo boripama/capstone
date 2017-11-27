@@ -7,7 +7,11 @@ router.get('/', async (req, res, next) => {
     res.json(await Activity.findAll({
       include: [
         { model: User, attributes: ['id', 'name', 'email'] },
-        { model: User, as: 'likes' }]
+        { model: User, as: 'likes' },
+        { model: Comment, include: [
+          { model: User, attributes: ['id', 'name', 'email', 'image']}
+        ]}
+      ]
     })
     );
   }
@@ -19,7 +23,10 @@ router.get('/:id', async (req, res, next) => {
     const activity = await Activity.findById(req.params.id, {
       include: [
         { model: User, attributes: ['id', 'name', 'email'] },
-        { model: User, as: 'likes' }
+        { model: User, as: 'likes' },
+        { model: Comment, include: [
+          { model: User, attributes: ['id', 'name', 'email', 'image'] }
+        ]}
       ]
     });
     res.json(activity);
