@@ -39,6 +39,10 @@ class UserAccount extends React.Component {
       this.props.update(id, { name: evt.target.name.value });
       evt.target.name.value = '';
     }
+    if (evt.target.zip) {
+      this.props.update(id, { name: evt.target.zip.value });
+      evt.target.zip.value = '';
+    }
   }
 
 
@@ -84,6 +88,11 @@ class UserAccount extends React.Component {
               <Grid.Row style={{ padding: '2em 0em' }} >
                 <Form onSubmit ={this.handleSubmit}>
                   <Input name="email" action={<Button type="submit" >Update</Button>} placeholder="Update Email..." />
+                </Form>
+              </Grid.Row>
+              <Grid.Row style={{ padding: '2em 0em' }} >
+                <Form onSubmit ={this.handleSubmit}>
+                  <Input name="zip" action={<Button type="submit" >Update</Button>} placeholder="Update Zip Code..." />
                 </Form>
               </Grid.Row>
             </Grid.Column>
