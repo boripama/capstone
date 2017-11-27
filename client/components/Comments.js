@@ -21,27 +21,29 @@ class Comments extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     const { activityId, userId } = this.props;
-    const text = event.target.text.value;
-    console.log('activityId', activityId, 'userId', userId, 'eventTargetValue', event.target.text.value)
-    createComment(text, userId, activityId);
-    event.target.value = '';
+    const comment = {
+      content: event.target.content.value,
+      activityId,
+      userId
+    };
+    this.props.createCommentsData(comment);
+    event.target.content.value = '';
   }
 
   render() {
    // console.log('Comment State', this.props);
-    console.log('this props', this.props)
+    console.log('this props', this.props);
    //console.log(this.props, 'props');
     const { comments } = this.props;
     if(comments[0]) {
     return (
       <Comment.Group>
-        {comments &&
-          comments.map((comment) => (
+        {  comments.map((comment) => ( 
             <Comment key={comment.id}>
-              <Comment.Avatar as="a" src={comment.user.image} />
+            <Comment.Avatar as="a" src={'http://www.placecage.com/500/500'} />
               <Comment.Content>
                 { /* import and use Link from React-Router */}
-                <Comment.Author as="a">{comment.user.name}</Comment.Author>ß
+                <Comment.Author as="a">{comment.user.name}</Comment.Author>
                 <Comment.Metadata>
                   { /* fill in with data from comments table */}
                   <span>{comment.createdAt}</span>
@@ -49,10 +51,11 @@ class Comments extends Component {
                 <Comment.Text>{comment.content}</Comment.Text>
               </Comment.Content>
             </Comment>
-          ))
+          )
+        )
         }
         <Form style={{ width: '60sw' }} onSubmit={this.onSubmit} reply>
-          <Form.TextArea width={11} height={1} name="text" />
+          <Form.TextArea width={11} height={1} name="content" />
           <Button content="Add Reply" labelPosition="left" icon="edit" primary />
         </Form>
       </Comment.Group>
@@ -102,8 +105,8 @@ const mapDispatch = (dispatch) => {
     removeComment: (commentId) => {
       dispatch(deleteComment(commentId));
     },
-    createCommentsData: (comment, userId, activityId) => {
-      dispatch(createComment(comment, userId, activityId));
+    createCommentsData: (comment) => {
+      dispatch(createComment(comment));
     }
   };
 };

@@ -6,7 +6,7 @@ const NEW_COMMENT = 'NEW_COMMENT';
 const GET_COMMENTS = 'GET_COMMENTS';
 const REMOVE_COMMENT = 'REMOVE_COMMENT';
 
-const defaultComment = {};
+const defaultComment = [];
 
 const newComment = comment => ({ type: NEW_COMMENT, comment });
 const getComments = comments => ({ type: GET_COMMENTS, comments });
@@ -24,9 +24,9 @@ export const fetchComments = id => async dispatch => {
   }
 };
 
-export const createComment = (comment, userId, activityId) => async dispatch => {
+export const createComment = (comment) => async dispatch => {
   try {
-    dispatch(newComment((await axios.post(`/api/activities/${activityId}/comments`, comment, userId)).data));
+    dispatch(newComment((await axios.post(`/api/activities/${comment.activityId}/comments`, comment)).data));
   }
   catch (err) {
     console.error('Creating comment unsuccessful', err);
