@@ -5,6 +5,7 @@ router.use('/users', require('./users'));
 router.use('/activities', require('./activities'));
 router.use('/followers', require('./followers'));
 router.use('/comments', require('./comments'));
+router.use('/recs', require('./recs'));
 
 router.use((req, res, next) => {
   const error = new Error('Not Found');
