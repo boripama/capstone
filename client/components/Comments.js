@@ -29,8 +29,8 @@ class Comments extends Component {
    // console.log('Comment State', this.props);
     console.log('this props', this.props)
    //console.log(this.props, 'props');
-    const { comments } = this.state;
-    if(comments) {
+    const { comments } = this.props;
+    if(comments[0]) {
     return (
       <Comment.Group>
         {comments &&
