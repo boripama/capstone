@@ -33,14 +33,21 @@ const Follower = db.define('follower', {
   },
 });
 
-const Like = db.define('like', {
-});
-
 // set relationship for join table
 User.belongsToMany(User, { as: 'followers', through: 'follower' });
 
+const Like = db.define('like', {});
+
 Activity.belongsToMany(User, { as: 'likes', through: 'like' });
 User.belongsToMany(Activity, { as: 'likes', through: 'like' });
+
+const ActivityCache = db.define('activity-cache');
+
+Activity.belongsToMany(User, { through: 'activity-cache' });
+User.belongsToMany(Activity, { through: 'activity-cache' });
+
+const Rec = db.define('rec');
+User.belongsToMany(User, {as: 'recs', through: 'rec'});
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -54,4 +61,6 @@ module.exports = {
   Like,
   Comment,
   Follower,
+  ActivityCache,
+  Rec,
 };
