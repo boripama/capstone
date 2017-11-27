@@ -3,8 +3,9 @@ import {
   Container,
   Grid,
 } from 'semantic-ui-react';
-import { ProfileCard, ProfileDescription, FollowerGroup, ActivityContainer } from './index';
+import { NewActivity, ProfileCard, ProfileDescription, FollowerGroup, ActivityContainer } from './index';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchUserActivities, fetchSelectedUser, fetchSuggested } from '../store';
 
 
@@ -18,7 +19,7 @@ class UserProfile extends Component {
   }
 
   render() {
-    const { activities, suggested, selectedUser } = this.props;
+    const { user, activities, suggested, selectedUser } = this.props;
     if (activities[0] && selectedUser.id) {
       return (
         <div>
@@ -61,13 +62,25 @@ class UserProfile extends Component {
               <Grid.Row>
                 <br />
                 <Container width={11}>
-                  You have no activities~!
+                  {selectedUser.id === user.id
+                    ? <h1>
+                        Yo, runner... go upload some activites!
+                        <br />
+                        <NewActivity />
+                      </h1>
+                    : <div>
+                        <h1>
+                          {selectedUser.name} needs some activities! Send them some
+                          <a href={'mailto:' + selectedUser.email}> encouragement</a>.
+                        </h1>
+                      </div>
+                  }
                 </Container>
               </Grid.Row>
             </Grid.Column>
 
           </Grid>
-        </div>
+        </div >
       );
     }
     else { return null; }
@@ -76,7 +89,7 @@ class UserProfile extends Component {
 /**
  * CONTAINER
  */
-const mapState = ({ activities, selectedUser, suggested }) => ({ activities, selectedUser, suggested });
+const mapState = ({ activities, user, selectedUser, suggested }) => ({ activities, user, selectedUser, suggested });
 
 const mapDispatch = (dispatch) => {
   return {
