@@ -35,7 +35,11 @@ class ActivityContainer extends Component {
     return (
       <Segment>
         <Header size="large">
-          {<Link to={`/activity/${this.props.activity.id}`}>{this.props.activity.title}</Link>}
+          <div>
+            <Link to={`/activity/${this.props.activity.id}`}>{this.props.activity.title} </Link>
+            by
+            <Link to={`/profile/${this.props.activity.user.id}`}> {this.props.activity.user.name}</Link>
+          </div>
         </Header>
         <Grid columns={2}>
           <Grid.Column>

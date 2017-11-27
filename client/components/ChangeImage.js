@@ -39,7 +39,7 @@ class ChangeImage extends React.Component {
            <h3>New Profile Picutre:</h3>
            <Form onSubmit={this.handleChange}>
              <Input fluid name="picture" label="Picture URL" placeholder="Picture URL" />
-             <Button type="submit" size="large" positive>Submit Activity</Button>
+             <Button type="submit" size="large" positive>Submit New Picutre</Button>
            </Form>
          </Modal.Description>
        </Modal.Content>
