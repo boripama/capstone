@@ -19,8 +19,7 @@ class UserProfile extends Component {
   }
 
   render() {
-    const { user, activities, followers, suggested, selectedUser } = this.props;
-    console.log("FOLLOWERS: ", followers);
+    const { activities, user, followers, selectedUser, suggested } = this.props;
     if (activities[0] && selectedUser.id) {
       return (
         <div>
@@ -102,7 +101,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchUserActivities(userId));
       dispatch(fetchSelectedUser(userId));
       dispatch(fetchUserFollowers(userId))
-      dispatch(fetchSuggested());
+      dispatch(fetchSuggested(userId));
     }
   };
 };
