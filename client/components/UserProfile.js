@@ -26,7 +26,6 @@ class UserProfile extends Component {
 
   render() {
     const { activities, user, followers, selectedUser, suggested } = this.props;
-    console.log('userprofile activities', activities);
     if (selectedUser.id) {
       return (
         <Grid centered columns={2}>
@@ -37,24 +36,25 @@ class UserProfile extends Component {
             <Grid.Row>
               <br />
               <Container width={11}>
-                {
-                  activities[0]
-                    ? activities.slice(-10).map(activity =>
-                      (
-                        <ActivityContainer key={activity.id} activity={activity}>{activity.title}</ActivityContainer>
-                      ))
-                    : selectedUser.id === user.id
-                      ? <h1>
-                        Yo, runner... go upload some activities!
-                          <br />
-                        <NewActivity />
+                {activities[0]
+                  ? activities.slice(-10).map(activity => {
+                    return (
+                      <ActivityContainer key={activity.id} activity={activity}>{activity.title}</ActivityContainer>
+                    );
+                  })
+                  : selectedUser.id === user.id
+                    ? <h1>
+                      Yo, runner... go upload some activities!
+                      <br />
+                      <NewActivity />
+                    </h1>
+                    : <div>
+                      <h1>
+                        {selectedUser.name} needs some activities! Send them some
+                        <a href={'mailto:' + selectedUser.email}> encouragement</a>.
                       </h1>
-                      : <div>
-                        <h1>
-                          {selectedUser.name} needs some activities! Send them some
-                            <a href={'mailto:' + selectedUser.email}> encouragement</a>.
-                          </h1>
-                      </div>
+                    </div>
+
                 }
               </Container>
             </Grid.Row>
@@ -69,11 +69,11 @@ class UserProfile extends Component {
               <p>Followers: </p>
               {followers[0]
                 ? followers.map(follower => {
-                  return <div key={follower.id}>
+                  return (<div key={follower.id}>
                     <small>
                       <Link to={`/profile/${follower.id}`}>{follower.name}</Link>
                     </small>
-                  </div>
+                  </div>);
                 })
                 : null
               }
@@ -92,7 +92,7 @@ const mapState = ({ activities, user, followers, selectedUser, suggested }) => (
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchData(userId) {
+    fetchData: (userId) => {
       dispatch(fetchUserActivities(userId));
       dispatch(fetchSelectedUser(userId));
       dispatch(fetchUserFollowers(userId));
@@ -103,4 +103,3 @@ const mapDispatch = (dispatch) => {
 
 
 export default withRouter(connect(mapState, mapDispatch)(UserProfile));
-
