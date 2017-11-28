@@ -30,6 +30,10 @@ const User = db.define('user', {
     type: Sequelize.INTEGER,
     defaultValue: 0
   },
+  totalFollowers: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
   zip: {
     type: Sequelize.INTEGER,
     validate: {
@@ -74,6 +78,17 @@ User.prototype.updateTotals = function (activity) {
   this.setDataValue('totalTime', this.totalTime + activity.duration);
   return this.save();
 };
+
+User.prototype.addAFollower = function (follower) {
+  this.addFollower(follower);
+  this.update({ totalFollowers: this.totalFollowers + 1 });
+}
+
+User.prototype.addSomeFollowers = function (followers) {
+  followers.forEach(follower => {
+    this.addAFollower(follower);
+  })
+}
 
 /**
  * classMethods

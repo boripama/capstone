@@ -30,8 +30,8 @@ async function seed() {
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`);
-  await users[0].addFollowers([2, 3]);
-  await users[1].addFollower(1);
+  await users[0].addSomeFollowers([2, 3]);
+  await users[1].addAFollower(1);
 
   const user1Activities = await seedGpxDir('./script/big-seed/activity-files/user1', 1);
   console.log(user1Activities);
