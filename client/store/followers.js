@@ -4,6 +4,7 @@ import axios from 'axios';
  * ACTION TYPES
  */
 const GET_FOLLOWERS = 'GET_FOLLOWERS';
+const GET_USER_FOLLOWERS = 'GET_USER_FOLLOWERS';
 const REMOVE_FOLLOWERS = 'REMOVE_FOLLOWERS';
 const ADD_FOLLOWER = 'ADD_FOLLOWER';
 
@@ -16,6 +17,7 @@ const defaultFollowers = {};
  * ACTION CREATORS
  */
 const getFollowers = followers => ({ type: GET_FOLLOWERS, followers });
+const getUserFollowers = followers => ({ type: GET_USER_FOLLOWERS, followers });
 export const removeFollowers = () => ({ type: REMOVE_FOLLOWERS });
 const createFollower = follower => ({ type: ADD_FOLLOWER, follower});
 
@@ -24,8 +26,16 @@ const createFollower = follower => ({ type: ADD_FOLLOWER, follower});
  */
 export const fetchFollowers = () => async dispatch => {
   try {
-    const res = await axios.get('/api/users/');
+    const res = await axios.get('/api/followers/');
     dispatch(getFollowers(res.data || defaultFollowers));
+  }
+  catch (err) { console.log('Fetching followers unsuccessful', err); }
+};
+
+export const fetchUserFollowers = (userId) => async dispatch => {
+  try {
+    const res = await axios.get(`/api/followers/${userId}`);
+    dispatch(getUserFollowers(res.data || defaultFollowers));
   }
   catch (err) { console.log('Fetching followers unsuccessful', err); }
 };
@@ -44,6 +54,8 @@ export const addFollower = (follower) => async dispatch => {
 export default function (state = defaultFollowers, action) {
   switch (action.type) {
     case GET_FOLLOWERS:
+      return action.followers;
+    case GET_USER_FOLLOWERS:
       return action.followers;
     case REMOVE_FOLLOWERS:
       return defaultFollowers;
