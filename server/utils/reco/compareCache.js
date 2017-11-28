@@ -1,9 +1,9 @@
-const { ActivityCache, Activity, Rec } = require('../../db/models');
+const { ActivityCache, Activity, Rec, User } = require('../../db/models');
 const compareActivities = require('./compareActivities');
 
 const compareCache = async (firstId, secondId) => {
-  const cache1 = await Activity.findAll({where: {userId: firstId, cached: true}});
-  const cache2 = await Activity.findAll({where: {userId: secondId, cached: true}});
+  const cache1 = await Activity.findAll({ where: { userId: firstId, cached: true } });
+  const cache2 = await Activity.findAll({ where: { userId: secondId, cached: true } });
   let counter = 0;
 
   for (let i = 0; i < cache1.length; i++) {
@@ -19,78 +19,92 @@ const compareCache = async (firstId, secondId) => {
   return ((counter / shorter.length) > 1.25);
 };
 
-const addToSuggested = async (firstId, secondId) => {
-  let createdSuggestion = false;
-  const compare = await compareCache(firstId, secondId);
-  if (compare) {
-    createdSuggestion = true;
-    Rec.create({userId: firstId, recId: secondId});
-    Rec.create({userId: secondId, recId: firstId});
+const updateSuggestions = async (firstId, secondId) => {
+  const shouldSuggest = await compareCache(firstId, secondId);
+  const recs = [];
+  if (shouldSuggest) {
+    const rec1 = await Rec.findOrCreate({ where: { userId: firstId, recId: secondId } });
+    const rec2 = await Rec.findOrCreate({ where: { userId: secondId, recId: firstId } });
+    console.log('Follower pair found');
+    recs.push(rec1, rec2);
   }
-  return createdSuggestion ? console.log('Follower pair found') : console.log('No Follower pair');
+  else { console.log('No Follower pair'); }
+  return recs;
 };
-
-//properly working function to determine if a given activity matches any activities in a cache.
 
 const determineIfCached = (activity, cache) => {
-  let addToCache = false;
+  let addToCache = true;
   cache.some(run => {
-    if (compareActivities(run, activity)) addToCache = true;
+    if (compareActivities(run, activity)) addToCache = false;
   });
-  if (!addToCache) {
-    activity.update({cached: true})
-      .then(() => ActivityCache.create({activityId: activity.id, userId: activity.userId}))
-      // .then(() => console.log('cached'))
+  if (addToCache) {
+    activity.update({ cached: true })
+      .then(() => ActivityCache.create({ activityId: activity.id, userId: activity.userId }))
       .catch(err => console.log(err));
   }
-  // else {console.log('not cached');}
+
+  return addToCache;
 };
 
-const findCache = async (id) => {
-  let cache = await Activity.findAll({where: {userId: id, cached: true}});
-  const activities = await Activity.findAll({where: {userId: id, cached: false}});
-  let Idx = 0;
-  while (Idx < activities.length) {
-    determineIfCached(activities[Idx], cache);
-    cache = await Activity.findAll({where: {userId: id, cached: true}});
-    Idx++;
+const findAndUpdateCache = async (id) => {
+  let cachedActivities = await Activity.findAll({ where: { userId: id, cached: true } });
+  const uncachedActivities = await Activity.findAll({ where: { userId: id, cached: false } });
+  for (let i = 0; i < uncachedActivities.length; i++) {
+    const addToCache = await determineIfCached(uncachedActivities[i], cachedActivities);
+    if (addToCache) { cachedActivities = await Activity.findAll({ where: { userId: id, cached: true } }); }
   }
-  console.log('findCache complete');
+  console.log('findAndUpdateCache complete');
+
+  return cachedActivities;
+};
+
+const updateCacheAndSuggestions = async (currentUserId) => {
+  const cache = await findAndUpdateCache(currentUserId);
+  const otherUsers = await User.findAll({ where: { id: { $ne: currentUserId } } });
+  const recs = await Rec.findAll({ where: { userId: currentUserId } });
+
+  const userIdsToCompare = otherUsers.map(user => {
+    if (!(recs.find(rec => rec.recId === user.id))) return user.id;
+  });
+
+  userIdsToCompare.filter(id => id !== undefined).forEach(id => updateSuggestions(currentUserId, id));
 };
 
 module.exports = {
-  addToSuggested,
-  findCache,
-  determineIfCached
+  updateSuggestions,
+  findAndUpdateCache,
+  determineIfCached,
+  updateCacheAndSuggestions,
 };
 
 
 // FOR TESTING PURPOSES
 
-// const testFunc = () => {
-//   try {
+// const testFunc = async () => {
+//   updateCacheAndSuggestions(7);
+  //   try {
 
-//     // findCache(6);
-//     addToSuggested(1, 2);
-//     addToSuggested(1, 3);
-//     addToSuggested(1, 4);
-//     addToSuggested(1, 5);
-//     addToSuggested(1, 6);
-//     addToSuggested(2, 3);
-//     addToSuggested(2, 4);
-//     addToSuggested(2, 5);
-//     addToSuggested(2, 6);
-//     addToSuggested(3, 4);
-//     addToSuggested(3, 5);
-//     addToSuggested(3, 6);
-//     addToSuggested(4, 5);
-//     addToSuggested(4, 6);
-//     addToSuggested(5, 6);
+  //     // findAndUpdateCache(6);
+  //     updateSuggestions(1, 2);
+  //     updateSuggestions(1, 3);
+  //     updateSuggestions(1, 4);
+  //     updateSuggestions(1, 5);
+  //     updateSuggestions(1, 6);
+  //     updateSuggestions(2, 3);
+  //     updateSuggestions(2, 4);
+  //     updateSuggestions(2, 5);
+  //     updateSuggestions(2, 6);
+  //     updateSuggestions(3, 4);
+  //     updateSuggestions(3, 5);
+  //     updateSuggestions(3, 6);
+  //     updateSuggestions(4, 5);
+  //     updateSuggestions(4, 6);
+  //     updateSuggestions(5, 6);
 
 
-//     console.log('complete');
-//   }
-//   catch (err) { console.error(err); }
+  //     console.log('complete');
+  //   }
+  //   catch (err) { console.error(err); }
 // };
 
 // testFunc();
