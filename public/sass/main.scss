@@ -18,7 +18,7 @@
 // // @import "components/video";
 
 // @import "layout/grid";
-// //@import "layout/header";
+@import "layout/header";
 // @import "layout/footer";
 
 //@import "pages/home";
@@ -40,6 +40,7 @@
 
 body {
   font-family: sans-serif;
+
 
   a {
     text-decoration: none;
