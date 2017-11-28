@@ -33,8 +33,7 @@ router.put('/:id', async (req, res, next) => {
 
 // ACTIVITIES ROUTES
 router.get('/:id/activities', async (req, res, next) => {
-  // const userId = +req.params.id;
-  const activities = await Activity.find({
+  const activities = await Activity.findAll({
     where: { userId: req.params.id }, include: [
       { model: Comment },
       { model: User, attributes: ['id', 'name', 'email'] },

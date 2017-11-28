@@ -17,7 +17,6 @@ export const fetchComments = id => async dispatch => {
   try {
     const res = await axios.get(`/api/activities/${id}/comments`);
     dispatch(getComments(res.data || defaultComment));
-    console.log(res.data, 'the data');
     //dispatch thunk for getting a new activity or creating a thing so you can add that one comment to the activity.
   }
   catch (err) {

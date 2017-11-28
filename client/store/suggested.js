@@ -21,7 +21,6 @@ export const removeSuggested = id => ({ type: REMOVE_SUGGESTED, id });
  * THUNK CREATORS
  */
 export const fetchSuggested = id => async dispatch => {
-  console.log('fetchsuggested ran', id)
   try {
     const res = await axios.get(`/api/recs/${id}`);
     dispatch(getSuggested(res.data || defaultSuggested));
