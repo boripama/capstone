@@ -97,10 +97,7 @@ const mapDispatch = (dispatch) => {
       console.log('fetchData', userId);
       dispatch(fetchUserActivities(userId));
       dispatch(fetchSelectedUser(userId));
-<<<<<<< HEAD
-=======
-      dispatch(fetchUserFollowers(userId))
->>>>>>> master
+      dispatch(fetchUserFollowers(userId));
       dispatch(fetchSuggested(userId));
     }
   };
