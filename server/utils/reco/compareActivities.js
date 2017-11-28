@@ -74,7 +74,6 @@ const testFunc = async () => {
 
     const user1 = await User.findById(1);
 
-    user1.updateCache();
     // const comments = await activity1.getComments({
     //   include: [{model: User, attributes: ['name', 'email']} ]});
     // console.log(comments);

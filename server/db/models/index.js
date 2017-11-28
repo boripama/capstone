@@ -52,6 +52,7 @@ const Rec = db.define('rec', {
     defaultValue: 'pending'
   },
 });
+
 User.belongsToMany(User, {as: 'recs', through: 'rec'});
 
 /**
