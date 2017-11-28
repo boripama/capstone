@@ -15,6 +15,7 @@ const compareCache = async (firstId, secondId) => {
   }
   let shorter;
   (cache1.length < cache2.length) ? shorter = cache1 : shorter = cache2;
+  console.log( counter / shorter.length );
 
   return ((counter / shorter.length) > 1.25);
 };
@@ -64,11 +65,13 @@ const updateCacheAndSuggestions = async (currentUserId) => {
   const recs = await Rec.findAll({ where: { userId: currentUserId } });
   console.log('recs', recs);
 
-  const userIdsToCompare = otherUsers.filter(user => {
+  const userIdsToCompare = otherUsers.map(user => {
     if (!(recs.find(rec => rec.recId === user.id))) return user.id;
   });
 
   console.log('user ids to compare', userIdsToCompare);
+  console.log('filtered', userIdsToCompare.filter(id => id !== undefined));
+  userIdsToCompare.filter(id => id !== undefined).forEach(id => updateSuggestions(currentUserId, id));
 };
 
 module.exports = {
@@ -82,7 +85,7 @@ module.exports = {
 // FOR TESTING PURPOSES
 
 const testFunc = async () => {
-  updateCacheAndSuggestions(1);
+  updateCacheAndSuggestions(7);
   //   try {
 
   //     // findAndUpdateCache(6);
