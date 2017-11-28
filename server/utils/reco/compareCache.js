@@ -69,8 +69,6 @@ const updateCacheAndSuggestions = async (currentUserId) => {
     if (!(recs.find(rec => rec.recId === user.id))) return user.id;
   });
 
-  console.log('user ids to compare', userIdsToCompare);
-  console.log('filtered', userIdsToCompare.filter(id => id !== undefined));
   userIdsToCompare.filter(id => id !== undefined).forEach(id => updateSuggestions(currentUserId, id));
 };
 
