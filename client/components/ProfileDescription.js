@@ -71,7 +71,7 @@ const mapState = (state) => {
 
   if (state.followers[0]) {
     state.followers.forEach(follower => {
-      if (follower.followerId === user.id)
+      if (follower.followerId === state.user.id)
         following = true;
     });
   }
