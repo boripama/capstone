@@ -11,7 +11,7 @@ class LandingPage extends Component {
       <div>
         <header className="header">
           <div className="header__logo-box">
-            <img src="img/logo-white.png" alt="Logo" className="header__logo" />
+            
           </div>
           <div className="header__text-box">
             <h1 className="heading-primary">
@@ -38,7 +38,7 @@ class LandingPage extends Component {
                 <h3 className="heading-tertiary u-margin-bottom-small">Its so easy</h3>
                 <p className="paragrapth">
                   All you need to do is upload your fitbit gpx files and track your progress immediately.
-                            </p>
+                </p>
 
                 <h3 className="heading-tertiary u-margin-bottom-small">Make friends</h3>
                 <p className="paragrapth">
@@ -49,9 +49,6 @@ class LandingPage extends Component {
               </div>
               <div className="col-1-of-2">
                 <div className="composition">
-                  <img src="img/nat-1-large.jpg" alt="Photo 1" className="composition__photo composition__photo--p1" />
-                  <img src="img/nat-2-large.jpg" alt="Photo 2" className="composition__photo composition__photo--p2" />
-                  <img src="img/nat-3-large.jpg" alt="Photo 3" className="composition__photo composition__photo--p3" />
                 </div>
               </div>
             </div>
@@ -75,7 +72,6 @@ class LandingPage extends Component {
             <div className="row">
               <div className="story">
                 <figure className="story__shape">
-                  <img src="img/nat-8.jpg" alt="Person on a tour" className="story__img" />
                   <figcaption className="story__caption">Mary Smith</figcaption>
                 </figure>
                 <div className="story__text">
@@ -89,7 +85,6 @@ class LandingPage extends Component {
             <div className="row">
               <div className="story">
                 <figure className="story__shape">
-                  <img src="img/nat-9.jpg" alt="Person on a tour" className="story__img" />
                   <figcaption className="story__caption">Jack Wilson</figcaption>
                 </figure>
                 <div className="story__text">
