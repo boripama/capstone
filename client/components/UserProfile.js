@@ -61,17 +61,23 @@ class UserProfile extends Component {
           </Grid.Column>
           <Grid.Column width={3}>
             <Grid.Row>
-              <ProfileDescription user={selectedUser} />
+              {user.id === selectedUser.id
+                ? <ProfileCard />
+                : <ProfileDescription />
+              }
             </Grid.Row>
             <Grid.Row>
               <br />
               <br />
               <p>Followers: </p>
-              {followers[0]
+              {followers.length
                 ? followers.map(follower => {
                   return <div key={follower.id}>
                     <small>
-                      <Link to={`/profile/${follower.id}`}>{follower.name}</Link>
+                      {follower.name
+                        ? <Link to={`/profile/${follower.id}`}>{follower.name}</Link>
+                        : <Link to={`/profile/${follower.id}`}>{follower.email}</Link>
+                      }
                     </small>
                   </div>
                 })

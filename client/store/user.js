@@ -15,8 +15,9 @@ const defaultUser = {};
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user});
-const removeUser = () => ({type: REMOVE_USER});
+const getUser = user => ({ type: GET_USER, user });
+const removeUser = () => ({ type: REMOVE_USER });
+
 
 /**
  * THUNK CREATORS
@@ -36,7 +37,7 @@ export const auth = (email, password, method) =>
         history.push('/home');
       })
       .catch(error =>
-        dispatch(getUser({error})));
+        dispatch(getUser({ error })));
 
 export const logout = () =>
   dispatch =>
@@ -55,6 +56,8 @@ export const updateUser = (id, info) => (dispatch) => {
     .catch(err => console.log(err));
 };
 
+
+
 /**
  * REDUCER
  */
@@ -64,6 +67,7 @@ export default function (state = defaultUser, action) {
       return action.user;
     case REMOVE_USER:
       return defaultUser;
+    
     default:
       return state;
   }
