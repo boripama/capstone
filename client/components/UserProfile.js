@@ -9,17 +9,17 @@ import { fetchUserActivities, fetchSelectedUser, fetchSuggested } from '../store
 
 
 class UserProfile extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   componentDidMount() {
+    console.log('userprofile data fetched', this.props.match.params.id);
     this.props.fetchData(this.props.match.params.id);
   }
 
   render() {
     const { activities, suggested, selectedUser } = this.props;
-    console.log('userprofile props', this.props);
     if (activities[0] && selectedUser.id) {
       return (
         <div>
@@ -81,10 +81,11 @@ const mapState = ({ activities, selectedUser, suggested }) => ({ activities, sel
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchData: (userId) => {
+    fetchData (userId) {
+      console.log('fetchData', userId);
       dispatch(fetchUserActivities(userId));
       dispatch(fetchSelectedUser(userId));
-      dispatch(fetchSuggested());
+      dispatch(fetchSuggested(userId));
     }
   };
 };
