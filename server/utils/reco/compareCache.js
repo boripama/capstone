@@ -15,7 +15,6 @@ const compareCache = async (firstId, secondId) => {
   }
   let shorter;
   (cache1.length < cache2.length) ? shorter = cache1 : shorter = cache2;
-  console.log( counter / shorter.length );
 
   return ((counter / shorter.length) > 1.25);
 };
