@@ -19,15 +19,18 @@ const compareCache = async (firstId, secondId) => {
   return ((counter / shorter.length) > 1.25);
 };
 
-const addToSuggested = async (firstId, secondId) => {
-  let createdSuggestion = false;
-  const compare = await compareCache(firstId, secondId);
-  if (compare) {
-    createdSuggestion = true;
-    Rec.create({ userId: firstId, recId: secondId });
-    Rec.create({ userId: secondId, recId: firstId });
+const updateSuggestions = async (firstId, secondId) => {
+  const shouldSuggest = await compareCache(firstId, secondId);
+  const recs = [];
+  if (shouldSuggest) {
+    // add where parameters on findOrCreate
+    const rec1 = await Rec.findOrCreate({ userId: firstId, recId: secondId });
+    const rec2 = await Rec.findOrCreate({ userId: secondId, recId: firstId });
+    console.log('Follower pair found');
+    recs.push(rec1, rec2);
   }
-  return createdSuggestion ? console.log('Follower pair found') : console.log('No Follower pair');
+  else { console.log('No Follower pair'); }
+  return recs;
 };
 
 const determineIfCached = (activity, cache) => {
@@ -45,6 +48,7 @@ const determineIfCached = (activity, cache) => {
 };
 
 const findAndUpdateCache = async (id) => {
+  console.log('finandupdatetest', Rec);
   let cachedActivities = await Activity.findAll({ where: { userId: id, cached: true } });
   const uncachedActivities = await Activity.findAll({ where: { userId: id, cached: false } });
   for (let i = 0; i < uncachedActivities.length; i++) {
@@ -57,7 +61,7 @@ const findAndUpdateCache = async (id) => {
 };
 
 module.exports = {
-  addToSuggested,
+  updateSuggestions,
   findAndUpdateCache,
   determineIfCached
 };
@@ -69,21 +73,21 @@ module.exports = {
 //   try {
 
 //     // findAndUpdateCache(6);
-//     addToSuggested(1, 2);
-//     addToSuggested(1, 3);
-//     addToSuggested(1, 4);
-//     addToSuggested(1, 5);
-//     addToSuggested(1, 6);
-//     addToSuggested(2, 3);
-//     addToSuggested(2, 4);
-//     addToSuggested(2, 5);
-//     addToSuggested(2, 6);
-//     addToSuggested(3, 4);
-//     addToSuggested(3, 5);
-//     addToSuggested(3, 6);
-//     addToSuggested(4, 5);
-//     addToSuggested(4, 6);
-//     addToSuggested(5, 6);
+//     updateSuggestions(1, 2);
+//     updateSuggestions(1, 3);
+//     updateSuggestions(1, 4);
+//     updateSuggestions(1, 5);
+//     updateSuggestions(1, 6);
+//     updateSuggestions(2, 3);
+//     updateSuggestions(2, 4);
+//     updateSuggestions(2, 5);
+//     updateSuggestions(2, 6);
+//     updateSuggestions(3, 4);
+//     updateSuggestions(3, 5);
+//     updateSuggestions(3, 6);
+//     updateSuggestions(4, 5);
+//     updateSuggestions(4, 6);
+//     updateSuggestions(5, 6);
 
 
 //     console.log('complete');

@@ -1,10 +1,10 @@
 const matchActivities = require('./compareActivities');
-const { addToSuggested, findAndUpdateCache, determineIfCached} = require('./compareCache');
+const { updateSuggestions, findAndUpdateCache, determineIfCached} = require('./compareCache');
 
 
 module.exports = {
   matchActivities,
-  addToSuggested,
+  updateSuggestions,
   findAndUpdateCache,
   determineIfCached
 };

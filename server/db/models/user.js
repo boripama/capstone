@@ -1,8 +1,9 @@
 const crypto = require('crypto');
 const Sequelize = require('sequelize');
 const db = require('../db');
+const Rec = require('../models');
 const { sToTimestamp } = require('../../utils');
-const { findAndUpdateCache } = require('../../utils/reco');
+// const { findAndUpdateCache } = require('../../utils/reco');
 
 const User = db.define('user', {
   email: {
@@ -70,11 +71,23 @@ User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt) === this.password;
 };
 
-User.prototype.updateTotals = async function (activity) {
-  const cache = await findAndUpdateCache(this.id);
+User.prototype.updateTotals = function (activity) {
   this.setDataValue('totalDistance', this.totalDistance + activity.distance);
   this.setDataValue('totalTime', this.totalTime + activity.duration);
   return this.save();
+};
+
+// put this function in utils/reco/compareCache because require is breaking database connection
+User.prototype.updateCache = async function () {
+  const cache = await findAndUpdateCache(this.id);
+  const otherUsers = await User.find({ where: { id: !this.id }});
+  const recs = await Rec.find({ where: { userId: this.id }});
+
+  const userIdsToCompare = otherUsers.filter(user => {
+    if (!recs.find(rec => rec.recId === user.id)) return user.id;
+  });
+
+  console.log(userIdsToCompare);
 };
 
 /**

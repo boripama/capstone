@@ -69,10 +69,12 @@ const { Activity, User } = require('../../db/models');
 
 const testFunc = async () => {
   try {
-    const activity1 = await Activity.findById(1);
-    const activity2 = await Activity.findById(3);
+    // const activity1 = await Activity.findById(1);
+    // const activity2 = await Activity.findById(3);
 
-    // const user1 = await User.findById(1);
+    const user1 = await User.findById(1);
+
+    user1.updateCache();
     // const comments = await activity1.getComments({
     //   include: [{model: User, attributes: ['name', 'email']} ]});
     // console.log(comments);
