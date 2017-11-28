@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Follower } = require('../db/models');
+const { Follower, User } = require('../db/models');
 const { isUser, isAdmin } = require('../middleware/auth');
 
 
@@ -16,7 +16,8 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const id = +req.params.id;
-    const followers = await Follower.findAll({ where: { userId: id } });
+    const user = await User.findById(req.params.id);
+    const followers = await user.getFollowers();
     res.json(followers);
   }
   catch (err) { next(err); }
