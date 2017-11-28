@@ -1,4 +1,4 @@
-body {
+.landingPageBody {
   font-family: "Lato", sans-serif;
   font-weight: 400;
   font-size: 16px;
@@ -11,7 +11,7 @@ body {
   color: $color-white;
   text-transform: uppercase; /* set to uppercase */
   backface-visibility: hidden; /*  determines if back part of element is hidden or visible. if we rotate an element 180 degrees it would be seeable, but it can get hidden. this can fix the shakiness*/
-  margin-bottom: 12rem;
+  margin-bottom: 0rem;
 
     &--main {
       display: block;
@@ -29,9 +29,41 @@ body {
    /*span by default is inline */
     &--sub {
       display: block;
+      padding-top: 2rem;
       font-size: 2rem;
-      font-weight: 200;
-      letter-spacing: 0.5;
+      font-weight: 300;
+      letter-spacing: 1;
       animation: moveInRight 1s ease-out;
+    }
+  }
+
+  .heading-secondary {
+    margin-top: 5rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    display: inline-block;
+    background-image: linear-gradient(to bottom, $color-primary-light, $color-primary-dark);
+    -webkit-background-clip: text;
+    color: transparent;
+    letter-spacing: 2px;
+
+    &:hover {
+      transform: skewY(2deg) skewX(15deg) scale(1.1);
+      text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+    }
+  }
+
+  .heading-tertiary {
+    font-size: $default-font-size;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .paragrapth {
+    font-size: $default-font-size;
+
+    &:not(:last-child) {
+      margin-bottom: 3rem;
     }
   }
