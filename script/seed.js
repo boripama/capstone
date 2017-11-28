@@ -20,12 +20,12 @@ async function seed() {
   // executed until that promise resolves!
 
   const users = await Promise.all([
-    User.create({ name: 'Cody', email: 'cody@email.com', password: '123', zip: 12345 }),
-    User.create({ name: 'Zeke', email: 'zeke@email.com', password: '123', zip: 12345 }),
-    User.create({ name: 'Murphy', email: 'murphy@email.com', password: '123', zip: 12345 }),
-    User.create({ name: 'Chili', email: 'chili@email.com', password: '123', zip: 12345 }),
-    User.create({ name: 'Bento', email: 'bento@email.com', password: '123', zip: 12345 }),
-    User.create({ name: 'Scott Thor', email: 'scott@email.com', password: '123', zip: 12345 }),
+    User.create({ name: 'Cody', email: 'cody@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/800/800' }),
+    User.create({ name: 'Zeke', email: 'zeke@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/500/500' }),
+    User.create({ name: 'Murphy', email: 'murphy@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/100/100' }),
+    User.create({ name: 'Chili', email: 'chili@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/200/200' }),
+    User.create({ name: 'Bento', email: 'bento@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/300/300' }),
+    User.create({ name: 'Scott Thor', email: 'scott@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/600/600' }),
   ]);
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
