@@ -84,10 +84,28 @@ router.get('/:id/comments', async (req, res, next) => {
 });
 
 //FOLLOWERS ROUTES
+
+router.get('/:id/following', async (req, res, next) => {
+  try {
+    const followersTable = await Follower.findAll(
+      {
+        where: { followerId: req.params.id },
+        include: [User]
+      }
+    );
+    let followers = [];
+    followersTable.forEach(follower => {
+      followers.push(follower.user);
+    })
+    res.json(followers);
+  }
+  catch (err) { console.log('Removing follower unsucessful', err); }
+});
+
 router.delete('/:userId/followers/:followerId', async (req, res, next) => {
   try {
     await Follower.destroy({ where: { userId: req.params.userId, followerId: req.params.followerId } });
-    const user= await User.findById(req.params.userId);
+    const user = await User.findById(req.params.userId);
     await user.update({ totalFollowers: user.totalFollowers - 1 });
     res.sendStatus(204);
   }

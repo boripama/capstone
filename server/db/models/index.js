@@ -35,6 +35,8 @@ const Follower = db.define('follower', {
 
 // set relationship for join table
 User.belongsToMany(User, { as: 'followers', through: 'follower' });
+// User.belongsToMany(User, { as: 'followees', through: 'follower' });
+Follower.belongsTo(User);
 
 const Like = db.define('like', {});
 

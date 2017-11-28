@@ -14,25 +14,28 @@ class AllActivities extends Component {
     super();
     this.page = 0;
   }
-   state = { page: 0 };
+  state = { page: 0 };
 
 
-   componentDidMount() {
-     this.props.fetchData(this.props.user.id);
-   }
+  componentDidMount() {
+    this.props.fetchData(this.props.user.id);
+  }
 
   changePageForward = () => {
     this.page = this.page + 1;
-    this.setState({page: this.page });
+    this.setState({ page: this.page });
   }
   changePageBack = () => {
     if (this.page) this.page = this.page - 1;
-    this.setState({page: this.page });
+    this.setState({ page: this.page });
   }
 
   render() {
-    const {activities, suggested} = this.props;
+    const { activities, suggested } = this.props;
     if (activities[0]) {
+      activities.filter(activity => {
+        activity
+      })
       let startVal = activities.length - ((this.state.page + 1) * 10);
       let endVal = activities.length - (this.state.page * 10);
       let tenActivities = activities.slice(startVal, endVal);
@@ -71,13 +74,14 @@ class AllActivities extends Component {
 /**
  * CONTAINER
  */
-const mapState = ({activities, suggested, user}) => ({activities, suggested, user});
+const mapState = ({ activities, suggested, user }) => ({ activities, suggested, user });
 
 const mapDispatch = (dispatch) => {
   return {
     fetchData: (id) => {
       dispatch(fetchActivities());
       dispatch(fetchSuggested(id));
+      dispatch(fetchFollowing());
     }
   };
 };
