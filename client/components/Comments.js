@@ -18,7 +18,7 @@ class Comments extends Component {
 
 
   componentDidMount() {
-    ///this.props.fetchCommentsData(this.props.activityId);
+
   }
 
   onSubmit = (event) => {
@@ -69,34 +69,6 @@ class Comments extends Component {
     );
   }
 }
-
-
-const dummyComments = [
-  {
-    id: 1,
-    content: 'Nice work! Great time, too',
-    user: {
-      id: 1,
-      name: 'Doug',
-      image: 'http://www.placecage.com/500/500'
-    }
-  },
-  {
-    id: 2,
-    content: "I've done this run before!",
-    user: {
-      id: 2,
-      name: 'Walter',
-      image: 'http://www.placecage.com/500/500'
-    }
-  }
-];
-
-// const mapState = (state) => {
-//   return {
-//     comments: state.comments
-//   };
-// };
 
 const mapState = ({ user }) => ({
   user
