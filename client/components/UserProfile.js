@@ -26,7 +26,7 @@ class UserProfile extends Component {
 
   render() {
     const { activities, user, followers, selectedUser, suggested } = this.props;
-    if (activities[0] && selectedUser.id && followers[0]) {
+    if (activities[0] && selectedUser.id) {
       return (
         <Grid centered columns={2}>
           <Grid.Column width={11}>
@@ -54,14 +54,15 @@ class UserProfile extends Component {
               <br />
               <br />
               <p>Followers: </p>
-              {
-                followers.map(follower => {
+              {followers[0]
+                ? followers.map(follower => {
                   return <div key={follower.id}>
                     <small>
                       <Link to={`/profile/${follower.id}`}>{follower.name}</Link>
                     </small>
                   </div>
                 })
+                : null
               }
             </Grid.Row>
           </Grid.Column>
