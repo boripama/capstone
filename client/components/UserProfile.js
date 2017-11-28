@@ -31,9 +31,6 @@ class UserProfile extends Component {
         <Grid centered columns={2}>
           <Grid.Column width={11}>
             <Grid.Row>
-              <FollowerGroup suggested={suggested} />
-            </Grid.Row>
-            <Grid.Row>
               <br />
               <Container width={11}>
                 {activities[0]
