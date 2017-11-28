@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { Activity, User, Like, Comment } = require('../db/models');
+const { isUser, isAdmin, isAdminOrLoggedInUser, canRemoveFollower, canAddActivity } = require('../middleware/auth');
 module.exports = router;
 
-router.get('/', async (req, res, next) => {
+router.get('/', isUser, async (req, res, next) => {
   try {
     res.json(await Activity.findAll({
       include: [
@@ -18,7 +19,7 @@ router.get('/', async (req, res, next) => {
   catch (err) { next(err); }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isUser, async (req, res, next) => {
   try {
     const activity = await Activity.findById(req.params.id, {
       include: [
@@ -34,7 +35,7 @@ router.get('/:id', async (req, res, next) => {
   catch (err) { next(err); }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', canAddActivity, async (req, res, next) => {
   try {
     let activity = await Activity.create(req.body.activity);
     activity.setUser(req.body.userId);
@@ -43,7 +44,7 @@ router.post('/', async (req, res, next) => {
   catch (err) { next(err); }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdminOrLoggedInUser, async (req, res, next) => {
   const id = req.params.id;
 
   try { await Activity.destroy({ where: { id } }); }
@@ -53,7 +54,7 @@ router.delete('/:id', async (req, res, next) => {
 });
 
 //likes
-router.get('/:id/likes', async (req, res, next) => {
+router.get('/:id/likes', isUser, async (req, res, next) => {
   try {
     const activity = await Activity.findById(req.params.id);
     const likes = await activity.getLikes();
@@ -80,7 +81,7 @@ router.delete('/:id/like', async (req, res, next) => {
 // COMMENTS ROUTES
 
 
-router.get('/:id/comments', async (req, res, next) => {
+router.get('/:id/comments', isUser, async (req, res, next) => {
   try {
     const activity = await Activity.findById(req.params.id, { include: [User] });
     const comments = await activity.getComments({
@@ -91,7 +92,7 @@ router.get('/:id/comments', async (req, res, next) => {
   catch (err) { next(err); }
 });
 
-router.post('/:id/comments', async (req, res, next) => {
+router.post('/:id/comments', isUser, async (req, res, next) => {
   try {
     req.body.activityId = req.params.id;
     const newComment = await Comment.create(req.body); // passing in user id from front end, and attaching it to body  reqbody   userId comment content

@@ -3,6 +3,14 @@ const { Activity, User, Comment } = require('../db/models');
 const { isUser, isAdmin } = require('../middleware/auth');
 module.exports = router;
 
+router.param('id', async (req, res, next, commentId) => {
+  try {
+    req.comment = await Comment.findById(commentId);
+    req.activity = await Activity.findById(req.comment.activityId);
+  }
+  catch (err) { next(err); }
+});
+
 router.get('/', isAdmin, async (req, res, next) => {
   try {
     res.json(await Comment.findAll({ include: [User] }));
@@ -32,7 +40,8 @@ router.put('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
-    await Comment.destroy({ where: { id } }); }
+    await Comment.destroy({ where: { id } });
+  }
   catch (err) { next(err); }
 
   res.sendStatus(204);
