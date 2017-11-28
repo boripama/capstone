@@ -5,6 +5,7 @@ import axios from 'axios';
  */
 const GET_FOLLOWERS = 'GET_FOLLOWERS';
 const GET_USER_FOLLOWERS = 'GET_USER_FOLLOWERS';
+const REMOVE_FOLLOWER = 'REMOVE_FOLLOWER';
 const REMOVE_FOLLOWERS = 'REMOVE_FOLLOWERS';
 const ADD_FOLLOWER = 'ADD_FOLLOWER';
 
@@ -18,8 +19,9 @@ const defaultFollowers = {};
  */
 const getFollowers = followers => ({ type: GET_FOLLOWERS, followers });
 const getUserFollowers = followers => ({ type: GET_USER_FOLLOWERS, followers });
+const removeFollower = () => ({ type: REMOVE_FOLLOWER });
 export const removeFollowers = () => ({ type: REMOVE_FOLLOWERS });
-const createFollower = follower => ({ type: ADD_FOLLOWER, follower});
+const createFollower = follower => ({ type: ADD_FOLLOWER, follower });
 
 /**
  * THUNK CREATORS
@@ -45,8 +47,17 @@ export const addFollower = (follower) => async dispatch => {
     const res = await axios.post('/api/followers/', follower);
     dispatch(createFollower(res.data || defaultFollowers));
   }
-  catch (err) { console.log('Adding follower unccessful', err); }
+  catch (err) { console.log('Adding follower unsuccessful', err); }
 };
+
+export const deleteFollower = (userId, followerId) => async dispatch => {
+  try {
+    dispatch(removeFollower());
+    await axios.delete(`/api/users/${userId}/followers/${followerId}`);
+  }
+  catch (err) { console.log('Deleting follower unsucessful', err); }
+};
+
 
 /**
  * REDUCER

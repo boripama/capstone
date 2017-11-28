@@ -61,7 +61,10 @@ class UserProfile extends Component {
           </Grid.Column>
           <Grid.Column width={3}>
             <Grid.Row>
-              <ProfileDescription user={selectedUser} />
+              {user.id === selectedUser.id
+                ? <ProfileCard />
+                : < ProfileDescription />
+              }
             </Grid.Row>
             <Grid.Row>
               <br />

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const multer = require('multer');
-const { User, Activity, Like } = require('../db/models');
+const { User, Activity, Like, Follower } = require('../db/models');
 const { isUser, isAdmin } = require('../middleware/auth');
 const { gpxFilter, formatGpxForDatabase } = require('../utils');
 
@@ -81,4 +81,13 @@ router.get('/:id/comments', async (req, res, next) => {
     res.json(comments);
   }
   catch (err) { next(err); }
+});
+
+//FOLLOWERS ROUTES
+router.delete('/:userId/followers/:followerId', async (req, res, next) => {
+  try {
+    await Follower.destroy({ where: { userId: req.params.userId, followerId: req.params.followerId } });
+    res.sendStatus(204);
+  }
+  catch (err) { console.log('Removing follower unsucessful', err); }
 });
