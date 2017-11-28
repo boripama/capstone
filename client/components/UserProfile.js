@@ -74,7 +74,10 @@ class UserProfile extends Component {
                 ? followers.map(follower => {
                   return <div key={follower.id}>
                     <small>
-                      <Link to={`/profile/${follower.id}`}>{follower.name}</Link>
+                      {follower.name
+                        ? <Link to={`/profile/${follower.id}`}>{follower.name}</Link>
+                        : <Link to={`/profile/${follower.id}`}>{follower.email}</Link>
+                      }
                     </small>
                   </div>
                 })
