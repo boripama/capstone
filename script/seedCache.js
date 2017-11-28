@@ -1,6 +1,6 @@
 const db = require('../server/db');
 const { User, Activity, Comment, Follower } = require('../server/db/models');
-const { addToSuggested, findCache, determineIfCached} = require('../server/utils/reco');
+const { updateSuggestions, findAndUpdateCache, determineIfCached } = require('../server/utils/reco');
 
 async function seed() {
   await db.sync();
@@ -15,41 +15,41 @@ async function seed() {
     Activity.findById(1358)
   ]);
   console.log(`found first activity for each user`);
-  await firstActivity.forEach(act => act.update({cached: true}));
+  await firstActivity.forEach(act => act.update({ cached: true }));
   console.log(`first activity for each user has been cached`);
 
-  await findCache(1);
-  console.log(`user 1 findCache complete`);
-  await findCache(2);
-  console.log(`user 2 findCache complete`);
-  await findCache(3);
-  console.log(`user 3 findCache complete`);
-  await findCache(4);
-  console.log(`user 4 findCache complete`);
-  await findCache(5);
-  console.log(`user 5 findCache complete`);
-  await findCache(6);
-  console.log(`user 6 findCache complete`);
+  await findAndUpdateCache(1);
+  console.log(`user 1 findAndUpdateCache complete`);
+  await findAndUpdateCache(2);
+  console.log(`user 2 findAndUpdateCache complete`);
+  await findAndUpdateCache(3);
+  console.log(`user 3 findAndUpdateCache complete`);
+  await findAndUpdateCache(4);
+  console.log(`user 4 findAndUpdateCache complete`);
+  await findAndUpdateCache(5);
+  console.log(`user 5 findAndUpdateCache complete`);
+  await findAndUpdateCache(6);
+  console.log(`user 6 findAndUpdateCache complete`);
 
-  await  addToSuggested(1, 2);
-  await  addToSuggested(1, 3);
-  await  addToSuggested(1, 4);
-  await  addToSuggested(1, 5);
-  await  addToSuggested(1, 6);
+  await updateSuggestions(1, 2);
+  await updateSuggestions(1, 3);
+  await updateSuggestions(1, 4);
+  await updateSuggestions(1, 5);
+  await updateSuggestions(1, 6);
   console.log(`user 1 comparisons complete`);
-  await  addToSuggested(2, 3);
-  await  addToSuggested(2, 4);
-  await  addToSuggested(2, 5);
-  await  addToSuggested(2, 6);
+  await updateSuggestions(2, 3);
+  await updateSuggestions(2, 4);
+  await updateSuggestions(2, 5);
+  await updateSuggestions(2, 6);
   console.log(`user 2 comparisons complete`);
-  await  addToSuggested(3, 4);
-  await  addToSuggested(3, 5);
-  await  addToSuggested(3, 6);
+  await updateSuggestions(3, 4);
+  await updateSuggestions(3, 5);
+  await updateSuggestions(3, 6);
   console.log(`user 3 comparisons complete`);
-  await  addToSuggested(4, 5);
-  await  addToSuggested(4, 6);
+  await updateSuggestions(4, 5);
+  await updateSuggestions(4, 6);
   console.log(`user 4 comparisons complete`);
-  await  addToSuggested(5, 6);
+  await updateSuggestions(5, 6);
   console.log(`user 5 comparisons complete`);
   console.log(`user 6 comparisons complete`);
 }

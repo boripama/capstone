@@ -1,24 +1,37 @@
 import React from 'react';
+import axios from 'axios';
 import {
   Image,
   Card,
   Button,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { addFollower, removeSuggested, updateSuggested } from '../store';
+import { addFollower, removeSuggested } from '../store';
 
 const FollowerCard = (props) => {
-  const { sug, user, add } = props;
+  const { sug, user, updateCardStatus } = props;
+
+  const updateSuggested = (id, rec) => {
+    try {
+      axios.put(`/api/recs/${id}`, rec);
+    }
+    catch (err) { console.log('Updating suggested unsuccessful', err); }
+  };
+
   const handleApprove = () => {
     const follower = { status: 'allowed', userId: user.id, followerId: sug.id};
     const rec = { status: 'accepted', recId: sug.id };
-    add(follower, rec, sug.id, user.id);
+    updateCardStatus(follower, sug.id);
+    updateSuggested(user.id, rec);
   };
+
   const handleDecline = () => {
     const follower = { status: 'ignored', userId: user.id, followerId: sug.id};
     const rec = { status: 'declined', recId: sug.id};
-    add(follower, rec, sug.id, user.id);
+    updateCardStatus(follower, sug.id);
+    updateSuggested(user.id, rec);
   };
+
   return (
     <Card>
       <Card.Content>
@@ -44,10 +57,9 @@ const FollowerCard = (props) => {
 const mapState = ({ user }) => ({ user });
 const mapDispatch = (dispatch) => {
   return {
-    add: (follower, rec, id, userId) => {
+    updateCardStatus: (follower, id) => {
       dispatch(addFollower(follower));
       dispatch(removeSuggested(id));
-      updateSuggested(userId, rec);
     }
   };
 };
