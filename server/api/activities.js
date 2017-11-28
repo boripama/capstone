@@ -86,7 +86,6 @@ router.get('/:id/comments', async (req, res, next) => {
     const comments = await activity.getComments({
       include: [{ model: User, attributes: ['id', 'name', 'email'] }]
     });
-    console.log('----------activity api route comments----------', comments);
     res.json(comments);
   }
   catch (err) { next(err); }

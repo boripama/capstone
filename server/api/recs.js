@@ -14,7 +14,6 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    console.log('---------get route hit---------', req.params.id);
     const user = await User.findById(req.params.id);
     const recs = await user.getRecs({attributes: {exclude: ['password', 'salt', 'googleId', 'isAdmin']}});
     res.json(recs.filter(rec => (rec.rec.status === 'pending')));
