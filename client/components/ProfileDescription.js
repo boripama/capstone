@@ -28,7 +28,10 @@ const ProfileDescription = (props) => {
         <Card.Description>{user.aboutMe}</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <a><Icon name="user" />22 Followers</a>
+        {user.totalFollowers === 1
+          ? <a><Icon name="user" />{user.totalFollowers} Follower</a>
+          : <a><Icon name="user" />{user.totalFollowers} Followers</a>
+        }
       </Card.Content>
     </Card>
   );
