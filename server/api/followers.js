@@ -25,9 +25,10 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const follower = await Follower.create(req.body);
-    const user = await User.findById(follower.userId);
-    user.update({totalFollowers: user.totalFollowers+1});
+    const followerJoin = await Follower.create(req.body);
+    const follower = await User.findById(followerJoin.followerId);
+    const user = await User.findById(followerJoin.userId);
+    await user.update({totalFollowers: user.totalFollowers+1});
     res.status(202).json(follower);
   }
   catch (err) { next(err); }

@@ -87,6 +87,8 @@ router.get('/:id/comments', async (req, res, next) => {
 router.delete('/:userId/followers/:followerId', async (req, res, next) => {
   try {
     await Follower.destroy({ where: { userId: req.params.userId, followerId: req.params.followerId } });
+    const user= await User.findById(req.params.userId);
+    await user.update({ totalFollowers: user.totalFollowers - 1 });
     res.sendStatus(204);
   }
   catch (err) { console.log('Removing follower unsucessful', err); }

@@ -63,14 +63,14 @@ class UserProfile extends Component {
             <Grid.Row>
               {user.id === selectedUser.id
                 ? <ProfileCard />
-                : < ProfileDescription />
+                : <ProfileDescription />
               }
             </Grid.Row>
             <Grid.Row>
               <br />
               <br />
               <p>Followers: </p>
-              {followers[0]
+              {followers.length
                 ? followers.map(follower => {
                   return <div key={follower.id}>
                     <small>

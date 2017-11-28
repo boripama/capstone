@@ -5,7 +5,7 @@ import {
   Icon,
 } from 'semantic-ui-react';
 import moment from 'moment';
-import { addFollower, deleteFollower } from '../store';
+import { addFollower, deleteFollower, updateTotalFollowers } from '../store';
 import { connect } from 'react-redux';
 
 class ProfileDescription extends Component {
@@ -20,16 +20,24 @@ class ProfileDescription extends Component {
 
   followUser() {
     this.props.followAUser(this.props.selectedUser.id, this.props.user.id);
-    this.setState({ following: true });
   }
 
   unfollowUser() {
-    this.props.unfollowAUser(this.props.selectedUser.id, this.props.user.id);
-    this.setState({ following: false });
+    this.props.unfollowAUser( this.props.selectedUser.id, this.props.user.id );
   }
 
   render() {
     const { selectedUser } = this.props;
+
+    let following = false;
+    if (this.props.followers.length) {
+      this.props.followers.forEach(follower => {
+        if (follower.id === this.props.user.id ) {
+          following = true;
+        }
+      });
+    }
+
     return (
       <Card>
         <Image src={selectedUser.image} />
@@ -55,7 +63,7 @@ class ProfileDescription extends Component {
           }
         </Card.Content>
         <Card.Content extra>
-          {!this.state.following
+          {!following
             ? <button onClick={this.followUser}> Follow {selectedUser.name} </button>
             : <button onClick={this.unfollowUser}> Unfollow {selectedUser.name} </button>
           }
@@ -67,20 +75,10 @@ class ProfileDescription extends Component {
 
 const mapState = (state) => {
 
-  let following = false;
-
-  if (state.followers[0]) {
-    state.followers.forEach(follower => {
-      if (follower.followerId === state.user.id)
-        following = true;
-    });
-  }
-
   return {
     user: state.user,
     followers: state.followers,
-    selectedUser: state.selectedUser,
-    following
+    selectedUser: state.selectedUser
   }
 
 };
@@ -90,9 +88,11 @@ const mapDispatch = (dispatch) => {
   return {
     followAUser: (userId, followerId) => {
       dispatch(addFollower({ allowed: true, userId, followerId }));
+      dispatch(updateTotalFollowers(1));
     },
     unfollowAUser: (userId, followerId) => {
       dispatch(deleteFollower(userId, followerId));
+      dispatch(updateTotalFollowers(-1));
     }
   };
 };

@@ -12,14 +12,14 @@ const ADD_FOLLOWER = 'ADD_FOLLOWER';
 /**
  * INITIAL STATE
  */
-const defaultFollowers = {};
+const defaultFollowers = [];
 
 /**
  * ACTION CREATORS
  */
 const getFollowers = followers => ({ type: GET_FOLLOWERS, followers });
 const getUserFollowers = followers => ({ type: GET_USER_FOLLOWERS, followers });
-const removeFollower = () => ({ type: REMOVE_FOLLOWER });
+const removeFollower = (followerId) => ({ type: REMOVE_FOLLOWER, followerId });
 export const removeFollowers = () => ({ type: REMOVE_FOLLOWERS });
 const createFollower = follower => ({ type: ADD_FOLLOWER, follower });
 
@@ -52,7 +52,7 @@ export const addFollower = (follower) => async dispatch => {
 
 export const deleteFollower = (userId, followerId) => async dispatch => {
   try {
-    dispatch(removeFollower());
+    dispatch(removeFollower(followerId));
     await axios.delete(`/api/users/${userId}/followers/${followerId}`);
   }
   catch (err) { console.log('Deleting follower unsucessful', err); }
@@ -68,6 +68,12 @@ export default function (state = defaultFollowers, action) {
       return action.followers;
     case GET_USER_FOLLOWERS:
       return action.followers;
+    case REMOVE_FOLLOWER:
+      {
+        return state.filter(follower => {
+          return (follower.id !== action.followerId)
+        })
+      }
     case REMOVE_FOLLOWERS:
       return defaultFollowers;
     case ADD_FOLLOWER:
