@@ -84,8 +84,8 @@ module.exports = {
 
 // FOR TESTING PURPOSES
 
-const testFunc = async () => {
-  updateCacheAndSuggestions(7);
+// const testFunc = async () => {
+//   updateCacheAndSuggestions(7);
   //   try {
 
   //     // findAndUpdateCache(6);
@@ -109,7 +109,7 @@ const testFunc = async () => {
   //     console.log('complete');
   //   }
   //   catch (err) { console.error(err); }
-};
+// };
 
-testFunc();
+// testFunc();
 // END TESTING SECTION

@@ -3,6 +3,7 @@ const multer = require('multer');
 const { User, Activity, Like } = require('../db/models');
 const { isUser, isAdmin } = require('../middleware/auth');
 const { gpxFilter, formatGpxForDatabase } = require('../utils');
+const { updateCacheAndSuggestions } = require('../utils/reco');
 
 module.exports = router;
 
@@ -70,6 +71,7 @@ router.post('/:id/activities', upload.single('gpx'), async (req, res, next) => {
 
   newActivity.setUser(userId);
 
+  updateCacheAndSuggestions(userId);
   res.status(201).json(newActivity);
 });
 
