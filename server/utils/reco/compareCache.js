@@ -63,7 +63,6 @@ const updateCacheAndSuggestions = async (currentUserId) => {
   const cache = await findAndUpdateCache(currentUserId);
   const otherUsers = await User.findAll({ where: { id: { $ne: currentUserId } } });
   const recs = await Rec.findAll({ where: { userId: currentUserId } });
-  console.log('recs', recs);
 
   const userIdsToCompare = otherUsers.map(user => {
     if (!(recs.find(rec => rec.recId === user.id))) return user.id;
