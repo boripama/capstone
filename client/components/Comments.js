@@ -1,73 +1,92 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
-  Checkbox,
-  Comment,
+  Comment, Form, Button
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { deleteComment, fetchComments, createComment } from '../store';
+import { withRouter } from "react-router-dom";
+import axios from 'axios';
 
-class Comments extends React.Component  {
-state = { collapsed: true }
-handleCheckbox = (e, { checked }) => this.setState({ collapsed: checked })
+class Comments extends Component {
 
-render() {
-  const { collapsed } = this.state;
-  return (
-    <div>
-      <Checkbox defaultChecked label="Collapse comments" onChange={this.handleCheckbox} />
+  constructor(props) {
+    super(props);
+    this.state = {
+      comments: props.comments
+    };
+  }
+
+
+  componentDidMount() {
+
+  }
+
+  onSubmit = (event) => {
+
+    const { activityId } = this.props;
+    const userId = this.props.user.id;
+    const comment = {
+      content: event.target.content.value,
+      activityId,
+      userId
+    };
+    this.props.createCommentsData(comment);
+    event.target.content.value = '';
+    this.setState({ comments: this.props.comments.concat({ ...comment, user: this.props.user, createdAt: new Date().toISOString() }) });
+  }
+
+  sliceDate(date) {
+    return date.slice(0, 10) + ' ' + date.slice(12, 19);
+  }
+
+  render() {
+    const { comments } = this.state;
+
+    return (
       <Comment.Group>
-        <Comment>
-          <Comment.Avatar as="a" src="matthew.png" />
-          <Comment.Content>
-            <Comment.Author as="a">Christian Rocha</Comment.Author>
-            <Comment.Metadata>
-              <span>2 days ago</span>
-            </Comment.Metadata>
-            <Comment.Text>
-                I'm very interested in this motherboard. Do you know if it'd work in a Intel LGA775 CPU socket?
-            </Comment.Text>
-            <Comment.Actions>
-              <a>Reply</a>
-            </Comment.Actions>
-          </Comment.Content>
-          <Comment.Group collapsed={collapsed}>
-            <Comment>
-              <Comment.Avatar as="a" src="matthew.png" />
+        {comments[0] && comments.map((comment) =>
+          (
+            <Comment key={comment.id}>
+              <Comment.Avatar as="a" src={'http://www.placecage.com/500/500'} />
               <Comment.Content>
-                <Comment.Author as="a">Elliot Fu</Comment.Author>
+                { /* import and use Link from React-Router */}
+                <Comment.Author as="a">{comment.user.name}</Comment.Author>
                 <Comment.Metadata>
-                  <span>1 day ago</span>
+                  { /* fill in with data from comments table */}
+                  <span>{this.sliceDate(comment.createdAt)}</span>
                 </Comment.Metadata>
-                <Comment.Text>No, it wont</Comment.Text>
-                <Comment.Actions>
-                  <a>Reply</a>
-                </Comment.Actions>
+                <Comment.Text>{comment.content}</Comment.Text>
               </Comment.Content>
-              <Comment.Group>
-                <Comment>
-                  <Comment.Avatar as="a" src="matthew.png" />
-                  <Comment.Content>
-                    <Comment.Author as="a">Jenny Hess</Comment.Author>
-                    <Comment.Metadata>
-                      <span>20 minutes ago</span>
-                    </Comment.Metadata>
-                    <Comment.Text>Maybe it would.</Comment.Text>
-                    <Comment.Actions>
-                      <a>Reply</a>
-                    </Comment.Actions>
-                  </Comment.Content>
-                </Comment>
-              </Comment.Group>
             </Comment>
-          </Comment.Group>
-        </Comment>
+          )
+        )
+        }
+        <Form style={{ width: '60sw' }} onSubmit={this.onSubmit} reply>
+          <Form.TextArea width={11} height={1} name="content" />
+          <Button content="Add Reply" labelPosition="left" icon="edit" primary />
+        </Form>
       </Comment.Group>
-    </div>
-  );
-}
+    );
+  }
 }
 
+const mapState = ({ user }) => ({
+  user
+});
 
-const mapState = null;
-const mapDispatch = null;
+const mapDispatch = (dispatch) => {
+  return {
+    fetchCommentsData: (activityId) => {
+      dispatch(fetchComments(activityId));
+    },
+    removeComment: (commentId) => {
+      dispatch(deleteComment(commentId));
+    },
+    createCommentsData: (comment) => {
+      dispatch(createComment(comment));
+    }
+  };
+};
+
 
 export default connect(mapState, mapDispatch)(Comments);

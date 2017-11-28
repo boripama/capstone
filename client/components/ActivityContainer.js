@@ -49,15 +49,15 @@ class ActivityContainer extends Component {
             <div>
               <Header size="small">Duration: </Header> {this.props.activity.durationTimestamp} min
             </div>
-            <br /><br /><br /><br />
+            <br /><br />
             <div>
               <Header size="small">Pace: </Header> {this.props.activity.paceTimestamp} min/mile
             </div>
-            <br /><br /><br /><br />
+            <br /><br />
             <div>
               <Header size="small">Miles: </Header> {this.props.activity.distance.toFixed(2)} miles
             </div>
-            <br /><br /><br /><br />
+            <br /><br />
             {
               this.state.liked
                 ? <button onClick={this.removeLike}>Unlike</button>
@@ -71,7 +71,7 @@ class ActivityContainer extends Component {
             </div>
           </Grid.Column>
         </Grid>
-        <Comments />
+        <Comments activityId={this.props.activity.id} comments={this.props.activity.comments} />
       </Segment>
     );
   }

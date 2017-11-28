@@ -45,14 +45,14 @@ class UserProfile extends Component {
                   : selectedUser.id === user.id
                     ? <h1>
                       Yo, runner... go upload some activities!
-                          <br />
+                      <br />
                       <NewActivity />
                     </h1>
                     : <div>
                       <h1>
                         {selectedUser.name} needs some activities! Send them some
-                            <a href={'mailto:' + selectedUser.email}> encouragement</a>.
-                          </h1>
+                        <a href={'mailto:' + selectedUser.email}> encouragement</a>.
+                      </h1>
                     </div>
 
                 }
@@ -72,14 +72,14 @@ class UserProfile extends Component {
               <p>Followers: </p>
               {followers.length
                 ? followers.map(follower => {
-                  return <div key={follower.id}>
+                  return (<div key={follower.id}>
                     <small>
                       {follower.name
                         ? <Link to={`/profile/${follower.id}`}>{follower.name}</Link>
                         : <Link to={`/profile/${follower.id}`}>{follower.email}</Link>
                       }
                     </small>
-                  </div>
+                  </div>);
                 })
                 : null
               }
@@ -101,7 +101,7 @@ const mapDispatch = (dispatch) => {
     fetchData: (userId) => {
       dispatch(fetchUserActivities(userId));
       dispatch(fetchSelectedUser(userId));
-      dispatch(fetchUserFollowers(userId))
+      dispatch(fetchUserFollowers(userId));
       dispatch(fetchSuggested(userId));
     }
   };
@@ -109,4 +109,3 @@ const mapDispatch = (dispatch) => {
 
 
 export default withRouter(connect(mapState, mapDispatch)(UserProfile));
-
