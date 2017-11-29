@@ -19,14 +19,14 @@ const FollowerCard = (props) => {
   };
 
   const handleApprove = () => {
-    const follower = { status: 'allowed', userId: user.id, followerId: sug.id};
+    const follower = { status: 'allowed', followeeId: user.id, followerId: sug.id};
     const rec = { status: 'accepted', recId: sug.id };
     updateCardStatus(follower, sug.id);
     updateSuggested(user.id, rec);
   };
 
   const handleDecline = () => {
-    const follower = { status: 'ignored', userId: user.id, followerId: sug.id};
+    const follower = { status: 'ignored', followeeId: user.id, followerId: sug.id};
     const rec = { status: 'declined', recId: sug.id};
     updateCardStatus(follower, sug.id);
     updateSuggested(user.id, rec);
