@@ -6,6 +6,7 @@ import {
 } from 'semantic-ui-react';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import { withRouter, Link } from 'react-router-dom';
 
 const ProfileCard = (props) => {
   const { user } = props;
@@ -13,7 +14,7 @@ const ProfileCard = (props) => {
     <Card>
       <Image src={user.image} />
       <Card.Content>
-        <Card.Header>{user.name}</Card.Header>
+        <Card.Header><Link to={`/profile/${user.id}`}>{user.name}</Link></Card.Header>
         <Card.Meta>
           <span className="date">{`Member since ${moment(
             user.createdAt
@@ -42,4 +43,4 @@ const ProfileCard = (props) => {
 const mapState = ({ user }) => ({ user });
 const mapDispatch = null;
 
-export default connect(mapState, mapDispatch)(ProfileCard);
+export default withRouter(connect(mapState, mapDispatch)(ProfileCard));
