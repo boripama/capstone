@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
 import {
-  Main, Login, Signup, UserHome, NewActivity,
+  Main, Login, Signup, NewActivity,
   SingleActivity, AllActivities, UserAccount, UserProfile, LandingPage
 } from './components';
 import { me } from './store';
@@ -33,13 +33,14 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/activity/:id" component={SingleActivity} />
             <Route path="/users/:id" component={UserAccount} />
+            <Route path="/home" component={LandingPage} />
             {
               isLoggedIn &&
               <Switch>
                 {/* Routes placed here are only available after logging in */}
                 <Route path="/activities" component={AllActivities} />
                 <Route exact path="/" component={LandingPage} />
-                <Route path="/home" component={UserHome} />
+                <Route path="/home" component={LandingPage} />
                 <Route path="/uploadActivity" component={NewActivity} />
                 <Route path="/profile/:id" component={UserProfile} />
               </Switch>

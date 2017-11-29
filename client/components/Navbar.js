@@ -40,8 +40,7 @@ const Navbar = (props) => {
               secondary
               size="large"
             >
-              <Menu.Item className="nav-logo" as={Link} to="/">Ananda</Menu.Item>
-              <Menu.Item as={Link} to="/home">Home</Menu.Item>
+              <Menu.Item className="nav-logo" as={Link} to="/home">Ananda</Menu.Item>
               <Menu.Item as={Link} to="/uploadActivity">Upload Activity</Menu.Item>
               <Menu.Item as={Link} to="/activities">Activities</Menu.Item>
               <Menu.Item as={Link} to={`/profile/${user.id}`}>My Profile</Menu.Item>
@@ -58,7 +57,7 @@ const Navbar = (props) => {
               secondary
               size="large"
             >
-              <Menu.Item className="nav-logo" as={Link} to="/">Ananda</Menu.Item>
+              <Menu.Item className="nav-logo" as={Link} to="/home">Ananda</Menu.Item>
               <Menu.Item as={Link} to="/login">Login</Menu.Item>
               <Menu.Item as={Link} to="/signup">Sign Up</Menu.Item>
             </Menu>
