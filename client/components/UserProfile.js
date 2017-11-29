@@ -129,8 +129,6 @@ class UserProfile extends Component {
 /**
  * CONTAINER
  */
-// const mapState = ({activities, user, followers, selectedUser, suggested, likedActivities }) =>
-//   ({activities, user, followers, selectedUser, suggested, likedActivities });
 
 const mapState = (state, ownProps) => {
   return {
