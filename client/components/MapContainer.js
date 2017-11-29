@@ -26,8 +26,8 @@ const MapContainer = (props) => {
       style="mapbox://styles/mapbox/streets-v9"
       center={coords[0]}
       containerStyle={{
-        height: '25vh',
-        width: '25vw'
+        height: '100%',
+        width: '100%'
       }}>
       <Source id="source_id" tileJsonSource={SOURCE_OPTIONS} />
       <Layer

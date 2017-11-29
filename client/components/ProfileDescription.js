@@ -70,7 +70,7 @@ class ProfileDescription extends Component {
         </Card.Content>
       </Card>
     );
-  };
+  }
 }
 
 const mapState = (state) => {
