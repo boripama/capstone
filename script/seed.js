@@ -20,12 +20,12 @@ async function seed() {
   // executed until that promise resolves!
 
   const users = await Promise.all([
-    User.create({ name: 'Cody', email: 'cody@email.com', password: '123', zip: 12345 }),
-    User.create({ name: 'Zeke', email: 'zeke@email.com', password: '123', zip: 12345 }),
-    User.create({ name: 'Murphy', email: 'murphy@email.com', password: '123', zip: 12345 }),
-    User.create({ name: 'Chili', email: 'chili@email.com', password: '123', zip: 12345 }),
-    User.create({ name: 'Bento', email: 'bento@email.com', password: '123', zip: 12345 }),
-    User.create({ name: 'Scott Thor', email: 'scott@email.com', password: '123', zip: 12345 }),
+    User.create({ name: 'Cody', email: 'cody@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/800/800' }),
+    User.create({ name: 'Zeke', email: 'zeke@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/500/500' }),
+    User.create({ name: 'Murphy', email: 'murphy@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/100/100' }),
+    User.create({ name: 'Chili', email: 'chili@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/200/200' }),
+    User.create({ name: 'Bento', email: 'bento@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/300/300' }),
+    User.create({ name: 'Scott Thor', email: 'scott@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/600/600' }),
   ]);
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
@@ -45,40 +45,6 @@ async function seed() {
   console.log(user5Activities);
   const user6Activities = await seedGpxDir('./script/big-seed/activity-files/scott-activities', 6);
   console.log(user6Activities);
-
-  /* OLD ACTIVITY SEED INFO
-
-    const gpx1 = fs.readFileSync('./server/temp/chicago1.gpx');
-    const act1 = await formatGpxForDatabase(gpx1);
-    act1.title = 'Chicago Run 1';
-
-    const gpx2 = fs.readFileSync('./server/temp/chicago2.gpx');
-    const act2 = await formatGpxForDatabase(gpx2);
-    act2.title = 'Chicago Run 2';
-
-    const gpx3 = fs.readFileSync('./server/temp/california.gpx');
-    const act3 = await formatGpxForDatabase(gpx3);
-    act3.title = 'California Run';
-
-    const activities = await Promise.all([
-      Activity.create(act1),
-      Activity.create(act2),
-      Activity.create(act3)
-    ]);
-
-    await activities[0].setUser(1);
-    await activities[0].addLike(1);
-    await activities[0].addLike(2);
-
-    await activities[1].setUser(2);
-    await activities[1].addLike(1);
-    await activities[1].addLike(2);
-
-    await activities[2].setUser(1);
-
-    console.log(`seeded ${activities.length} activities`);
-
-  */
 
   const comments = await Promise.all([
     Comment.create({ activityId: 1, userId: 2, content: "Whoa that's fast!" }),

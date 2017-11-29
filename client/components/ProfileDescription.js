@@ -70,7 +70,7 @@ class ProfileDescription extends Component {
         </Card.Content>
       </Card>
     );
-  };
+  }
 }
 
 const mapState = (state) => {
@@ -86,8 +86,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    followAUser: (userId, followerId) => {
-      dispatch(addFollower({ allowed: true, userId, followerId }));
+    followAUser: (followeeId, followerId) => {
+      dispatch(addFollower({ allowed: true, followeeId, followerId }));
       dispatch(updateTotalFollowers(1));
     },
     unfollowAUser: (userId, followerId) => {

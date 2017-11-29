@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { deleteComment, fetchComments, createComment } from '../store';
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 class Comments extends Component {
@@ -32,7 +32,7 @@ class Comments extends Component {
     };
     this.props.createCommentsData(comment);
     event.target.content.value = '';
-    this.setState({ comments: this.props.comments.concat({ ...comment, user: this.props.user, createdAt: new Date().toISOString() }) });
+    this.setState({ comments: this.state.comments.concat({ ...comment, user: this.props.user, createdAt: new Date().toISOString() }) });
   }
 
   sliceDate(date) {
@@ -61,8 +61,9 @@ class Comments extends Component {
           )
         )
         }
-        <Form style={{ width: '60sw' }} onSubmit={this.onSubmit} reply>
+        <Form size={'small'} style={{ width: '60sw' }} onSubmit={this.onSubmit} reply>
           <Form.TextArea width={11} height={1} name="content" />
+          <br />
           <Button content="Add Reply" labelPosition="left" icon="edit" primary />
         </Form>
       </Comment.Group>

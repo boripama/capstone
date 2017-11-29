@@ -3,6 +3,7 @@ import {
   Container,
   Grid,
   Select,
+  Icon,
 } from 'semantic-ui-react';
 import { NewActivity, ProfileCard, ProfileDescription, FollowerGroup, ActivityContainer } from './index';
 import { connect } from 'react-redux';
@@ -107,8 +108,8 @@ class UserProfile extends Component {
                   return (<div key={follower.id}>
                     <small>
                       {follower.name
-                        ? <Link to={`/profile/${follower.id}`}>{follower.name}</Link>
-                        : <Link to={`/profile/${follower.id}`}>{follower.email}</Link>
+                        ? <Link to={`/profile/${follower.id}`}><Icon name="user" />{follower.name}</Link>
+                        : <Link to={`/profile/${follower.id}`}><Icon name="user" />{follower.email}</Link>
                       }
                     </small>
                   </div>);
