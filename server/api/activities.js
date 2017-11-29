@@ -63,14 +63,14 @@ router.get('/:id/likes', isUser, async (req, res, next) => {
   catch (err) { next(err); }
 });
 
-router.post('/:id/like', async (req, res, next) => {
+router.post('/:id/like', isUser, async (req, res, next) => {
   try {
     res.json(await Like.create({ activityId: req.params.id, userId: req.user.id }));
   }
   catch (err) { next(err); }
 });
 
-router.delete('/:id/like', async (req, res, next) => {
+router.delete('/:id/like', isUser, async (req, res, next) => {
   try {
     await Like.destroy({ where: { activityId: req.params.id, userId: req.user.id } });
     res.sendStatus(204);
