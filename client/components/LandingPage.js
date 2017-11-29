@@ -51,25 +51,24 @@ class LandingPage extends Component {
             </div>
           </section>
 
-
           <section className="section-stories">
             <div className="bg-video">
               <video className="bg-video__content" autoPlay muted loop>
-                <source src="../../../public/videos/Park-Stroll/MP4/Park-Stroll.mp4" type="video/mp4" />
+                <source src="./videos/Park-Stroll/MP4/Park-Stroll.mp4" type="video/mp4" />
                 <source src="public/videos/Park-Stroll/WEBM/Park-Stroll.webm" type="video/webm" />
                 Your browser is not supported!
                 </video>
             </div>
             <div className="u-center-text u-margin-bottom-big">
               <h2 className="heading-secondary">
-                We make people genuinely happy
+                Testimonials
                     </h2>
             </div>
 
             <div className="row">
               <div className="story">
                 <figure className="story__shape">
-                  <figcaption className="story__caption">Mary Smith</figcaption>
+                  <figcaption className="story__caption">Mary Yates</figcaption>
                 </figure>
                 <div className="story__text">
                   <div className="h3 heading-tertiary u-margin-bottom-small">And I ran! I ran so far away!</div>
@@ -82,7 +81,7 @@ class LandingPage extends Component {
             <div className="row">
               <div className="story">
                 <figure className="story__shape">
-                  <figcaption className="story__caption">Jack Wilson</figcaption>
+                  <figcaption className="story__caption">Jack Chavez</figcaption>
                 </figure>
                 <div className="story__text">
                   <div className="h3 heading-tertiary u-margin-bottom-small">My favorite social media site!</div>
@@ -117,7 +116,11 @@ class LandingPage extends Component {
               </div>
               <div className="col-1-of-2">
                 <p className="footer_copyright">
-                  Built by <a href="#" className="footer__link">Bond Davis, Pattrick Gund, Rick Polidoro, Matthew Thor</a>
+                  Built by <a href="#" className="footer__link">Bond Davis </a>
+                <a href="#" className="footer__link"> Patrick Gund</a>
+                <a href="#" className="footer__link"> rick polidoro</a>
+                <a href="#" className="footer__link"> Matthew Thor</a>
+                  
                 </p>
               </div>
             </div>
