@@ -42,6 +42,11 @@ class LandingPage extends Component {
               </div>
               <div className="col-1-of-2">
                 <div className="composition">
+
+                  <img src="./img/GPS1.png" alt="Photo 1" class="composition__photo composition__photo--p1"/>
+                  <img src="./img/runners1.jpeg" alt="Photo 3" class="composition__photo composition__photo--p2" />
+                    <img src="./img/fitbit1.jpeg" alt="Photo 2" class="composition__photo composition__photo--p3"/>
+
                 </div>
               </div>
             </div>
@@ -78,7 +83,7 @@ class LandingPage extends Component {
             <div className="row">
               <div className="story">
                 <figure className="story__shape">
-                  <img src="./img/testimonial2.jpg" alt="athlete picture 2" className="story__img"/>
+                  <img src="./img/testimonial4.jpg" alt="athlete picture 2" className="story__img"/>
                   <figcaption className="story__caption">Jack Chavez</figcaption>
                 </figure>
                 <div className="story__text">
