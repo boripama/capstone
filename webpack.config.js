@@ -12,7 +12,7 @@ module.exports = {
     noParse: /(mapbox-gl)\.js$/,
     rules: [
       {
-        test: /\.jsx?$/, 
+        test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader'
       },
