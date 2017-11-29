@@ -5,7 +5,7 @@ class LandingPage extends Component {
   constructor() {
     super();
   }
- "./videos/Park-Stroll/MP4/Park-Stroll.mp4" 
+
   render() {
     return (
       <div className="landingPageBody">
