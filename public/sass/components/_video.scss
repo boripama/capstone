@@ -6,13 +6,11 @@
   width: 100%;
   z-index: -1;
   opacity: .15;
-  overflow: hidden; // to clip video edges of white space
+  overflow: hidden;
 
   &__content {
     height: 100%;
     width: 100%;
-    object-fit: cover;  //when set to cover, its similar to background size cover. the element will fill entire parent will maintaining aspect ratio, and if wider than parent its clipped
-    //fill will fill all width and all height, but wont maintain its aspect ratio
-    //contain  trys to fill entire parent element without clipping the sides
+    object-fit: cover;
   }
 }

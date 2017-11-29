@@ -8,13 +8,8 @@
   }
 
   @include clearfix;
-  //gives our a row a complete height of 17 pixels
 
-
-  //attribute, src selects all srcs images etc  [alt="Logo"]
-  // ^ means get the beginning. $ means the end 
   [class^="col-"] {
-    //where classes start with col-1, selects all at the same time
     float: left;
 
     &:not(:last-child) {
@@ -23,11 +18,11 @@
   }
  
   .col-1-of-2 {
-    width: calc((100% - #{$gutter-horizontal}) / 2); //needs #{} to use the variables
+    width: calc((100% - #{$gutter-horizontal}) / 2);
   }
 
   .col-1-of-3 {
-    width: calc((100% - 2 * #{$gutter-horizontal}) / 3); //needs #{} to use the variables
+    width: calc((100% - 2 * #{$gutter-horizontal}) / 3);
   }
 
   .col-2-of-3 {

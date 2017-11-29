@@ -2,8 +2,8 @@
   font-family: "Lato", sans-serif;
   font-weight: 400;
   font-size: 16px;
-  line-height: 1.7; /* 1.7 * bigger than predetermined line height (not good practice)*/
-  padding-left: 2.5rem; /* easy padding around entire body*/
+  line-height: 1.7;
+  padding-left: 2.5rem;
   padding-right: 2.5rem;
   padding-top: .5rem;
   padding-bottom: 2.5rem;
@@ -13,23 +13,20 @@
 
 .heading-primary {
   color: $color-white;
-  text-transform: uppercase; /* set to uppercase */
-  backface-visibility: hidden; /*  determines if back part of element is hidden or visible. if we rotate an element 180 degrees it would be seeable, but it can get hidden. this can fix the shakiness*/
+  text-transform: uppercase;
+  backface-visibility: hidden;
   margin-bottom: 12rem;
 
     &--main {
       display: block;
       font-size: 4rem;
-      font-weight: 500; /* by default h1 has higher font weight*/
+      font-weight: 500;
       letter-spacing: 2rem;
       animation-name: moveInLeft;
       animation-duration: 1s;
-    animation-timing-function: ease-out; /*starts slower and speeds up*/
-    
-    /* animation-iteration-count: 3 animation will happen 3 times*/
-      /*animation-delay: 3s;*/
+    animation-timing-function: ease-out;
     }
-   /*span by default is inline */
+    
     &--sub {
       margin-top: 2rem;
       display: block;
