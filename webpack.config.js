@@ -9,6 +9,7 @@ module.exports = {
   },
   devtool: 'source-map',
   module: {
+    noParse: /(mapbox-gl)\.js$/,
     rules: [
       {
         test: /\.jsx?$/, 
