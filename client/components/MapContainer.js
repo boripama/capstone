@@ -3,8 +3,10 @@ import polyline from '@mapbox/polyline';
 import { connect } from 'react-redux';
 import ReactMapboxGl, { Layer, Source } from 'react-mapbox-gl';
 
+const mapboxToken = process.env.MAPBOX_TOKEN || 'pk.eyJ1IjoicGF0cmlja2d1bmQiLCJhIjoiY2o4YnF3em5hMDB3azMzc2Z0c2s4aXA0diJ9.lC8yZP6sxPbTeu9iW_UTkA';
+
 const Map = ReactMapboxGl({
-  accessToken: 'pk.eyJ1IjoicGF0cmlja2d1bmQiLCJhIjoiY2o4YnF3em5hMDB3azMzc2Z0c2s4aXA0diJ9.lC8yZP6sxPbTeu9iW_UTkA'
+  accessToken: mapboxToken
 });
 
 const MapContainer = (props) => {
