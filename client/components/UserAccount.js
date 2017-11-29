@@ -65,7 +65,7 @@ class UserAccount extends React.Component {
                   <Statistic.Label>Total Miles</Statistic.Label>
                 </Statistic>
                 <Statistic>
-                  <Statistic.Value>{((activities.map(act => act.pace).reduce((acc, val) => (acc + val))) / activities.length).toFixed(2)}</Statistic.Value>
+                  <Statistic.Value>{(((activities.map(act => act.pace).reduce((acc, val) => (acc + val))) / activities.length) / 60).toFixed(2)}</Statistic.Value>
                   <Statistic.Label>Average Pace (miles/min)</Statistic.Label>
                 </Statistic>
                 <Statistic>

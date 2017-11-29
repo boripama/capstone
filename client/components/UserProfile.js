@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Container,
   Grid,
+  Icon,
 } from 'semantic-ui-react';
 import { NewActivity, ProfileCard, ProfileDescription, FollowerGroup, ActivityContainer } from './index';
 import { connect } from 'react-redux';
@@ -31,9 +32,6 @@ class UserProfile extends Component {
         <Grid centered columns={2}>
           <Grid.Column width={11}>
             <Grid.Row>
-              <FollowerGroup suggested={suggested} />
-            </Grid.Row>
-            <Grid.Row>
               <br />
               <Container width={11}>
                 {activities[0]
@@ -45,14 +43,14 @@ class UserProfile extends Component {
                   : selectedUser.id === user.id
                     ? <h1>
                       Yo, runner... go upload some activities!
-                          <br />
+                      <br />
                       <NewActivity />
                     </h1>
                     : <div>
                       <h1>
                         {selectedUser.name} needs some activities! Send them some
-                            <a href={'mailto:' + selectedUser.email}> encouragement</a>.
-                          </h1>
+                        <a href={'mailto:' + selectedUser.email}> encouragement</a>.
+                      </h1>
                     </div>
 
                 }
@@ -61,19 +59,25 @@ class UserProfile extends Component {
           </Grid.Column>
           <Grid.Column width={3}>
             <Grid.Row>
-              <ProfileDescription user={selectedUser} />
+              {user.id === selectedUser.id
+                ? <ProfileCard />
+                : <ProfileDescription />
+              }
             </Grid.Row>
             <Grid.Row>
               <br />
               <br />
               <p>Followers: </p>
-              {followers[0]
+              {followers.length
                 ? followers.map(follower => {
-                  return <div key={follower.id}>
+                  return (<div key={follower.id}>
                     <small>
-                      <Link to={`/profile/${follower.id}`}>{follower.name}</Link>
+                      {follower.name
+                        ? <Link to={`/profile/${follower.id}`}><Icon name="user" />{follower.name}</Link>
+                        : <Link to={`/profile/${follower.id}`}><Icon name="user" />{follower.email}</Link>
+                      }
                     </small>
-                  </div>
+                  </div>);
                 })
                 : null
               }
@@ -95,7 +99,7 @@ const mapDispatch = (dispatch) => {
     fetchData: (userId) => {
       dispatch(fetchUserActivities(userId));
       dispatch(fetchSelectedUser(userId));
-      dispatch(fetchUserFollowers(userId))
+      dispatch(fetchUserFollowers(userId));
       dispatch(fetchSuggested(userId));
     }
   };
@@ -103,4 +107,3 @@ const mapDispatch = (dispatch) => {
 
 
 export default withRouter(connect(mapState, mapDispatch)(UserProfile));
-
