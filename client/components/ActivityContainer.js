@@ -4,6 +4,8 @@ import {
   Segment,
   Grid,
   Header,
+  Icon,
+  Button,
 } from 'semantic-ui-react';
 import { Comments, MapContainer } from './index';
 import { connect } from 'react-redux';
@@ -60,8 +62,8 @@ class ActivityContainer extends Component {
             <br /><br />
             {
               this.state.liked
-                ? <button onClick={this.removeLike}>Unlike</button>
-                : <button onClick={this.addLike}>Like</button>
+                ? <Button color={'red'} onClick={this.removeLike}><Icon name={'thumbs outline down'}>  Unlike</Icon></Button>
+                : <Button color={'green'} onClick={this.addLike}><Icon name={'thumbs outline up'}>  Like </Icon></Button>
             }
             <div>
               {this.state.nbrOfLikes !== 1

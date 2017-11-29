@@ -20,12 +20,12 @@ async function seed() {
   // executed until that promise resolves!
 
   const users = await Promise.all([
-    User.create({ name: 'Cody', email: 'cody@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/800/800' }),
-    User.create({ name: 'Zeke', email: 'zeke@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/500/500' }),
-    User.create({ name: 'Murphy', email: 'murphy@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/100/100' }),
-    User.create({ name: 'Chili', email: 'chili@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/200/200' }),
-    User.create({ name: 'Bento', email: 'bento@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/300/300' }),
-    User.create({ name: 'Scott Thor', email: 'scott@email.com', password: '123', zip: 12345, image: 'http://www.placecage.com/600/600' }),
+    User.create({ name: 'Cody', email: 'cody@email.com', password: '123', zip: 12345 }),
+    User.create({ name: 'Zeke', email: 'zeke@email.com', password: '123', zip: 12345 }),
+    User.create({ name: 'Murphy', email: 'murphy@email.com', password: '123', zip: 12345 }),
+    User.create({ name: 'Chili', email: 'chili@email.com', password: '123', zip: 12345 }),
+    User.create({ name: 'Bento', email: 'bento@email.com', password: '123', zip: 12345 }),
+    User.create({ name: 'Scott Thor', email: 'scott@email.com', password: '123', zip: 12345 }),
   ]);
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
@@ -33,18 +33,8 @@ async function seed() {
   await users[0].addSomeFollowers([2, 3]);
   await users[1].addAFollower(1);
 
-  const user1Activities = await seedGpxDir('./script/big-seed/activity-files/user1', 1);
+  const user1Activities = await seedGpxDir('./script/big-seed/activity-files/small-seed', 1);
   console.log(user1Activities);
-  const user2Activities = await seedGpxDir('./script/big-seed/activity-files/user2', 2);
-  console.log(user2Activities);
-  const user3Activities = await seedGpxDir('./script/big-seed/activity-files/user3', 3);
-  console.log(user3Activities);
-  const user4Activities = await seedGpxDir('./script/big-seed/activity-files/user4', 4);
-  console.log(user4Activities);
-  const user5Activities = await seedGpxDir('./script/big-seed/activity-files/user5', 5);
-  console.log(user5Activities);
-  const user6Activities = await seedGpxDir('./script/big-seed/activity-files/scott-activities', 6);
-  console.log(user6Activities);
 
   const comments = await Promise.all([
     Comment.create({ activityId: 1, userId: 2, content: "Whoa that's fast!" }),

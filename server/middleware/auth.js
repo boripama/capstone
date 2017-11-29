@@ -1,36 +1,36 @@
 const { User } = require('../db/models');
 
-router.param('id', (req, res, next, entityId) => {
-  Comment.findById(commentId)
-    .then(comment => {
-      req.entity = comment;
-      return Activity.findById(comment.activityId);
-    })
-    .then(activity => {
-      req.activity = activity;
-    })
-    .catch(next);
-});
+// router.param('id', (req, res, next, entityId) => {
+//   Comment.findById(commentId)
+//     .then(comment => {
+//       req.entity = comment;
+//       return Activity.findById(comment.activityId);
+//     })
+//     .then(activity => {
+//       req.activity = activity;
+//     })
+//     .catch(next);
+// });
 
-const canEditComment = (req, res, next) => {
-  // User owns comment
-  if (req.user && +req.comment.userId === +req.user.id) {
-    return next();
-  }
+// const canEditComment = (req, res, next) => {
+//   // User owns comment
+//   if (req.user && +req.comment.userId === +req.user.id) {
+//     return next();
+//   }
 
-  // User owns activity
-  if (req.user && +req.activity.userId == +req.user.id) {
-    return next();
-  }
+//   // User owns activity
+//   if (req.user && +req.activity.userId == +req.user.id) {
+//     return next();
+//   }
 
-  if (req.user.isAdmin) {
-    return next();
-  }
+//   if (req.user.isAdmin) {
+//     return next();
+//   }
 
-  let err = new Error('nope');
-  err.status = 401;
-  return next(err);
-};
+//   let err = new Error('nope');
+//   err.status = 401;
+//   return next(err);
+// };
 
 module.exports = {
   isAdmin: (req, res, next) => {
