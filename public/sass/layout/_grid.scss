@@ -1,6 +1,6 @@
 .row {
   max-width: $grid-width;
-  margin: 0 auto; // center block elements inside another block element. auto means it automaticaly figures out margin we want on left and right, aka even.
+  margin: 0 auto;
   
 
   &:not(:last-child) {
