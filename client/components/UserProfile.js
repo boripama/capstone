@@ -80,24 +80,26 @@ class UserProfile extends Component {
               <br />
               <br />
               {likedActivities.length
-                ? <Select
-                  onChange={(event, data) => this.handleChange(event, data)}
-                  placeholder="Select an activity I've Liked"
-                  options={
-                    likedActivities.map(activity =>
-                      ({
-                        text: activity.title,
-                        value: activity.id
-                      })
-                    )
-                  }
-                >
-                </Select>
+                ? <div>
+                  <Select
+                    onChange={(event, data) => this.handleChange(event, data)}
+                    placeholder="Select an activity I've Liked"
+                    options={
+                      likedActivities.map(activity =>
+                        ({
+                          text: activity.title,
+                          value: activity.id
+                        })
+                      )
+                    }
+                  >
+                  </Select>
+                  <br />
+                  <br />
+                  <button onClick={this.linkToActivity}>Go To Activity</button>
+                </div>
                 : <div />
               }
-              <br />
-              <br />
-              <button onClick={this.linkToActivity}>Go To Activity</button>
             </Grid.Row>
             <Grid.Row>
               <br />
@@ -127,8 +129,8 @@ class UserProfile extends Component {
 /**
  * CONTAINER
  */
-// const mapState = ({ activities, user, followers, selectedUser, suggested, likedActivities }) =>
-//   ({ activities, user, followers, selectedUser, suggested, likedActivities });
+// const mapState = ({activities, user, followers, selectedUser, suggested, likedActivities }) =>
+//   ({activities, user, followers, selectedUser, suggested, likedActivities });
 
 const mapState = (state, ownProps) => {
   return {
