@@ -19,8 +19,8 @@
 
     &--main {
       display: block;
-      font-size: 4rem;
-      font-weight: 500;
+      font-size: 2rem;
+      font-weight: 500; /* by default h1 has higher font weight*/
       letter-spacing: 2rem;
       animation-name: moveInLeft;
       animation-duration: 1s;
