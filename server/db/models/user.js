@@ -80,15 +80,15 @@ User.prototype.updateTotals = function (activity) {
 };
 
 User.prototype.addAFollower = function (follower) {
-  this.addFollower(follower);
+  this.addFollowee(follower);
   this.update({ totalFollowers: this.totalFollowers + 1 });
-}
+};
 
 User.prototype.addSomeFollowers = function (followers) {
   followers.forEach(follower => {
     this.addAFollower(follower);
-  })
-}
+  });
+};
 
 /**
  * classMethods

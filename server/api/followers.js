@@ -17,7 +17,7 @@ router.get('/:id', isUser, async (req, res, next) => {
   try {
     const id = +req.params.id;
     const user = await User.findById(id);
-    const followers = await user.getFollowers();
+    const followers = await user.getFollowees();
     res.json(followers);
   }
   catch (err) { next(err); }

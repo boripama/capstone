@@ -113,6 +113,10 @@ class UserProfile extends Component {
                         ? <Link to={`/profile/${follower.id}`}><Icon name="user" />{follower.name}</Link>
                         : <Link to={`/profile/${follower.id}`}><Icon name="user" />{follower.email}</Link>
                       }
+                      {user.id === selectedUser.id
+                        ? <p>Potato</p>
+                        : <p />
+                      }
                     </small>
                   </div>);
                 })
