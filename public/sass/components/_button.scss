@@ -1,45 +1,38 @@
 
 .btn {
-  
-  /*button is inline element which messes it up */
-  &, // becomes just button applying to all
+  &,
   &:link,
-  &:visited {/*sudo class, link is a state of a tag, used to style elements under a special condition*/
+  &:visited {
     text-transform: uppercase;
     text-decoration: none;
-    padding: 1.5rem 4rem; /*first is top and bottom, then left and right */
+    padding: 1.5rem 4rem;
     display: inline-block;
     border-radius: 10rem;
     transition: all .2s;
     position: relative;
     font-size: $default-font-size;
-
-    //changed for the button element on form
     border: none;
     cursor: pointer;
   }
   
   &:hover
    {
-    /* element needs to move up*/
-    transform: translateY(-0.3rem);/*moves top to down*/ 
-    box-shadow: 0 1rem /*down */ 2rem /*blur*/ rgba($color-black, .2);
+    transform: translateY(-0.3rem);
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
     
-    &::after {
-      /*happens only when we have it on hover state, we want it to get bigger and fade out  */
-    
-    transform: scaleX(1.4) scaleY(1.6); /*doubles the size of before, scaleX scales on x axis, */
+    &::after {  
+      transform: scaleX(1.4) scaleY(1.6);
       opacity: 0;
     }
   }
   
   &:active,
-  &:focus //looks the same for focusing
+  &:focus
  {
     
-    /*when button is clicked*/
+    
     transform: translateY(-.1rem);
-    box-shadow: 0 0.5rem /*down */ 1rem /*blur*/ rgba($color-black, .2);
+    box-shadow: 0 0.5rem 1rem rgba($color-black, .2);
     outline:none;
     
   }
@@ -60,25 +53,23 @@
       }
   }
   
-  &::after { /* considered like the child */
-    content: ""; /*needs content and display */
-    display: inline-block; /*needs this because parent has it */
+  &::after {
+    content: "";
+    display: inline-block;
     height: 100%;
     width: 100%;
     border-radius: 100px;
-    position: absolute; /*to put it behind */
+    position: absolute;
     top: 0;
     left: 0;
-    /*needs first one with relevant position, this is what will hide it behind the button*/
-    z-index: -1; /*defines -1 so its behind. we want to see it when we hover the button*/
-  
-    transition: all .4s
+    z-index: -1;
+    transition: all .4s;
   }
   
   
     &--animated {
       animation: moveInBottom .5s ease-out .75s;
-      animation-fill-mode: backwards /*automatically applies animations before it starts */
+      animation-fill-mode: backwards;
     }
   }
   
@@ -88,10 +79,10 @@
     &:visited {
       font-size: $default-font-size;
       color: $color-primary;
-      display: inline; // so we can use padding and margin
-      text-decoration: none;  // so we can write our own underline
-      border-bottom: 1px solid $color-primary; // we do this so we can set a padding
-      padding: 3px; //so small not worth using rem
+      display: inline;
+      text-decoration: none;
+      border-bottom: 1px solid $color-primary;
+      padding: 3px;
       transition: all .2s;
     }
 

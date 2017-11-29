@@ -3,7 +3,6 @@
  @import "abstracts/variables";
 
  @import "base/animations";
- @import "base/base";
  @import "base/typography";
  @import "base/utilities";
 
@@ -17,12 +16,6 @@
 @import "layout/footer";
 
 @import "pages/landingPage";
-
-
-
-
-
-
  
 @import url('https://fonts.googleapis.com/css?family=Audiowide');
 
@@ -35,7 +28,6 @@
 
 body {
   font-family: sans-serif;
-
 
   a {
     text-decoration: none;

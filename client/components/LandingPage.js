@@ -26,7 +26,7 @@ const LandingPage = () => {
             <div className="col-1-of-2">
               <h3 className="heading-tertiary u-margin-bottom-small">Its so easy</h3>
               <p className="paragraph">
-                  All you need to do is upload your fitbit gpx files and track your progress immediately.
+                  Simply upload the GPX files from your Garmin, TomTom, Fitbit or other GPS device and track your progress immediately.
               </p>
 
               <h3 className="heading-tertiary u-margin-bottom-small">Make friends</h3>
@@ -75,16 +75,15 @@ const LandingPage = () => {
               </div>
             </div>
           </div>
-
           <div className="row">
             <div className="story">
               <figure className="story__shape">
-                <img src="/img/testimonial4.jpg" alt="athlete picture 2" className="story__img" />
+                <img src="./img/testimonial4.jpg" alt="athlete picture 2" className="story__img" />
                 <figcaption className="story__caption">Jack Chavez</figcaption>
               </figure>
               <div className="story__text">
                 <div className="h3 heading-tertiary u-margin-bottom-small">My favorite social media site!</div>
-                <p>Couldn't be more happy so far. I've gotten in much better shape competing daily against my good buddies Will and Phil.</p>
+                <p>Couldn't be happier so far. I've gotten in much better shape competing daily against my good buddies Will and Phil.</p>
 
               </div>
             </div>
