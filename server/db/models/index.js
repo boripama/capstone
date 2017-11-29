@@ -34,7 +34,9 @@ const Follower = db.define('follower', {
 });
 
 // set relationship for join table
-User.belongsToMany(User, { as: 'followers', through: 'follower' });
+User.belongsToMany(User, { as: 'followers', through: 'follower', foreignKey: 'followerId' });
+User.belongsToMany(User, { as: 'followees', through: 'follower', foreignKey: 'followeeId' });
+// Follower.belongsTo(User);
 
 const Like = db.define('like', {});
 
@@ -52,6 +54,7 @@ const Rec = db.define('rec', {
     defaultValue: 'pending'
   },
 });
+
 User.belongsToMany(User, {as: 'recs', through: 'rec'});
 
 /**
@@ -67,5 +70,5 @@ module.exports = {
   Comment,
   Follower,
   ActivityCache,
-  Rec
+  Rec,
 };

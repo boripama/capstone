@@ -20,7 +20,6 @@ class ChangeImage extends React.Component {
   handleClose = () => this.setState({ modalOpen: false });
 
  handleChange = evt => {
-   console.log(evt.target.picture.value);
    this.props.update(this.props.user.id, { image: evt.target.picture.value });
    this.handleClose();
  };

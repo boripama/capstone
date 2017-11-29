@@ -4,6 +4,8 @@ import {
   Segment,
   Grid,
   Header,
+  Icon,
+  Button,
 } from 'semantic-ui-react';
 import { Comments, MapContainer } from './index';
 import { connect } from 'react-redux';
@@ -49,19 +51,19 @@ class ActivityContainer extends Component {
             <div>
               <Header size="small">Duration: </Header> {this.props.activity.durationTimestamp} min
             </div>
-            <br /><br /><br /><br />
+            <br /><br />
             <div>
               <Header size="small">Pace: </Header> {this.props.activity.paceTimestamp} min/mile
             </div>
-            <br /><br /><br /><br />
+            <br /><br />
             <div>
               <Header size="small">Miles: </Header> {this.props.activity.distance.toFixed(2)} miles
             </div>
-            <br /><br /><br /><br />
+            <br /><br />
             {
               this.state.liked
-                ? <button onClick={this.removeLike}>Unlike</button>
-                : <button onClick={this.addLike}>Like</button>
+                ? <Button color={'red'} onClick={this.removeLike}><Icon name={'thumbs outline down'}>  Unlike</Icon></Button>
+                : <Button color={'green'} onClick={this.addLike}><Icon name={'thumbs outline up'}>  Like </Icon></Button>
             }
             <div>
               {this.state.nbrOfLikes !== 1
@@ -71,7 +73,7 @@ class ActivityContainer extends Component {
             </div>
           </Grid.Column>
         </Grid>
-        <Comments />
+        <Comments activityId={this.props.activity.id} comments={this.props.activity.comments} />
       </Segment>
     );
   }

@@ -7,7 +7,11 @@ router.get('/', async (req, res, next) => {
     res.json(await Activity.findAll({
       include: [
         { model: User, attributes: ['id', 'name', 'email'] },
-        { model: User, as: 'likes' }]
+        { model: User, as: 'likes' },
+        { model: Comment, include: [
+          { model: User, attributes: ['id', 'name', 'email', 'image']}
+        ]}
+      ]
     })
     );
   }
@@ -19,7 +23,10 @@ router.get('/:id', async (req, res, next) => {
     const activity = await Activity.findById(req.params.id, {
       include: [
         { model: User, attributes: ['id', 'name', 'email'] },
-        { model: User, as: 'likes' }
+        { model: User, as: 'likes' },
+        { model: Comment, include: [
+          { model: User, attributes: ['id', 'name', 'email', 'image'] }
+        ]}
       ]
     });
     res.json(activity);
@@ -87,7 +94,7 @@ router.get('/:id/comments', async (req, res, next) => {
 router.post('/:id/comments', async (req, res, next) => {
   try {
     req.body.activityId = req.params.id;
-    const newComment = await Comment.create(req.body);
+    const newComment = await Comment.create(req.body); // passing in user id from front end, and attaching it to body  reqbody   userId comment content
     res.status(201).json(newComment);
   }
   catch (err) { next(err); }

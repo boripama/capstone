@@ -31,7 +31,7 @@ export const fetchUserActivities = id => async dispatch => {
     const res = await axios.get(`/api/users/${id}/activities/`);
     dispatch(getActivities(res.data || defaultActivities));
   }
-  catch (err) {console.log('Fetching activites unccessful', err); }
+  catch (err) {console.log('Fetching activities unsuccessful', err); }
 };
 
 /**
