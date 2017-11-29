@@ -6,6 +6,7 @@ import {
   Button,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { withRouter, Link } from 'react-router-dom';
 import { addFollower, removeSuggested } from '../store';
 
 const FollowerCard = (props) => {
@@ -19,15 +20,15 @@ const FollowerCard = (props) => {
   };
 
   const handleApprove = () => {
-    const follower = { status: 'allowed', followeeId: user.id, followerId: sug.id};
+    const follower = { status: 'allowed', followeeId: sug.id, followerId: user.id };
     const rec = { status: 'accepted', recId: sug.id };
     updateCardStatus(follower, sug.id);
     updateSuggested(user.id, rec);
   };
 
   const handleDecline = () => {
-    const follower = { status: 'ignored', followeeId: user.id, followerId: sug.id};
-    const rec = { status: 'declined', recId: sug.id};
+    const follower = { status: 'ignored', followeeId: user.id, followerId: sug.id };
+    const rec = { status: 'declined', recId: sug.id };
     updateCardStatus(follower, sug.id);
     updateSuggested(user.id, rec);
   };
@@ -36,10 +37,10 @@ const FollowerCard = (props) => {
     <Card>
       <Card.Content>
         <Image floated="right" size="mini" src={sug.image} />
-        <Card.Header>{sug.name ? sug.name : sug.email}</Card.Header>
+        <Card.Header><Link to={`/profile/${sug.id}`}>{sug.name ? sug.name : sug.email}</Link></Card.Header>
         <Card.Meta>Followers of Elliot</Card.Meta>
         <Card.Description>
-          {sug.name ? sug.name : sug.email} wants to follow you.
+          You and {sug.name ? sug.name : sug.email} have similar activity... Do you want to follow them?
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
@@ -64,4 +65,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(FollowerCard);
+export default withRouter(connect(mapState, mapDispatch)(FollowerCard));
