@@ -89,19 +89,12 @@ router.get('/:id/comments', isUser, async (req, res, next) => {
 
 router.get('/:id/following', async (req, res, next) => {
   try {
-    const followersTable = await Follower.findAll(
-      {
-        where: { followerId: req.params.id },
-        include: [User]
-      }
-    );
-    let followers = [];
-    followersTable.forEach(follower => {
-      followers.push(follower.user);
-    })
+    const user = await User.findById(req.params.id);
+    const followers = await user.getFollowers();
+
     res.json(followers);
   }
-  catch (err) { console.log('Removing follower unsucessful', err); }
+  catch (err) { console.log('Fetching user followers unsucessful', err); }
 });
 
 router.delete('/:userId/followers/:followerId', canRemoveFollower, async (req, res, next) => {
