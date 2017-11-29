@@ -33,18 +33,8 @@ async function seed() {
   await users[0].addSomeFollowers([2, 3]);
   await users[1].addAFollower(1);
 
-  const user1Activities = await seedGpxDir('./script/big-seed/activity-files/user1', 1);
+  const user1Activities = await seedGpxDir('./script/big-seed/activity-files/small-seed', 1);
   console.log(user1Activities);
-  const user2Activities = await seedGpxDir('./script/big-seed/activity-files/user2', 2);
-  console.log(user2Activities);
-  const user3Activities = await seedGpxDir('./script/big-seed/activity-files/user3', 3);
-  console.log(user3Activities);
-  const user4Activities = await seedGpxDir('./script/big-seed/activity-files/user4', 4);
-  console.log(user4Activities);
-  const user5Activities = await seedGpxDir('./script/big-seed/activity-files/user5', 5);
-  console.log(user5Activities);
-  const user6Activities = await seedGpxDir('./script/big-seed/activity-files/scott-activities', 6);
-  console.log(user6Activities);
 
   const comments = await Promise.all([
     Comment.create({ activityId: 1, userId: 2, content: "Whoa that's fast!" }),

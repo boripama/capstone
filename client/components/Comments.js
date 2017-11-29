@@ -32,7 +32,7 @@ class Comments extends Component {
     };
     this.props.createCommentsData(comment);
     event.target.content.value = '';
-    this.setState({ comments: this.props.comments.concat({ ...comment, user: this.props.user, createdAt: new Date().toISOString() }) });
+    this.setState({ comments: this.state.comments.concat({ ...comment, user: this.props.user, createdAt: new Date().toISOString() }) });
   }
 
   sliceDate(date) {
