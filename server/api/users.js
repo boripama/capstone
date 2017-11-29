@@ -35,7 +35,9 @@ router.put('/:id', async (req, res, next) => {
 router.get('/:id/activities', async (req, res, next) => {
   const activities = await Activity.findAll({
     where: { userId: req.params.id }, include: [
-      { model: Comment },
+      { model: Comment, include: [
+        { model: User, attributes: ['id', 'name', 'email', 'image'] }
+      ]},
       { model: User, attributes: ['id', 'name', 'email'] },
       { model: User, as: 'likes' }
     ]
@@ -84,10 +86,28 @@ router.get('/:id/comments', async (req, res, next) => {
 });
 
 //FOLLOWERS ROUTES
+
+router.get('/:id/following', async (req, res, next) => {
+  try {
+    const followersTable = await Follower.findAll(
+      {
+        where: { followerId: req.params.id },
+        include: [User]
+      }
+    );
+    let followers = [];
+    followersTable.forEach(follower => {
+      followers.push(follower.user);
+    })
+    res.json(followers);
+  }
+  catch (err) { console.log('Removing follower unsucessful', err); }
+});
+
 router.delete('/:userId/followers/:followerId', async (req, res, next) => {
   try {
     await Follower.destroy({ where: { userId: req.params.userId, followerId: req.params.followerId } });
-    const user= await User.findById(req.params.userId);
+    const user = await User.findById(req.params.userId);
     await user.update({ totalFollowers: user.totalFollowers - 1 });
     res.sendStatus(204);
   }
