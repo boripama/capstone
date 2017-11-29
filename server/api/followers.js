@@ -27,7 +27,7 @@ router.post('/', isUser, async (req, res, next) => {
   try {
     const followerJoin = await Follower.create(req.body);
     const follower = await User.findById(followerJoin.followerId);
-    const user = await User.findById(followerJoin.userId);
+    const user = await User.findById(followerJoin.followeeId);
     await user.update({totalFollowers: user.totalFollowers + 1});
     res.status(202).json(follower);
   }
