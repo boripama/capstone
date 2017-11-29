@@ -26,12 +26,15 @@ module.exports = {
   },
   canRemoveFollower: (req, res, next) => {
     return next();
-    console.log("-----USER ID?: ", req.user.id, "-----follower: ", req.params.followerId);
-    if ((+req.user.id === +req.params.followerId) || req.user.isAdmin) return next();
+    //
+    //COMMENTED OUT TO ALLOW WORKING FOLLOWER REMOVAL FOR NOW
+    //
+    // if ((+req.user.id === +req.params.followerId) || req.user.isAdmin) return next();
 
-    const err = new Error('User is not authorized');
-    err.status = 401;
-    next(err);
+    // const err = new Error('User is not authorized');
+    // err.status = 401;
+    // next(err); 
+    //
   },
   canAddActivity: (req, res, next) => {
     if ((+req.user.id === +req.body.userId) || req.user.isAdmin) return next();
