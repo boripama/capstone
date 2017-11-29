@@ -7,6 +7,7 @@ import {
 import moment from 'moment';
 import { addFollower, deleteFollower, updateTotalFollowers } from '../store';
 import { connect } from 'react-redux';
+import { withRouter, Link } from 'react-router-dom';
 
 class ProfileDescription extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class ProfileDescription extends Component {
   }
 
   unfollowUser() {
-    this.props.unfollowAUser( this.props.selectedUser.id, this.props.user.id );
+    this.props.unfollowAUser(this.props.selectedUser.id, this.props.user.id);
   }
 
   render() {
@@ -32,7 +33,7 @@ class ProfileDescription extends Component {
     let following = false;
     if (this.props.followers.length) {
       this.props.followers.forEach(follower => {
-        if (follower.id === this.props.user.id ) {
+        if (follower.id === this.props.user.id) {
           following = true;
         }
       });
@@ -42,7 +43,7 @@ class ProfileDescription extends Component {
       <Card>
         <Image src={selectedUser.image} />
         <Card.Content>
-          <Card.Header>{selectedUser.name}</Card.Header>
+          <Card.Header><Link to={`/profile/${selectedUser.id}`}>{selectedUser.name}</Link></Card.Header>
           <Card.Meta>
             <span className="date">{`Member since ${moment(
               selectedUser.createdAt
@@ -98,4 +99,4 @@ const mapDispatch = (dispatch) => {
 };
 
 
-export default connect(mapState, mapDispatch)(ProfileDescription);
+export default withRouter(connect(mapState, mapDispatch)(ProfileDescription));
