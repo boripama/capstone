@@ -19,7 +19,7 @@ export { default as ProfileDescription } from './ProfileDescription';
 export { default as NewActivity } from './NewActivity';
 export { default as FollowerCard } from './FollowerCard';
 export { default as ChangeImage } from './ChangeImage';
-export { default as LandingPage } from './LandingPage'; 
+export { default as LandingPage } from './LandingPage';
 export { Login } from './Login';
 export { Signup } from './Signup';
 

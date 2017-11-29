@@ -36,19 +36,23 @@ class AllActivities extends Component {
 
     if (activities.length) {
 
-      if (followers.length) {
-        let ids = []
+      if (followers.length > 0) {
+        let ids = [];
         followers.forEach(follower => {
           ids.push(follower.id);
-        })
+        });
         newActivities = activities.filter(activity => {
           return ids.includes(activity.userId);
-        })
+        });
+      }
+      else {
+        newActivities = activities;
       }
 
       let startVal = newActivities.length - ((this.state.page + 1) * 10);
       let endVal = newActivities.length - (this.state.page * 10);
       let tenActivities = newActivities.slice(startVal, endVal);
+      
       return (
         <div>
           <Grid centered columns={2}>
