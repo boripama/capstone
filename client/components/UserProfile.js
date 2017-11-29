@@ -8,7 +8,15 @@ import {
 import { NewActivity, ProfileCard, ProfileDescription, FollowerGroup, ActivityContainer } from './index';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { fetchUserActivities, fetchSelectedUser, fetchUserFollowers, fetchSuggested, fetchLikedActivities } from '../store';
+import {
+  fetchUserActivities,
+  fetchSelectedUser,
+  fetchUserFollowers,
+  fetchSuggested,
+  fetchLikedActivities,
+  deleteFollower,
+  updateMyTotalFollowers
+} from '../store';
 
 
 class UserProfile extends Component {
@@ -36,6 +44,10 @@ class UserProfile extends Component {
 
   handleChange(event, data) {
     this.setState({ selectedActivity: data.value })
+  }
+
+  unfollowUser(selectedUserId, followerId) {
+    this.props.unfollowAUser(selectedUserId, followerId);
   }
 
   render() {
@@ -110,12 +122,20 @@ class UserProfile extends Component {
                   return (<div key={follower.id}>
                     <small>
                       {follower.name
-                        ? <Link to={`/profile/${follower.id}`}><Icon name="user" />{follower.name}</Link>
-                        : <Link to={`/profile/${follower.id}`}><Icon name="user" />{follower.email}</Link>
-                      }
-                      {user.id === selectedUser.id
-                        ? <p>Potato</p>
-                        : <p />
+                        ? <div>
+                          <Link to={`/profile/${follower.id}`}><Icon name="user" />{follower.name}</Link>
+                          {user.id === selectedUser.id
+                            ? <button onClick={() => this.removeFollower(follower.id)}> X</button>
+                            : <p />
+                          }
+                        </div>
+                        : <div>
+                          <Link to={`/profile/${follower.id}`}><Icon name="user" />{follower.email}</Link>
+                          {user.id === selectedUser.id
+                            ? <button onClick={() => this.unfollowUser(selectedUser.id, follower.id)}> X</button>
+                            : <p />
+                          }
+                        </div>
                       }
                     </small>
                   </div>);
@@ -154,6 +174,10 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchUserFollowers(userId));
       dispatch(fetchSuggested(userId));
       dispatch(fetchLikedActivities(userId));
+    },
+    unfollowAUser: (userId, followerId) => {
+      dispatch(deleteFollower(userId, followerId));
+      dispatch(updateMyTotalFollowers(-1));
     }
   };
 };
