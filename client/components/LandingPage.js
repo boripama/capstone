@@ -74,7 +74,7 @@ class LandingPage extends Component {
                 </figure>
                 <div className="story__text">
                   <div className="h3 heading-tertiary u-margin-bottom-small">And I ran! I ran so far away!</div>
-                  <p>Been using Ananda for the last 10 weeks. It's kept me really motivated and I get to keep up with all of my runner friends</p>
+                  <p>Been using Ananda for the last 10 weeks. It's kept me really motivated and I get to keep up with all of my runner friends.</p>
 
                 </div>
               </div>
@@ -118,13 +118,6 @@ class LandingPage extends Component {
                 </div>
               </div>
               <div className="col-1-of-2">
-                <p className="footer_copyright">
-                  Built by <a href="#" className="footer__link">Bond Davis </a>
-                <a href="#" className="footer__link"> Patrick Gund</a>
-                <a href="#" className="footer__link"> rick polidoro</a>
-                <a href="#" className="footer__link"> Matthew Thor</a>
-                  
-                </p>
               </div>
             </div>
         </footer>
