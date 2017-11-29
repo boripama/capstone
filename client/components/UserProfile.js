@@ -2,17 +2,22 @@ import React, { Component } from 'react';
 import {
   Container,
   Grid,
+  Select,
   Icon,
 } from 'semantic-ui-react';
 import { NewActivity, ProfileCard, ProfileDescription, FollowerGroup, ActivityContainer } from './index';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { fetchUserActivities, fetchSelectedUser, fetchUserFollowers, fetchSuggested } from '../store';
+import { fetchUserActivities, fetchSelectedUser, fetchUserFollowers, fetchSuggested, fetchLikedActivities } from '../store';
 
 
 class UserProfile extends Component {
   constructor() {
     super();
+    this.state = {
+      selectedActivity: 0
+    }
+    this.linkToActivity = this.linkToActivity.bind(this);
   }
 
   componentDidMount() {
@@ -25,8 +30,16 @@ class UserProfile extends Component {
     }
   }
 
+  linkToActivity() {
+    this.props.history.push(`/activity/${this.state.selectedActivity}`);
+  }
+
+  handleChange(event, data) {
+    this.setState({ selectedActivity: data.value })
+  }
+
   render() {
-    const { activities, user, followers, selectedUser, suggested } = this.props;
+    const { activities, user, followers, selectedUser, suggested, likedActivities } = this.props;
     if (selectedUser.id) {
       return (
         <Grid centered columns={2}>
@@ -52,7 +65,6 @@ class UserProfile extends Component {
                         <a href={'mailto:' + selectedUser.email}> encouragement</a>.
                       </h1>
                     </div>
-
                 }
               </Container>
             </Grid.Row>
@@ -62,6 +74,31 @@ class UserProfile extends Component {
               {user.id === selectedUser.id
                 ? <ProfileCard />
                 : <ProfileDescription />
+              }
+            </Grid.Row>
+            <Grid.Row>
+              <br />
+              <br />
+              {likedActivities.length
+                ? <div>
+                  <Select
+                    onChange={(event, data) => this.handleChange(event, data)}
+                    placeholder="Select an activity I've Liked"
+                    options={
+                      likedActivities.map(activity =>
+                        ({
+                          text: activity.title,
+                          value: activity.id
+                        })
+                      )
+                    }
+                  >
+                  </Select>
+                  <br />
+                  <br />
+                  <button onClick={this.linkToActivity}>Go To Activity</button>
+                </div>
+                : <div />
               }
             </Grid.Row>
             <Grid.Row>
@@ -83,7 +120,7 @@ class UserProfile extends Component {
               }
             </Grid.Row>
           </Grid.Column>
-        </Grid>
+        </Grid >
       );
     }
     else { return null; }
@@ -92,7 +129,18 @@ class UserProfile extends Component {
 /**
  * CONTAINER
  */
-const mapState = ({ activities, user, followers, selectedUser, suggested }) => ({ activities, user, followers, selectedUser, suggested });
+
+const mapState = (state, ownProps) => {
+  return {
+    activities: state.activities,
+    user: state.user,
+    followers: state.followers,
+    selectedUser: state.selectedUser,
+    suggested: state.suggested,
+    likedActivities: state.likedActivities,
+    ownProps
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
@@ -101,6 +149,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchSelectedUser(userId));
       dispatch(fetchUserFollowers(userId));
       dispatch(fetchSuggested(userId));
+      dispatch(fetchLikedActivities(userId));
     }
   };
 };

@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const multer = require('multer');
 const { User, Activity, Like, Follower, Comment } = require('../db/models');
-const { isUser, isAdmin } = require('../middleware/auth');
+const { isUser, isAdmin, isAdminOrLoggedInUser, canRemoveFollower } = require('../middleware/auth');
 const { gpxFilter, formatGpxForDatabase } = require('../utils');
 const { updateCacheAndSuggestions } = require('../utils/reco');
 
 module.exports = router;
 
-router.get('/', (req, res, next) => {
+router.get('/', isUser, (req, res, next) => {
   User.findAll({
     // explicitly select only the id and email fields - even though
     // users' passwords are encrypted, it won't help if we just
@@ -18,13 +18,13 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', isUser, (req, res, next) => {
   User.findById(req.params.id, { attributes: { exclude: ['password', 'salt', 'googleId'] } })
     .then(user => res.json(user))
     .catch(next);
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdminOrLoggedInUser, async (req, res, next) => {
   const id = +req.params.id;
   const user = await User.findById(id);
   const result = await user.update(req.body);
@@ -32,7 +32,7 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // ACTIVITIES ROUTES
-router.get('/:id/activities', async (req, res, next) => {
+router.get('/:id/activities', isUser, async (req, res, next) => {
   const activities = await Activity.findAll({
     where: { userId: req.params.id }, include: [
       { model: Comment, include: [
@@ -45,7 +45,7 @@ router.get('/:id/activities', async (req, res, next) => {
   res.status(200).json(activities);
 });
 
-router.get('/:id/likes', async (req, res, next) => {
+router.get('/:id/likes', isUser, async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
     const activities = await user.getLikes();
@@ -58,7 +58,7 @@ router.get('/:id/likes', async (req, res, next) => {
 const storage = multer.memoryStorage();
 const upload = multer({ storage, fileFilter: gpxFilter });
 
-router.post('/:id/activities', upload.single('gpx'), async (req, res, next) => {
+router.post('/:id/activities', isAdminOrLoggedInUser, upload.single('gpx'), async (req, res, next) => {
   if (req.fileValidationError) { res.end(req.fileValidationError); }
 
   const userId = req.params.id;
@@ -76,7 +76,7 @@ router.post('/:id/activities', upload.single('gpx'), async (req, res, next) => {
 });
 
 // COMMENTS ROUTES
-router.get('/:id/comments', async (req, res, next) => {
+router.get('/:id/comments', isUser, async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
     const comments = await user.getComments({ include: Activity });
@@ -89,22 +89,15 @@ router.get('/:id/comments', async (req, res, next) => {
 
 router.get('/:id/following', async (req, res, next) => {
   try {
-    const followersTable = await Follower.findAll(
-      {
-        where: { followerId: req.params.id },
-        include: [User]
-      }
-    );
-    let followers = [];
-    followersTable.forEach(follower => {
-      followers.push(follower.user);
-    })
+    const user = await User.findById(req.params.id);
+    const followers = await user.getFollowers();
+
     res.json(followers);
   }
-  catch (err) { console.log('Removing follower unsucessful', err); }
+  catch (err) { console.log('Fetching user followers unsucessful', err); }
 });
 
-router.delete('/:userId/followers/:followerId', async (req, res, next) => {
+router.delete('/:userId/followers/:followerId', canRemoveFollower, async (req, res, next) => {
   try {
     await Follower.destroy({ where: { userId: req.params.userId, followerId: req.params.followerId } });
     const user = await User.findById(req.params.userId);

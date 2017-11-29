@@ -1,7 +1,15 @@
 const router = require('express').Router();
 const { Activity, User, Comment } = require('../db/models');
-const { isUser, isAdmin } = require('../middleware/auth');
+const { isUser, isAdmin, canEditComment } = require('../middleware/auth');
 module.exports = router;
+
+router.param('id', async (req, res, next, commentId) => {
+  try {
+    req.comment = await Comment.findById(commentId);
+    req.activity = await Activity.findById(req.comment.activityId);
+  }
+  catch (err) { next(err); }
+});
 
 router.get('/', isAdmin, async (req, res, next) => {
   try {
@@ -10,7 +18,7 @@ router.get('/', isAdmin, async (req, res, next) => {
   catch (err) { next(err); }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isUser, async (req, res, next) => {
   try {
     const comment = await Comment.findById(req.params.id, {
       include: [{ model: User, attributes: ['id', 'name', 'email'] }]
@@ -20,7 +28,7 @@ router.get('/:id', async (req, res, next) => {
   catch (err) { next(err); }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', canEditComment, async (req, res, next) => {
   try {
     const comment = await Comment.findById(req.params.id);
     const newComment = comment.update(req.body);
@@ -29,10 +37,11 @@ router.put('/:id', async (req, res, next) => {
   catch (err) { next(err); }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', canEditComment, async (req, res, next) => {
   try {
     const id = req.params.id;
-    await Comment.destroy({ where: { id } }); }
+    await Comment.destroy({ where: { id } });
+  }
   catch (err) { next(err); }
 
   res.sendStatus(204);

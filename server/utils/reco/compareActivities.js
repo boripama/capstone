@@ -56,37 +56,9 @@ const matchActivities = (act1, act2) => {
   if (matchByDistance(act1.distance, act2.distance)) counter++;
   if (matchByStartTime(act1.startTime, act2.startTime)) counter++;
 
-  // && operator will not run right statement if left evaluates to false
   if (counter === 2 && matchByIntersects(act1, act2)) counter++;
 
   return counter >= 3;
 };
 
 module.exports = matchActivities;
-
-// FOR TESTING PURPOSES
-const { Activity, User } = require('../../db/models');
-
-const testFunc = async () => {
-  try {
-    // const activity1 = await Activity.findById(1);
-    // const activity2 = await Activity.findById(3);
-
-    const user1 = await User.findById(1);
-
-    // const comments = await activity1.getComments({
-    //   include: [{model: User, attributes: ['name', 'email']} ]});
-    // console.log(comments);
-
-    // console.log('overall match test', matchActivities(activity1, activity2));
-    // console.log('distance test', matchByDistance(activity1.distance, activity2.distance));
-    // console.log('pace test', matchByPace(activity1.pace, activity2.pace));
-    // console.log('start time test', matchByStartTime(activity1.startTime, activity2.startTime));
-    // console.log('center test', matchByCenter(activity1.center, activity2.center));
-    // console.log('intersection test', matchByIntersects(activity1, activity2));
-  }
-  catch (err) { console.error(err); }
-};
-
-// testFunc();
-// END TESTING SECTION
