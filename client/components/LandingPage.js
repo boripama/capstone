@@ -5,40 +5,36 @@ class LandingPage extends Component {
   constructor() {
     super();
   }
-
+ "./videos/Park-Stroll/MP4/Park-Stroll.mp4" 
   render() {
     return (
       <div className="landingPageBody">
         <header className="header1">
-          <div className="header1__logo-box">       
-          </div>
           <div className="header1__text-box">
             <h1 className="heading-primary">
               <span className="heading-primary--main">Ready to run?</span>
               <span className="heading-primary--sub">Let's get started!</span>
             </h1>
-            <a href="#" className="btn btn--white btn--animated">Find out more</a>
           </div>
         </header>
 
 
         <main>
           <section className="section-about">
-            <div className="u-center-text u-margin-top-big u-margin-bottom-big">
+            <div className="u-center-text u-margin-bottom-big">
               <h2 className="heading-secondary">
-                The ultimate site for athletes!
-                    </h2>
+                The ultimate site for athletes!</h2>
             </div>
 
             <div className="row">
               <div className="col-1-of-2">
                 <h3 className="heading-tertiary u-margin-bottom-small">Its so easy</h3>
-                <p className="paragrapth">
+                <p className="paragraph">
                   All you need to do is upload your fitbit gpx files and track your progress immediately.
                 </p>
 
                 <h3 className="heading-tertiary u-margin-bottom-small">Make friends</h3>
-                <p className="paragrapth">
+                <p className="paragraph">
                   Find friends who are in your skill level who take similar routes at similar times of the day.
                             </p>
 
@@ -68,6 +64,7 @@ class LandingPage extends Component {
             <div className="row">
               <div className="story">
                 <figure className="story__shape">
+                  <img src="./img/testimonial1.png" alt="Person on a tour" className="story__img"/>
                   <figcaption className="story__caption">Mary Yates</figcaption>
                 </figure>
                 <div className="story__text">
@@ -81,6 +78,7 @@ class LandingPage extends Component {
             <div className="row">
               <div className="story">
                 <figure className="story__shape">
+                  <img src="./img/testimonial2.jpg" alt="athlete picture 2" className="story__img"/>
                   <figcaption className="story__caption">Jack Chavez</figcaption>
                 </figure>
                 <div className="story__text">

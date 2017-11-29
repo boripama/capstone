@@ -35,6 +35,7 @@
 
   &__img {
   // inside an image with a height well defined, so it'll be 100% of the parent 15 rem
+    margin-top:-8.5rem;
     height: 100%;
     transform: translateX(-4rem) scale(1.4);
     backface-visibility: hidden;

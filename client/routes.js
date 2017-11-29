@@ -38,7 +38,7 @@ class Routes extends Component {
               <Switch>
                 {/* Routes placed here are only available after logging in */}
                 <Route path="/activities" component={AllActivities} />
-                
+                <Route exact path="/" component={LandingPage} />
                 <Route path="/home" component={UserHome} />
                 <Route path="/uploadActivity" component={NewActivity} />
                 <Route path="/profile/:id" component={UserProfile} />
