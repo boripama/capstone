@@ -52,7 +52,7 @@ class AllActivities extends Component {
       let startVal = newActivities.length - ((this.state.page + 1) * 10);
       let endVal = newActivities.length - (this.state.page * 10);
       let tenActivities = newActivities.slice(startVal, endVal);
-      console.log('Ten activities', tenActivities);
+      
       return (
         <div>
           <Grid centered columns={2}>
