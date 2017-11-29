@@ -81,11 +81,9 @@ export default function (state = defaultFollowers, action) {
     case GET_FOLLOWING:
       return action.followers;
     case REMOVE_FOLLOWER:
-      {
-        return state.filter(follower => {
-          return (follower.id !== action.followerId)
-        })
-      }
+      return state.filter(follower => {
+        return (follower.id !== action.followerId);
+      });
     case REMOVE_FOLLOWERS:
       return defaultFollowers;
     case ADD_FOLLOWER:

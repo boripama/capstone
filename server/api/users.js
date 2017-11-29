@@ -99,7 +99,7 @@ router.get('/:id/following', async (req, res, next) => {
 
 router.delete('/:userId/followers/:followerId', canRemoveFollower, async (req, res, next) => {
   try {
-    await Follower.destroy({ where: { userId: req.params.userId, followerId: req.params.followerId } });
+    await Follower.destroy({ where: { followeeId: req.params.userId, followerId: req.params.followerId } });
     const user = await User.findById(req.params.userId);
     await user.update({ totalFollowers: user.totalFollowers - 1 });
     res.sendStatus(204);

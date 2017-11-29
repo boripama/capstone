@@ -6,6 +6,7 @@ import history from '../history';
  */
 const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
+const UPDATE_MY_TOTAL_FOLLOWERS = 'UPDATE_MY_TOTAL_FOLLOWERS';
 
 /**
  * INITIAL STATE
@@ -17,6 +18,7 @@ const defaultUser = {};
  */
 const getUser = user => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
+const updateMyFollowers = (offset) => ({ type: UPDATE_MY_TOTAL_FOLLOWERS, offset });
 
 
 /**
@@ -57,6 +59,9 @@ export const updateUser = (id, info) => (dispatch) => {
 };
 
 
+export const updateMyTotalFollowers = (offset) => (dispatch) => {
+  dispatch(updateMyFollowers(offset));
+};
 
 /**
  * REDUCER
@@ -67,7 +72,8 @@ export default function (state = defaultUser, action) {
       return action.user;
     case REMOVE_USER:
       return defaultUser;
-    
+    case UPDATE_MY_TOTAL_FOLLOWERS:
+      return Object.assign({}, state, { totalFollowers: state.totalFollowers + action.offset });
     default:
       return state;
   }
