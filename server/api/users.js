@@ -43,6 +43,8 @@ router.get('/:id/activities', async (req, res, next) => {
   res.status(200).json(activities);
 });
 
+// LIKES ROUTES
+
 router.get('/:id/likes', async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
