@@ -76,36 +76,3 @@ module.exports = {
   determineIfCached,
   updateCacheAndSuggestions,
 };
-
-
-// FOR TESTING PURPOSES
-
-// const testFunc = async () => {
-//   updateCacheAndSuggestions(7);
-  //   try {
-
-  //     // findAndUpdateCache(6);
-  //     updateSuggestions(1, 2);
-  //     updateSuggestions(1, 3);
-  //     updateSuggestions(1, 4);
-  //     updateSuggestions(1, 5);
-  //     updateSuggestions(1, 6);
-  //     updateSuggestions(2, 3);
-  //     updateSuggestions(2, 4);
-  //     updateSuggestions(2, 5);
-  //     updateSuggestions(2, 6);
-  //     updateSuggestions(3, 4);
-  //     updateSuggestions(3, 5);
-  //     updateSuggestions(3, 6);
-  //     updateSuggestions(4, 5);
-  //     updateSuggestions(4, 6);
-  //     updateSuggestions(5, 6);
-
-
-  //     console.log('complete');
-  //   }
-  //   catch (err) { console.error(err); }
-// };
-
-// testFunc();
-// END TESTING SECTION
