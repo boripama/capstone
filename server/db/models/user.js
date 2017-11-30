@@ -61,7 +61,7 @@ const User = db.define('user', {
     get() {
       return sToTimestamp(this.getDataValue('totalTime'));
     }
-  }
+  },
 });
 
 module.exports = User;
@@ -69,6 +69,15 @@ module.exports = User;
 /**
  * instanceMethods
  */
+
+User.prototype.updateTotalFollowers = async function () {
+  try {
+    const followers = await this.getFollowees();
+    this.update({ totalFollowers: followers.length });
+  }
+  catch (err) { console.log('Failed to updated totalFollowers', err); }
+};
+
 User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt) === this.password;
 };
@@ -79,9 +88,12 @@ User.prototype.updateTotals = function (activity) {
   return this.save();
 };
 
-User.prototype.addAFollower = function (follower) {
-  this.addFollowee(follower);
-  this.update({ totalFollowers: this.totalFollowers + 1 });
+User.prototype.addAFollower = async function (follower) {
+  try {
+    await this.addFollowee(follower);
+    await this.updateTotalFollowers();
+  }
+  catch (err) { console.log('Failed to add a follower', err); }
 };
 
 User.prototype.addSomeFollowers = function (followers) {
