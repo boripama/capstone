@@ -35,9 +35,11 @@ router.put('/:id', isAdminOrLoggedInUser, async (req, res, next) => {
 router.get('/:id/activities', isUser, async (req, res, next) => {
   const activities = await Activity.findAll({
     where: { userId: req.params.id }, include: [
-      { model: Comment, include: [
-        { model: User, attributes: ['id', 'name', 'email', 'image'] }
-      ]},
+      {
+        model: Comment, include: [
+          { model: User, attributes: ['id', 'name', 'email', 'image'] }
+        ]
+      },
       { model: User, attributes: ['id', 'name', 'email'] },
       { model: User, as: 'likes' }
     ]
@@ -101,7 +103,7 @@ router.delete('/:userId/followers/:followerId', canRemoveFollower, async (req, r
   try {
     await Follower.destroy({ where: { followeeId: req.params.userId, followerId: req.params.followerId } });
     const user = await User.findById(req.params.userId);
-    await user.update({ totalFollowers: user.totalFollowers - 1 });
+    await user.updateTotalFollowers();
     res.sendStatus(204);
   }
   catch (err) { console.log('Removing follower unsucessful', err); }
