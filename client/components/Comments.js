@@ -23,13 +23,7 @@ class Comments extends Component {
   }
 
   onSubmit = (event) => {
-    // userId is the id of the user whose activity is being
-    // commented on! You should probably map the current user from
-    // state instead of just passing it down from the parent
-    // component. Either that, or you can get the logged in user
-    // from the session within the route itself – that way you don't
-    // need to explicitly define the userId in the post body, and
-    // remove the chances for a mixup like.
+    
     const { activityId } = this.props;
     const userId = this.props.user.id;
     const comment = {
@@ -39,7 +33,7 @@ class Comments extends Component {
     };
     this.props.createCommentsData(comment);
     event.target.content.value = '';
-    this.setState({comments: this.props.comments.push(comment)});
+    this.setState({comments: this.props.comments.concat({...comment, user: this.props.user})});
   }
 
   sliceDate (date) {
@@ -51,7 +45,7 @@ class Comments extends Component {
     console.log('this props', this.props);
    //console.log(this.props, 'props');
    console.log('this state', this.state);
-    const { comments } = this.props;
+    const { comments } = this.state;
 
     if(comments[0]) {
     return (
@@ -65,7 +59,7 @@ class Comments extends Component {
                 <Comment.Author as="a">{comment.user.name}</Comment.Author>
                 <Comment.Metadata>
                   { /* fill in with data from comments table */}
-                  <span>{this.sliceDate(comment.createdAt)}</span>
+           <span>{/*{this.sliceDate(comment.createdAt)}*/}</span>
                 </Comment.Metadata>
                 <Comment.Text>{comment.content}</Comment.Text>
               </Comment.Content>
