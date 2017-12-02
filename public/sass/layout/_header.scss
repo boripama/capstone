@@ -1,0 +1,30 @@
+.header {
+  height: 95vh; /* at every point it should be 95% of view height*/
+  background-image: linear-gradient(to right bottom, 
+    rgba($color-primary-light, 0.8), 
+    rgba($color-primary-dark, 0.8)),
+  url('../img/hero.jpg');
+  background-size: cover; /* cover whatever width is, it tries to fit it inside the box*/
+  background-position: top; /*top always stays at top of container */
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); /*to do diagonal line specified clockwise */
+  position: relative;
+  
+  &__logo_box {
+    position: absolute;
+    top: 4rem; /*ref is parent element, whos position is set to relative */
+    left: 4rem; /* */
+  }
+
+  &__logo {
+    height: 3.5rem; /*width will be done automatically */    
+  }
+
+  &__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%); /*no longer in relation to the parent but instead the element itself*/
+    text-align: center;
+  }
+}

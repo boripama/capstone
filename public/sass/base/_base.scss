@@ -1,0 +1,16 @@
+*, *::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; /* changes box model so border and paddings are no longer added to total width or height of box */
+}
+
+
+
+html {
+  font-size: 62.5% //this defines what one rem is, which is why its in base and not typography
+}
+body {
+
+  box-sizing: border-box;
+}

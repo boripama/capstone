@@ -1,0 +1,104 @@
+.form {
+
+  &__group:not(:last-child) {
+      margin-bottom: 2rem;
+  }
+
+  &__input {
+    font-size: 1.5rem;
+    font-family: inherit;
+    color: inherit;
+    padding: 1.5rem 2rem; //smaller on sides than it is
+    border-radius: 2px;
+    background-color: rgba($color-white, .5);
+    border: none;
+    border-bottom: 3px solid transparent;
+    width: 90%;
+    display: block;
+    transition: all .3s;
+    
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 1rem 2rem rgba($color-black, .1);
+      border-bottom: 3px solid $color-primary;
+    }
+
+    &:focus:invalid {
+      border-bottom: 3px solid $color-secondary-dark;
+    }
+  
+    &::-webkit-input-placeholder {
+      //only safari chrome
+      color: $color-grey-dark-2;
+      
+    }
+  }
+
+  &__label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-left: 2rem;
+    margin-top: .7rem;
+    display: block;
+    transition: all .3s;
+  }
+
+  &__input:placeholder-shown + &__label { //adjacent sibling with +
+    opacity: 0;
+    visibility: hidden; // to totally remove it, we need opacity off so we can animate it
+    transform: translateY(-4rem); //makes it so it comes from the form y position
+  }
+  
+  &__radio-group {
+    width: 49%;
+    display: inline-block; // will not create line breaks to make them side by side
+
+  }
+
+  &__radio-input {
+    display: none;
+  }
+
+  &__radio-label {
+    font-size: $default-font-size;
+    cursor: pointer; // makes it look like a link (with a hand)
+    position: relative; // set to relative for the radio button position absolute to work properly
+    padding-left: 4.5rem;
+  }
+
+  &__radio-button {
+    // has outter green circle and inner green circle, so we can have either an empty one or a filled in one
+   
+    height: 3rem;
+    width: 3rem;
+    border: 5px solid $color-primary;
+    border-radius: 50%; // make it round
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -.4rem;
+
+    &::after {
+      // each time we use a sudo we need to specify its content proprety
+      content: "";
+      display: block;
+      border-radius: 50%;
+      height: 1.3rem;
+      width: 1.3rem;
+      // we want it positioned in center so we use absolute positioning
+      position: absolute; // parent can be absolute, it just has to be specified
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: $color-primary;
+      opacity: 0;
+      transition: opacity .2s
+    }
+  }
+
+  &__radio-input:checked ~ &__radio-label &__radio-button::after {
+    //as soon as we hit radio input, it get checked, we have the sudo, so we select sibling, then the child
+    opacity: 1;
+  }   
+}
