@@ -19,6 +19,7 @@ class UserProfile extends Component {
 
   render() {
     const { activities, suggested, selectedUser } = this.props;
+    console.log('userprofile props', this.props);
     if (activities[0] && selectedUser.id) {
       return (
         <div>

@@ -12,7 +12,7 @@ class Comments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: this.props.comments
+      comments: props.comments
     };
   }
 
@@ -40,7 +40,9 @@ class Comments extends Component {
   }
 
   render() {
+    console.log('props', this.props);
     const { comments } = this.state;
+    
 
     if (comments[0]) {
       return (
