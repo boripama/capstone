@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import history from './history';
 import {
   Main, Login, Signup, UserHome, NewActivity,
-  SingleActivity, AllActivities, UserAccount, UserProfile
+  SingleActivity, AllActivities, UserAccount, UserProfile, LandingPage
 } from './components';
 import { me } from './store';
 
@@ -28,23 +28,24 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/activity/:id" component={SingleActivity} />
+            
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-
+            <Route path="/activity/:id" component={SingleActivity} />
             <Route path="/users/:id" component={UserAccount} />
             {
               isLoggedIn &&
               <Switch>
                 {/* Routes placed here are only available after logging in */}
                 <Route path="/activities" component={AllActivities} />
+                
                 <Route path="/home" component={UserHome} />
                 <Route path="/uploadActivity" component={NewActivity} />
                 <Route path="/profile/:id" component={UserProfile} />
               </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route component={LandingPage} />
           </Switch>
         </Main>
       </Router>
@@ -80,3 +81,4 @@ Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 };
+
