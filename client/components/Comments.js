@@ -35,6 +35,11 @@ class Comments extends Component {
     };
     this.props.createCommentsData(comment);
     event.target.content.value = '';
+      
+  }
+
+  sliceDate (date) {
+    return date.slice(0, 10) + ' ' + date.slice(12, 19);
   }
 
   render() {
@@ -42,10 +47,12 @@ class Comments extends Component {
     console.log('this props', this.props);
    //console.log(this.props, 'props');
     const { comments } = this.props;
+
     if(comments[0]) {
     return (
       <Comment.Group>
-        {  comments.map((comment) => ( 
+        {  comments.map((comment) =>
+           ( 
             <Comment key={comment.id}>
             <Comment.Avatar as="a" src={'http://www.placecage.com/500/500'} />
               <Comment.Content>
@@ -53,7 +60,7 @@ class Comments extends Component {
                 <Comment.Author as="a">{comment.user.name}</Comment.Author>
                 <Comment.Metadata>
                   { /* fill in with data from comments table */}
-                  <span>{comment.createdAt}</span>
+                  <span>{this.sliceDate(comment.createdAt)}</span>
                 </Comment.Metadata>
                 <Comment.Text>{comment.content}</Comment.Text>
               </Comment.Content>
