@@ -9,19 +9,19 @@
 @import "base/utilities";
 
 
-@import "components/button";
-@import "components/card";
-@import "components/composition";
-@import "components/feature-box";
-@import "components/form";
-@import "components/story"; 
-@import "components/video";
+// @import "components/button";
+// @import "components/card";
+// @import "components/composition";
+// @import "components/feature-box";
+// @import "components/form";
+// @import "components/story"; 
+// @import "components/video";
 
 @import "layout/grid";
-@import "layout/header";
+//@import "layout/header";
 @import "layout/footer";
 
-@import "pages/home";
+//@import "pages/home";
 
 
 
@@ -29,3 +29,33 @@
 
 
  
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+
+.nav-logo {
+  font-family: Audiowide;
+  font-size: 2em;
+  margin: 0px 100px 0px 50px !important;
+  padding: 0 !important;
+}
+
+body {
+  font-family: sans-serif;
+
+  a {
+    text-decoration: none;
+  }
+
+  label {
+    display: block;
+  }
+
+  nav a {
+    display: inline-block;
+    margin: 1em;
+  }
+
+  form div {
+    margin: 1em;
+    display: inline-block;
+  }
+}
