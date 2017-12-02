@@ -4,12 +4,16 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { deleteComment, fetchComments, createComment } from '../store';
+import { withRouter } from "react-router-dom";
+import axios from 'axios';
 
 class Comments extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      random: 'true',
+      comments: this.props.comments
     };
   }
 
@@ -35,7 +39,7 @@ class Comments extends Component {
     };
     this.props.createCommentsData(comment);
     event.target.content.value = '';
-      
+    this.setState({comments: this.props.comments.push(comment)});
   }
 
   sliceDate (date) {
@@ -46,6 +50,7 @@ class Comments extends Component {
    // console.log('Comment State', this.props);
     console.log('this props', this.props);
    //console.log(this.props, 'props');
+   console.log('this state', this.state);
     const { comments } = this.props;
 
     if(comments[0]) {
