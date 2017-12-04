@@ -5,11 +5,11 @@ const LandingPage = () => {
 
   return (
     <div className="landingPageBody">
-      <header className="header1">
-        <div className="header1__text-box">
+      <header className="headerMain">
+        <div className="headerMain__Text">
           <h1 className="heading-primary">
-            <span className="heading-primary--main">Ready to run?</span>
-            <span className="heading-primary--sub">Let's get started!</span>
+            <span className="heading-primary--One">Ready to run?</span>
+            <span className="heading-primary--Two">Let's get started!</span>
           </h1>
         </div>
       </header>
