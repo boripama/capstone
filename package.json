@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Some boilerplate code to get you started - get shakin'!",
   "engines": {
-    "node": ">= 7.0.0"
+    "node": "8.6.0"
   },
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,8 @@
     "start": "node server",
     "start-dev": "npm run build-client-watch & npm run start-server",
     "start-server": "NODE_ENV='development' nodemon server -e html,js,scss --ignore public",
-    "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/boripama-test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --compilers js:babel-register",     "test-server-watch": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/boripama-test' mocha -w ./server/**/*.spec.js ./server/**/**/*.spec.js --compilers js:babel-register --require babel-polyfill",
+    "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/boripama-test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --compilers js:babel-register --require babel-polyfill",
+    "test-server-watch": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/boripama-test' mocha -w ./server/**/*.spec.js ./server/**/**/*.spec.js --compilers js:babel-register --require babel-polyfill",
     "test-client-watch": "NODE_ENV='test' mocha -w ./client/**/*.spec.js --compilers js:babel-register --require babel-polyfill"
   },
   "author": "",
