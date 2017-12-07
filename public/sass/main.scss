@@ -1,22 +1,10 @@
 
- @import "abstracts/mixins";
  @import "abstracts/variables";
 
- @import "base/animations";
  @import "base/typography";
- @import "base/utilities";
 
-@import "components/button";
-@import "components/composition";
-@import "components/story"; 
-@import "components/video";
-
-@import "layout/grid";
 @import "layout/header";
-@import "layout/footer";
 
-@import "pages/landingPage";
- 
 @import url('https://fonts.googleapis.com/css?family=Audiowide');
 
 .nav-logo {
