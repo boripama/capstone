@@ -73,7 +73,7 @@ module.exports = User;
 User.prototype.updateTotalFollowers = async function () {
   try {
     const followers = await this.getFollowees();
-    this.update({ totalFollowers: followers.length });
+    return await this.update({ totalFollowers: followers.length });
   }
   catch (err) { console.log('Failed to updated totalFollowers', err); }
 };
@@ -88,6 +88,7 @@ User.prototype.updateTotals = function (activity) {
   return this.save();
 };
 
+// these instance methods are redundant and Sequelize magic methods should be used. updateTotalFollowers can be added as a beforeUpdate hook
 User.prototype.addAFollower = async function (follower) {
   try {
     await this.addFollowee(follower);
