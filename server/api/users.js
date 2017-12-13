@@ -73,7 +73,11 @@ router.post('/:id/activities', isAdminOrLoggedInUser, upload.single('gpx'), asyn
 
   newActivity.setUser(userId);
 
-  updateCacheAndSuggestions(userId);
+  // skips cache update if in test environment
+  if (process.env.NODE_ENV !== 'test') {
+    updateCacheAndSuggestions(userId);
+  }
+
   res.status(201).json(newActivity);
 });
 
