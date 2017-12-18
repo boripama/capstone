@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { deleteComment, fetchComments, createComment } from '../store';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Comments extends Component {
@@ -14,11 +14,6 @@ class Comments extends Component {
     this.state = {
       comments: props.comments
     };
-  }
-
-
-  componentDidMount() {
-
   }
 
   onSubmit = (event) => {
@@ -50,7 +45,7 @@ class Comments extends Component {
               <Comment.Avatar as="a" src={'http://www.placecage.com/500/500'} />
               <Comment.Content>
                 { /* import and use Link from React-Router */}
-                <Comment.Author as="a">{comment.user.name}</Comment.Author>
+                <Comment.Author><Link to={`/profile/${comment.user.id}`}>{comment.user.name}</Link></Comment.Author>
                 <Comment.Metadata>
                   { /* fill in with data from comments table */}
                   <span>{this.sliceDate(comment.createdAt)}</span>
