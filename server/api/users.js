@@ -18,6 +18,10 @@ router.get('/', isUser, (req, res, next) => {
     .catch(next);
 });
 
+router.get('/fake/:id', (req, res, next) => {
+  Comment.count({where: {userId: req.params.id}}).then(count => res.json(count));
+});
+
 router.get('/:id', isUser, (req, res, next) => {
   User.findById(req.params.id, { attributes: { exclude: ['password', 'salt', 'googleId'] } })
     .then(user => res.json(user))
@@ -55,6 +59,7 @@ router.get('/:id/likes', isUser, async (req, res, next) => {
   }
   catch (err) { next(err); }
 });
+
 
 // multer config for POST route below
 const storage = multer.memoryStorage();

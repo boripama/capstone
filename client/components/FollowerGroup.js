@@ -5,7 +5,7 @@ import {
   Button,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { FollowerCard } from './index';
+import { FollowerCard, MyLoader } from './index';
 
 const FollowerGroup = (props) => {
   const { suggested } = props;
@@ -15,7 +15,7 @@ const FollowerGroup = (props) => {
       (<Card.Group>
         {suggested.slice(-3).map(sug => <FollowerCard key ={sug.id} sug={sug} />)}
       </Card.Group>
-      ) : <div />
+      ) : <MyLoader />
   );
 
 };

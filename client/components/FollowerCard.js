@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { addFollower, removeSuggested } from '../store';
 
-const FollowerCard = (props) => {
+export const FollowerCard = (props) => {
   const { sug, user, updateCardStatus } = props;
 
   const updateSuggested = (id, rec) => {
@@ -38,7 +38,7 @@ const FollowerCard = (props) => {
       <Card.Content>
         <Image floated="right" size="mini" src={sug.image} />
         <Card.Header><Link to={`/profile/${sug.id}`}>{sug.name ? sug.name : sug.email}</Link></Card.Header>
-        <Card.Meta>Followers of Elliot</Card.Meta>
+        <Card.Meta></Card.Meta>
         <Card.Description>
           You and {sug.name ? sug.name : sug.email} have similar activity... Do you want to follow them?
         </Card.Description>

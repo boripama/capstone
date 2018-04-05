@@ -5,7 +5,7 @@ import {
   Select,
   Icon,
 } from 'semantic-ui-react';
-import { NewActivity, ProfileCard, ProfileDescription, FollowerGroup, ActivityContainer } from './index';
+import { NewActivity, ProfileCard, ProfileDescription, FollowerGroup, ActivityContainer, MyLoader } from './index';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import {
@@ -110,7 +110,7 @@ class UserProfile extends Component {
                   <br />
                   <button onClick={this.linkToActivity}>Go To Activity</button>
                 </div>
-                : <div />
+                : <MyLoader />
               }
             </Grid.Row>
             <Grid.Row>

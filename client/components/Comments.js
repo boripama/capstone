@@ -47,7 +47,7 @@ class Comments extends Component {
         {comments[0] && comments.map((comment) =>
           (
             <Comment key={comment.id}>
-              <Comment.Avatar as="a" src={'http://www.placecage.com/500/500'} />
+              <Comment.Avatar as="a" src={'/img/rick.jpg'} />
               <Comment.Content>
                 { /* import and use Link from React-Router */}
                 <Comment.Author as="a">{comment.user.name}</Comment.Author>

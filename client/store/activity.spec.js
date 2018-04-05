@@ -1,11 +1,11 @@
 /* global describe beforeEach afterEach it */
 
 import { expect } from 'chai';
-import MockAdapter from 'axios-mock-adapter';
+import { mockAxios } from '../components/index.spec';
 import configureMockStore from 'redux-mock-store';
 import thunkMiddleware from 'redux-thunk';
 import axios from 'axios';
-import { newActivity, fetchActivity } from '../../client/store';
+import { newActivity, fetchActivity, removeActivity } from '../../client/store';
 
 const middlewares = [thunkMiddleware];
 const mockStore = configureMockStore(middlewares);
@@ -14,7 +14,6 @@ const mockStore = configureMockStore(middlewares);
 describe('action creators', () => {
   let act;
   let store;
-  let mockAxios;
 
   const initialState = { activity: {} };
 
@@ -33,12 +32,11 @@ describe('action creators', () => {
       updatedAt:	'2017-11-30 20:24:56.787-06',
       userId:	1
     };
-    mockAxios = new MockAdapter(axios);
     store = mockStore(initialState);
   });
 
   afterEach(() => {
-    mockAxios.restore();
+    mockAxios.reset();
     store.clearActions();
   });
 
@@ -59,4 +57,11 @@ describe('action creators', () => {
         });
     });
   });
+  describe('Remove Activity', () => {
+    it('removes an activity from the list', () => {
+      expect(removeActivity().type).to.deep.equal('REMOVE_ACTIVITY');
+      expect(store.getState()).to.deep.equal({activity: {}});
+
+    })
+  })
 });

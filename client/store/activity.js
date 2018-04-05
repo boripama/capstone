@@ -18,7 +18,7 @@ const defaultActivity = {};
  */
 export const newActivity = activity => ({ type: NEW_ACTIVITY, activity });
 export const getActivity = activity => ({ type: GET_ACTIVITY, activity });
-const removeActivity = () => ({ type: REMOVE_ACTIVITY });
+export const removeActivity = () => ({ type: REMOVE_ACTIVITY });
 const uploadActivity = activity => ({ type: UPLOAD_FILE, activity });
 
 /**

@@ -20,6 +20,7 @@ export { default as NewActivity } from './NewActivity';
 export { default as FollowerCard } from './FollowerCard';
 export { default as ChangeImage } from './ChangeImage';
 export { default as LandingPage } from './LandingPage';
+export { default as MyLoader } from './Loader';
 export { Login } from './Login';
 export { Signup } from './Signup';
 
